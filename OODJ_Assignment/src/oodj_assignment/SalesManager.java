@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package oodj_assignment;
 
 import java.io.*;
@@ -26,7 +22,7 @@ public class SalesManager {
     }
     
     public ArrayList ViewItemEntry() throws FileNotFoundException{
-        FileReader fr = new FileReader("C:\\");
+        FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\item.txt");
         BufferedReader br = new BufferedReader(fr);
         
         
