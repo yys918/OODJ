@@ -22,6 +22,24 @@ public class SalesManager {
 
     }
     
+    public void ReadFile(){
+        try{
+            FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while((line= br.readLine())!=null){
+            StringTokenizer st = new StringTokenizer(line,"\n");
+            while(st.hasMoreTokens()){
+                System.out.print(st.nextToken());
+                dailyItemWiseSalesEntry.add(String.valueOf(st.nextToken()));
+                }
+            }
+        }    
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    
     public ArrayList ViewDailyItemwiseSalesEntry() throws FileNotFoundException, IOException{
         FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.txt");
         BufferedReader br = new BufferedReader(fr);
@@ -74,13 +92,13 @@ public class SalesManager {
     
     public ArrayList EditPurchaseRequisition(){
         System.out.println("Please select which purchase requisition to be edit: ");
-        Scanner sc = new Scanner(System.in);        
+        Scanner sc = new Scanner(System.in);
         return purchaseRequisition;
     }
     
     public ArrayList DeletePurchaseRequisition(){
         System.out.println("Please select which purchase requisition to be delete: ");
-        Scanner sc = new Scanner(System.in); 
+        Scanner sc = new Scanner(System.in);
         return purchaseRequisition;
     }    
     
