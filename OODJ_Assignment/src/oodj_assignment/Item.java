@@ -8,8 +8,9 @@ import java.util.ArrayList;
 
 
 public class Item {
-    private String itemCode;
-    private String itemName;
+    private String code;
+    private String name;
+    private double price;
     private String supplierID;
     private ArrayList<String> items = new ArrayList<String>();
     //one function for open and close file

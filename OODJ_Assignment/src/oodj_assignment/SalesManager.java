@@ -21,34 +21,7 @@ public class SalesManager {
     
     }
     
-    public ArrayList ViewItemEntry() throws FileNotFoundException{
-        FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\item.txt");
-        BufferedReader br = new BufferedReader(fr);
-        
-        
-    }
-    
-    public ArrayList AddItemEntry(){
-        String itemCode;
-        String itemName;
-        String supplierID;
-    }
-    
-    public ArrayList EditItemEntry(){
-        //Delete & Edit
-    }
-    
-    public ArrayList ViewSupplierEntry(){
-        
-    }
-    
-    public ArrayList AddSupplierEntry(){
-        
-    }
-    
-    public ArrayList EditSupplierEntry(){
-        //Delete & Edit
-    }
+
     
     public ArrayList ViewDailyItemwiseSalesEntry(){
     }
