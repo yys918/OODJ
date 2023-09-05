@@ -5,16 +5,15 @@
 package oodj_assignment;
 
 /**
- *
- * @author yyun
+  Sow Mei Yun TP069692 - Sales Manager
+  Wong Zhi How TP066006 - Purchase Manager
+  Tay Yan Yi TP065313 - Administrator
  */
 public class OODJ_Assignment {
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
-        // TODO code application logic here
+        
     }
     
 }
