@@ -3,6 +3,7 @@ package oodj_assignment;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.Scanner;
 
 /**
  * Item Entry (Add/Save/Delete/Edit) 
@@ -15,6 +16,7 @@ import java.util.StringTokenizer;
 public class SalesManager {
     private ArrayList<String> dailyItemWiseSalesEntry = new ArrayList<String>();
     private ArrayList<String> purchaseRequisition = new ArrayList<String>();
+    private ArrayList<String> purchaseOrder = new ArrayList<String>();
     
     public SalesManager(){
 
@@ -35,10 +37,20 @@ public class SalesManager {
     }
     
     public ArrayList AddDailyItemwiseSalesEntry(){
+        Scanner sc = new Scanner(System.in);
+        
         return dailyItemWiseSalesEntry;
     }
     
     public ArrayList EditDailyItemwiseSalesEntry(){
+        System.out.println("Please select which Item Sales Entry to be edit: ");
+        Scanner sc = new Scanner(System.in);
+        return dailyItemWiseSalesEntry;
+    }
+    
+    public ArrayList DeleteDailyItemwiseSalesEntry(){
+        System.out.println("Please select which Item Sales Entry to be delete: ");
+        Scanner sc = new Scanner(System.in);
         return dailyItemWiseSalesEntry;
     }
     
@@ -61,15 +73,23 @@ public class SalesManager {
     }
     
     public ArrayList EditPurchaseRequisition(){
+        System.out.println("Please select which purchase requisition to be edit: ");
+        Scanner sc = new Scanner(System.in);        
         return purchaseRequisition;
     }
+    
+    public ArrayList DeletePurchaseRequisition(){
+        System.out.println("Please select which purchase requisition to be delete: ");
+        Scanner sc = new Scanner(System.in); 
+        return purchaseRequisition;
+    }    
     
     public ArrayList ViewRequisition(){
         return purchaseRequisition;
     }
     
     public ArrayList ViewListOfPurchaseOrders(){
-        return purchaseRequisition;//return list or arraylist
+        return purchaseOrder;//return list or arraylist
     }
 
     

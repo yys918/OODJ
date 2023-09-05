@@ -45,7 +45,7 @@ public class Item {
         return items;
     }
     
-    public ArrayList DltItemEntry(){
+    public ArrayList DeleteItemEntry(){
         //Delete
         
         return items;

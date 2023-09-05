@@ -43,7 +43,7 @@ public class Supplier {
         return supplier;
     }
     
-    public ArrayList DltSupplierEntry(){
+    public ArrayList DeleteSupplierEntry(){
         return supplier;
     }
 }
