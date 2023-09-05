@@ -4,7 +4,12 @@
  */
 package oodj_assignment;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 /**
  *
@@ -16,15 +21,29 @@ public class Supplier {
     private String address;
     private ArrayList<String> supplier = new ArrayList<String>();
     
-    public ArrayList ViewSupplierEntry(){
-        
+    public ArrayList ViewSupplierEntry() throws FileNotFoundException, IOException{
+        FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\supplier.txt");
+        BufferedReader br = new BufferedReader(fr);
+        String line;
+        while((line= br.readLine())!=null){
+            StringTokenizer st = new StringTokenizer(line,"\n");
+            while(st.hasMoreTokens()){
+                System.out.print(st.nextToken());
+                supplier.add(String.valueOf(st.nextToken()));
+            }
+        }
+        return supplier;
     }
     
     public ArrayList AddSupplierEntry(){
-        
+        return supplier;
     }
     
     public ArrayList EditSupplierEntry(){
-        //Delete & Edit
+        return supplier;
+    }
+    
+    public ArrayList DltSupplierEntry(){
+        return supplier;
     }
 }
