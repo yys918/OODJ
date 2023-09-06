@@ -2,6 +2,7 @@ package oodj_assignment;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 import java.util.Scanner;
 
@@ -17,47 +18,46 @@ public class SalesManager {
     private ArrayList<String> dailyItemWiseSalesEntry = new ArrayList<String>();
     private ArrayList<String> purchaseRequisition = new ArrayList<String>();
     private ArrayList<String> purchaseOrder = new ArrayList<String>();
+    private String status;
     
     public SalesManager(){
 
     }
     
-    public void ReadFile(){
+    public void WriteToFile(String filename, ArrayList<String> values){
         try{
-            FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.txt");
-            BufferedReader br = new BufferedReader(fr);
-            String line;
-            while((line= br.readLine())!=null){
-            StringTokenizer st = new StringTokenizer(line,"\n");
-            while(st.hasMoreTokens()){
-                System.out.print(st.nextToken());
-                dailyItemWiseSalesEntry.add(String.valueOf(st.nextToken()));
-                }
+            FileWriter fw = new FileWriter(filename);
+            BufferedWriter bw = new BufferedWriter(fw);
+            for (int i =0; i < values.size(); i++){
+                bw.write(values.get(i).toString()+ "\n");
             }
+            //can ommit cuz automatically close in try,catch function
+            bw.close();
+            fw.close();
         }    
         catch (IOException e){
             e.printStackTrace();
         }
     }
     
-    public ArrayList ViewDailyItemwiseSalesEntry() throws FileNotFoundException, IOException{
+    public String ViewDailyItemwiseSalesEntry() throws FileNotFoundException, IOException{
         FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
         while((line= br.readLine())!=null){
             StringTokenizer st = new StringTokenizer(line,"\n");
             while(st.hasMoreTokens()){
-                System.out.print(st.nextToken());
                 dailyItemWiseSalesEntry.add(String.valueOf(st.nextToken()));
             }
         }
-        return dailyItemWiseSalesEntry;
+        return Arrays.toString(dailyItemWiseSalesEntry.toArray());
     }
+
     
-    public ArrayList AddDailyItemwiseSalesEntry(){
+    public String AddDailyItemwiseSalesEntry(){
         Scanner sc = new Scanner(System.in);
-        
-        return dailyItemWiseSalesEntry;
+        dailyItemWiseSalesEntry.add(status);
+        return status;
     }
     
     public ArrayList EditDailyItemwiseSalesEntry(){
