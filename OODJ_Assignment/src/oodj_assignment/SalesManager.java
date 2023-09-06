@@ -3,6 +3,7 @@ package oodj_assignment;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Scanner;
 
@@ -18,11 +19,14 @@ public class SalesManager {
     private ArrayList<String> dailyItemWiseSalesEntry = new ArrayList<String>();
     private ArrayList<String> purchaseRequisition = new ArrayList<String>();
     private ArrayList<String> purchaseOrder = new ArrayList<String>();
-    private String status;
+    private enum status{SUCCESSFUL, UNSUCCESSFUL;}
+    
     
     public SalesManager(){
 
     }
+    
+
     
     public void WriteToFile(String filename, ArrayList<String> values){
         try{
@@ -40,22 +44,33 @@ public class SalesManager {
         }
     }
     
-    public String ViewDailyItemwiseSalesEntry() throws FileNotFoundException, IOException{
+    public ArrayList ViewDailyItemwiseSalesEntry() throws FileNotFoundException, IOException{
         FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
         while((line= br.readLine())!=null){
-            StringTokenizer st = new StringTokenizer(line,"\n");
+            System.out.println(line);//line to array
+            StringTokenizer st = new StringTokenizer(line,"");
             while(st.hasMoreTokens()){
-                dailyItemWiseSalesEntry.add(String.valueOf(st.nextToken()));
+                String value[] = {"hi"};//set them to array
+                dailyItemWiseSalesEntry.add(Arrays.asList(value));
+                //dailyItemWiseSalesEntry.add(String.valueOf(st.nextToken()));
             }
         }
-        return Arrays.toString(dailyItemWiseSalesEntry.toArray());
+        //Arrays.toString(dailyItemWiseSalesEntry.toArray())
+        return dailyItemWiseSalesEntry;
     }
 
     
-    public String AddDailyItemwiseSalesEntry(){
+    public String AddDailyItemwiseSalesEntry(String id, String name, double price, int quantity){
         Scanner sc = new Scanner(System.in);
+        String line = "";
+        StringTokenizer st = new StringTokenizer(line,"\n");
+        while(st.hasMoreTokens()){
+            String value[] = new String[4];//set them to array
+            dailyItemWiseSalesEntry.add(String.valueOf(st.nextToken()));
+        }
+        
         dailyItemWiseSalesEntry.add(status);
         return status;
     }

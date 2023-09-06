@@ -4,6 +4,8 @@
  */
 package oodj_assignment;
 
+import java.io.IOException;
+
 /**
   Sow Mei Yun TP069692 - Sales Manager
   Wong Zhi How TP066006 - Purchase Manager
@@ -12,7 +14,9 @@ package oodj_assignment;
 public class OODJ_Assignment {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        SalesManager s1 = new SalesManager();
+        System.out.println(s1.ViewDailyItemwiseSalesEntry());
         
     }
     

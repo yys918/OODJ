@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 
 
 public class Item {
-    private String code;
+    private String id;
     private String name;
     private double price;
     private String supplierID;
@@ -28,26 +28,69 @@ public class Item {
         while((line= br.readLine())!=null){
             StringTokenizer st = new StringTokenizer(line,"\n");
             while(st.hasMoreTokens()){
-                System.out.print(st.nextToken());
                 items.add(String.valueOf(st.nextToken()));
             }
         }
         return items;
     }
     
-    public ArrayList AddItemEntry(){
+    public ArrayList AddItemEntry(String id, String name, double price, int stock, String supplierID){
+        
      //append to  
      return items;
     }
     
-    public ArrayList EditItemEntry(){
+    public ArrayList EditItemEntry(String id, String name, double price, int stock, String supplierID){
         //Edit
         return items;
     }
     
-    public ArrayList DeleteItemEntry(){
+    public ArrayList DeleteItemEntry(String id, String name, double price, int stock, String supplierID){
         //Delete
+        
         
         return items;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getSupplierID() {
+        return supplierID;
+    }
+
+    public void setSupplierID(String supplierID) {
+        this.supplierID = supplierID;
+    }
+
+    public ArrayList<String> getItems() {
+        return items;
+    }
+
+    public void setItems(ArrayList<String> items) {
+        this.items = items;
+    }
+    
+    
 }
