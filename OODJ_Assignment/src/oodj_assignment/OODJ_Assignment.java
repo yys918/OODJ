@@ -16,9 +16,7 @@ public class OODJ_Assignment {
 
 
     public static void main(String[] args) throws IOException {
-        SalesManager s1 = new SalesManager();
-        System.out.println(Arrays.toString(s1.ViewDailyItemwiseSalesEntry().toArray()));
-        
+              
     }
     
 }
