@@ -5,6 +5,7 @@
 package oodj_assignment;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
   Sow Mei Yun TP069692 - Sales Manager
@@ -16,7 +17,7 @@ public class OODJ_Assignment {
 
     public static void main(String[] args) throws IOException {
         SalesManager s1 = new SalesManager();
-        System.out.println(s1.ViewDailyItemwiseSalesEntry());
+        System.out.println(Arrays.toString(s1.ViewDailyItemwiseSalesEntry().toArray()));
         
     }
     

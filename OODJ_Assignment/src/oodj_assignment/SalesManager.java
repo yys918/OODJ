@@ -25,9 +25,7 @@ public class SalesManager {
     public SalesManager(){
 
     }
-    
-
-    
+       
     public void WriteToFile(String filename, ArrayList<String> values){
         try{
             FileWriter fw = new FileWriter(filename);
@@ -48,81 +46,190 @@ public class SalesManager {
         FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
-        while((line= br.readLine())!=null){
-            System.out.println(line);//line to array
-            StringTokenizer st = new StringTokenizer(line,"");
-            while(st.hasMoreTokens()){
-                String value[] = {"hi"};//set them to array
-                dailyItemWiseSalesEntry.add(Arrays.asList(value));
-                //dailyItemWiseSalesEntry.add(String.valueOf(st.nextToken()));
+        while ((line = br.readLine()) != null) {
+            StringTokenizer st = new StringTokenizer(line, " ");
+            String[] tokens = new String[st.countTokens()];
+            int i = 0;
+            while (st.hasMoreTokens()) {
+                tokens[i] = st.nextToken();
+                i++;
             }
-        }
+            dailyItemWiseSalesEntry.add(Arrays.toString(tokens));
+        }        
         //Arrays.toString(dailyItemWiseSalesEntry.toArray())
         return dailyItemWiseSalesEntry;
     }
 
     
-    public String AddDailyItemwiseSalesEntry(String id, String name, double price, int quantity){
-        Scanner sc = new Scanner(System.in);
-        String line = "";
-        StringTokenizer st = new StringTokenizer(line,"\n");
-        while(st.hasMoreTokens()){
-            String value[] = new String[4];//set them to array
-            dailyItemWiseSalesEntry.add(String.valueOf(st.nextToken()));
+    public String AddDailyItemwiseSalesEntry(String id, String name, double price, int quantity, String supplierID) throws IOException{
+        try{
+            FileWriter fw = new FileWriter("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            Scanner sc = new Scanner(System.in);
+            String line = "";
+            StringTokenizer st = new StringTokenizer(line,"\n");
+            while(st.hasMoreTokens()){
+                String value[] = new String[st.countTokens()];//set them to array
+                dailyItemWiseSalesEntry.add(String.valueOf(st.nextToken()));
+            }        
+                return String.valueOf(status.SUCCESSFUL);
+        } catch (FileNotFoundException e){
+                e.printStackTrace();
+                return String.valueOf(status.UNSUCCESSFUL);
         }
         
-        dailyItemWiseSalesEntry.add(status);
-        return status;
     }
     
-    public ArrayList EditDailyItemwiseSalesEntry(){
-        System.out.println("Please select which Item Sales Entry to be edit: ");
-        Scanner sc = new Scanner(System.in);
-        return dailyItemWiseSalesEntry;
+    public String EditDailyItemwiseSalesEntry(String id, String name, double price, int quantity, String supplierID) throws IOException{
+        try{
+            FileWriter fw = new FileWriter("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Please select which Item Sales Entry to be edit: ");
+            String selected = sc.next();
+            String line = "";
+            StringTokenizer st = new StringTokenizer(line,"\n");
+            while(st.hasMoreTokens()){
+                String value[] = new String[st.countTokens()];//set them to array
+                dailyItemWiseSalesEntry.add(String.valueOf(st.nextToken()));
+            }        
+                return String.valueOf(status.SUCCESSFUL);
+        } catch (FileNotFoundException e){
+                e.printStackTrace();
+                return String.valueOf(status.UNSUCCESSFUL);
+        }
     }
     
-    public ArrayList DeleteDailyItemwiseSalesEntry(){
-        System.out.println("Please select which Item Sales Entry to be delete: ");
-        Scanner sc = new Scanner(System.in);
-        return dailyItemWiseSalesEntry;
+    public String DeleteDailyItemwiseSalesEntry(String id) throws IOException{
+        try{
+            FileWriter fw = new FileWriter("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            Scanner sc = new Scanner(System.in);
+            while (true){
+                System.out.println("Please enter the item ID to be deleted: ");
+                String selected = sc.next();
+                if (selected.startsWith("I")!= true ){
+                    System.out.println("Item ID shall start with I follow with 6 digits.");
+                    continue;
+                }
+                else{
+                    break;
+                }
+            }
+            String line = "";
+            StringTokenizer st = new StringTokenizer(line,"\n");
+            while(st.hasMoreTokens()){
+                String value[] = new String[st.countTokens()];//set them to array
+                dailyItemWiseSalesEntry.add(String.valueOf(st.nextToken()));
+            }        
+                return String.valueOf(status.SUCCESSFUL);
+        } catch (FileNotFoundException e){
+                e.printStackTrace();
+                return String.valueOf(status.UNSUCCESSFUL);
+        }
     }
     
     public ArrayList ViewPurchaseRequisition() throws FileNotFoundException, IOException{
         FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\purchaseRequisition.txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
-        while((line= br.readLine())!=null){
-            StringTokenizer st = new StringTokenizer(line,"\n");
-            while(st.hasMoreTokens()){
-                System.out.print(st.nextToken());
-                dailyItemWiseSalesEntry.add(String.valueOf(st.nextToken()));
-            }
+        while ((line = br.readLine()) != null) {
+            System.out.println(line); // Print the line for debugging
+            String []values = line.split(" ");
+            purchaseRequisition.add(Arrays.toString(values));
         }
         return purchaseRequisition;
     }
     
-    public ArrayList AddPurchaseRequisition(){
-        return purchaseRequisition;
+    public String AddPurchaseRequisition() throws IOException{
+        try{
+            FileWriter fw = new FileWriter("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\purchaseRequisition.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            Scanner sc = new Scanner(System.in);
+            String line = "";
+            StringTokenizer st = new StringTokenizer(line,"\n");
+            while(st.hasMoreTokens()){
+                String value[] = new String[st.countTokens()];//set them to array
+                dailyItemWiseSalesEntry.add(String.valueOf(st.nextToken()));
+            }        
+              return String.valueOf(status.SUCCESSFUL);
+        } catch (FileNotFoundException e){
+                e.printStackTrace();
+                return String.valueOf(status.UNSUCCESSFUL);
+        }
     }
     
-    public ArrayList EditPurchaseRequisition(){
-        System.out.println("Please select which purchase requisition to be edit: ");
-        Scanner sc = new Scanner(System.in);
-        return purchaseRequisition;
+    public String EditPurchaseRequisition() throws IOException{
+        try{
+            FileWriter fw = new FileWriter("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\purchaseRequisition.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Please select which Item Sales Entry to be edit: ");
+            String selected = sc.next();
+            String line = "";
+            StringTokenizer st = new StringTokenizer(line,"\n");
+            while(st.hasMoreTokens()){
+                String value[] = new String[st.countTokens()];//set them to array
+                dailyItemWiseSalesEntry.add(String.valueOf(st.nextToken()));
+            }        
+                return String.valueOf(status.SUCCESSFUL);
+        } catch (FileNotFoundException e){
+                e.printStackTrace();
+                return String.valueOf(status.UNSUCCESSFUL);
+        }
     }
     
-    public ArrayList DeletePurchaseRequisition(){
-        System.out.println("Please select which purchase requisition to be delete: ");
-        Scanner sc = new Scanner(System.in);
-        return purchaseRequisition;
+    public String DeletePurchaseRequisition() throws IOException{
+        try{
+            FileWriter fw = new FileWriter("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\purchaseRequisition.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            Scanner sc = new Scanner(System.in);
+            while (true){
+                System.out.println("Please enter the item ID to be deleted: ");
+                String selected = sc.next();
+                if (selected.startsWith("I")!= true ){
+                    System.out.println("Item ID shall start with I follow with 6 digits.");
+                    continue;
+                }
+                else{
+                    break;
+                }
+            }
+            String line = "";
+            StringTokenizer st = new StringTokenizer(line,"\n");
+            while(st.hasMoreTokens()){
+                String value[] = new String[st.countTokens()];//set them to array
+                dailyItemWiseSalesEntry.add(String.valueOf(st.nextToken()));
+            }        
+                return String.valueOf(status.SUCCESSFUL);
+        } catch (FileNotFoundException e){
+                e.printStackTrace();
+                return String.valueOf(status.UNSUCCESSFUL);
+        }
     }    
     
-    public ArrayList ViewRequisition(){
+    public ArrayList ViewRequisition() throws FileNotFoundException, IOException{
+        FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\purchaseRequisition.txt");
+        BufferedReader br = new BufferedReader(fr);
+        String line;
+        while ((line = br.readLine()) != null) {
+            System.out.println(line); // Print the line for debugging
+            String []values = line.split(" ");
+            purchaseRequisition.add(Arrays.toString(values));
+        }
         return purchaseRequisition;
     }
     
-    public ArrayList ViewListOfPurchaseOrders(){
-        return purchaseOrder;//return list or arraylist
+    public ArrayList ViewListOfPurchaseOrders() throws FileNotFoundException, IOException{
+        FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\purchaseOrder.txt");
+        BufferedReader br = new BufferedReader(fr);
+        String line;
+        while ((line = br.readLine()) != null) {
+            System.out.println(line); // Print the line for debugging
+            String []values = line.split(" ");
+            purchaseOrder.add(Arrays.toString(values));
+        }
+        return purchaseOrder;
     }
 
     
