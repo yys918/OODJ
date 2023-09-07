@@ -142,23 +142,30 @@ public class SM_Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnItemEntryActionPerformed
 
     private void btnSupplierEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupplierEntryActionPerformed
-        // TODO add your handling code here:
+        setVisible(false);
+        SM_SupplierEntry form1 = new SM_SupplierEntry();
     }//GEN-LAST:event_btnSupplierEntryActionPerformed
 
     private void btnDailyItemwiseSalesEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDailyItemwiseSalesEntryActionPerformed
-        // TODO add your handling code here:
+        setVisible(false);
+        SM_DailyItemWiseSalesEntry form1 = new SM_DailyItemWiseSalesEntry();
     }//GEN-LAST:event_btnDailyItemwiseSalesEntryActionPerformed
 
     private void btnPurchaseRequisitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPurchaseRequisitionActionPerformed
-        // TODO add your handling code here:
+        setVisible(false);
+        SM_PurchaseRequisition form1 = new SM_PurchaseRequisition();
     }//GEN-LAST:event_btnPurchaseRequisitionActionPerformed
 
     private void btnListOfPurchaserOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListOfPurchaserOrdersActionPerformed
-        // TODO add your handling code here:
+        setVisible(false);
+        //zhihow
+        //SM_ItemEntry form1 = new SM_ItemEntry();
     }//GEN-LAST:event_btnListOfPurchaserOrdersActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
-        // TODO add your handling code here:
+        setVisible(false);
+        //yanyi
+        //SM_ItemEntry form1 = new SM_ItemEntry();
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     /**
