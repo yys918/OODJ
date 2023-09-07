@@ -6,6 +6,9 @@ package oodj_assignment;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,32 +19,46 @@ public class SM_ItemEntry extends javax.swing.JFrame {
     
     private DefaultTableModel model1 = new DefaultTableModel();
     private int size ,row = -1;
-    private String ColumnName[] = {"ID","Name","Price","Stock"};
+    private String id,name,supplierID;
+    private double price;
+    private int stock;
+    private String ColumnName[] = {"ID","Name","Price","Stock","Supplier ID"};
     private ArrayList<String> items = new ArrayList<String>();
+    Item i1 = new Item();
 
     /**
      * Creates new form SM_ItemEntry
      */
-    public SM_ItemEntry() throws IOException {
+    public SM_ItemEntry() {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
         model1.setColumnIdentifiers(ColumnName);
-        SalesManager SM = new SalesManager();
-        SM.ViewDailyItemwiseSalesEntry();
-        for (int i = 0; i < items.size(); i++){
-            String ID = items.get(i).getId();
-            String name = items.get(i).getName();
-            double price = items.get(i).getPrice();
-            int stock = items.get(i).getStock;
-            String supplierID = items.get(i).getSupplierID();
-            
-            Object[] data = {ID, name, price,stock, supplierID};
-            model1.addRow(data);
-        }
-
-        
+        this.ViewTable();
     }
+
+    public void ViewTable(){
+        items.clear();
+        try {
+            items = i1.ViewItemEntry();
+            for (String itemArray : items) {
+            String[] tokens = itemArray.substring(1, itemArray.length() - 1).split(", ");
+
+            if (tokens.length == 5) {
+                id = tokens[0].trim();
+                name = tokens[1].trim();
+                price = Double.parseDouble(tokens[2].trim());
+                stock = Integer.parseInt(tokens[3].trim());
+                supplierID = tokens[4].trim();
+                Object[] data = {id, name, price, stock, supplierID};
+                model1.addRow(data);
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(SM_ItemEntry.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,6 +86,7 @@ public class SM_ItemEntry extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtSupplierID = new javax.swing.JTextField();
+        BtnClear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,8 +127,15 @@ public class SM_ItemEntry extends javax.swing.JFrame {
         jLabel4.setText("In Stock Quantity:");
 
         txtItemID.setEditable(false);
+        txtItemID.setEnabled(false);
+        txtItemID.setFocusable(false);
 
         jTable1.setModel(model1);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel5.setFont(new java.awt.Font("Segoe Script", 3, 36)); // NOI18N
@@ -118,7 +143,12 @@ public class SM_ItemEntry extends javax.swing.JFrame {
 
         jLabel6.setText("Supplier ID:");
 
-        txtSupplierID.setEditable(false);
+        BtnClear.setText("Clear");
+        BtnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnClearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,65 +156,54 @@ public class SM_ItemEntry extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnSave))
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(38, 38, 38)
-                                .addComponent(txtSupplierID, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGap(38, 38, 38)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtItemID, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(BtnAdd)
-                            .addComponent(BtnDelete)
-                            .addComponent(BtnExit))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4)))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSupplierID, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtItemID, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BtnSave)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(BtnAdd)
+                        .addComponent(BtnDelete)
+                        .addComponent(BtnExit))
+                    .addComponent(BtnClear))
+                .addGap(25, 25, 25))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(254, 254, 254))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BtnAdd, BtnClear, BtnDelete, BtnExit, BtnSave});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(51, 51, 51)
-                                .addComponent(BtnAdd)
-                                .addGap(32, 32, 32)
-                                .addComponent(BtnDelete)
-                                .addGap(27, 27, 27))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(BtnExit)
-                                .addGap(133, 133, 133)))
-                        .addComponent(BtnSave))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtItemID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1))
@@ -196,29 +215,79 @@ public class SM_ItemEntry extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel3)
                                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(21, 21, 21)
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtSupplierID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(BtnExit)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnAdd)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnDelete)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnSave)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(BtnClear)
+                                .addComponent(txtSupplierID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6))))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {BtnAdd, BtnClear, BtnDelete, BtnExit, BtnSave});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddActionPerformed
-        
-        
-        txtItemID.setText(null);
-        txtName.setText(null);
-        txtPrice.setText(null);
-        txtQuantity.setText(null);
-        txtSupplierID.setText(null);
+        // Generate a new item ID
+        String newItemId = i1.generateNewId();
+        txtItemID.setText(newItemId);
+        // Check if the generated ID is not a duplicate
+        try {
+            if (i1.CheckDuplicate(newItemId)) {//return boolean so true/false directly
+                JOptionPane.showMessageDialog(null, "ItemID is already in use. Please try again.", "Duplicate ItemID", JOptionPane.ERROR_MESSAGE);
+                return; // Exit the method without adding the item
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(SM_ItemEntry.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occurred while checking for duplicates. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Exit the method without adding the item
+        }
+
+        // Check if the required fields are empty
+        if (txtName.getText().isEmpty() || txtPrice.getText().isEmpty() || txtQuantity.getText().isEmpty() || txtSupplierID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill in all required fields.", "Missing Information", JOptionPane.ERROR_MESSAGE);
+            return; // Exit the method without adding the item
+        }
+
+        // If everything is valid, proceed to add the item
+        id = newItemId; // Use the generated ID
+        name = txtName.getText();
+        price = Double.parseDouble(txtPrice.getText());
+        stock = Integer.parseInt(txtQuantity.getText());
+        supplierID = txtSupplierID.getText();
+
+        try {
+            String status = i1.AddItemEntry(id, name, price, stock, supplierID);
+            if (status.equals("SUCCESSFUL")) {
+                JOptionPane.showMessageDialog(null, "Item successfully added.", "Item added status", JOptionPane.INFORMATION_MESSAGE);
+                txtItemID.setText(null);
+                txtName.setText(null);
+                txtPrice.setText(null);
+                txtQuantity.setText(null);
+                txtSupplierID.setText(null);
+                model1.setRowCount(0);
+                this.ViewTable();
+            } else {
+                JOptionPane.showMessageDialog(null, "Item unsuccessfully added.\nPlease try again.", "Item added status", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(SM_ItemEntry.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "An error occurred while adding the item. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_BtnAddActionPerformed
 
     private void BtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnExitActionPerformed
@@ -227,24 +296,98 @@ public class SM_ItemEntry extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnExitActionPerformed
 
     private void BtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDeleteActionPerformed
-        
-        
-        txtItemID.setText(null);
-        txtName.setText(null);
-        txtPrice.setText(null);
-        txtQuantity.setText(null);
-        txtSupplierID.setText(null);
+        id = txtItemID.getText();
+        // Check if the required fields are empty
+        if (txtName.getText().isEmpty() || txtPrice.getText().isEmpty() || txtQuantity.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill in all required fields.", "Missing Information", JOptionPane.ERROR_MESSAGE);
+            return; // Exit the method without adding the item
+        }
+        try {
+            if (!i1.CheckDuplicate(id)){
+                try {
+                    i1.DeleteItemEntry(id);
+                } catch (IOException ex) {
+                    Logger.getLogger(SM_ItemEntry.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                txtItemID.setText(null);
+                txtName.setText(null);
+                txtPrice.setText(null);
+                txtQuantity.setText(null);
+                txtSupplierID.setText(null);
+                txtSupplierID.setEnabled(true);
+                txtSupplierID.setFocusable(true);
+                jTable1.clearSelection();
+                model1.setRowCount(0);
+                this.ViewTable();
+            }else{
+                JOptionPane.showMessageDialog(null, "Item does not exist.\n Please check again.", "Item not exists.",JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(SM_ItemEntry.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BtnDeleteActionPerformed
 
     private void BtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSaveActionPerformed
+        // Check if the required fields are empty
+        if (txtName.getText().isEmpty() || txtPrice.getText().isEmpty() || txtQuantity.getText().isEmpty() || txtSupplierID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill in all required fields.", "Missing Information", JOptionPane.ERROR_MESSAGE);
+            return; // Exit the method without adding the item
+        }else{
+            id = txtItemID.getText();
+            name = txtName.getText();
+            price = Double.parseDouble(txtPrice.getText());
+            stock = Integer.parseInt(txtQuantity.getText());
+            supplierID = txtSupplierID.getText();
+
+            try {
+                i1.EditItemEntry(id, name, price, stock, supplierID);
+            } catch (IOException ex) {
+                Logger.getLogger(SM_ItemEntry.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            txtItemID.setText(null);
+            txtName.setText(null);
+            txtPrice.setText(null);
+            txtQuantity.setText(null);
+            txtSupplierID.setText(null);
+            txtSupplierID.setEnabled(true);
+            txtSupplierID.setFocusable(true);
+            jTable1.clearSelection();
+            model1.setRowCount(0);
+            this.ViewTable();
+        }
+    }//GEN-LAST:event_BtnSaveActionPerformed
+
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        row = jTable1.getSelectedRow(); 
+        this.row = row;
+        id = String.valueOf(model1.getValueAt(row, 0));
+        name = String.valueOf(model1.getValueAt(row, 1));
+        String sprice = String.valueOf(model1.getValueAt(row, 2));
+        String sstock = String.valueOf(model1.getValueAt(row, 3));
+        supplierID = String.valueOf(model1.getValueAt(row, 4));
         
-        
+        txtItemID.setText(id);
+        txtName.setText(name);
+        txtPrice.setText(sprice);
+        txtQuantity.setText(sstock);
+        txtSupplierID.setText(supplierID);
+        txtSupplierID.setEnabled(false);
+        txtSupplierID.setFocusable(false);
+    }//GEN-LAST:event_jTable1MouseReleased
+
+    private void BtnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClearActionPerformed
+        model1.setRowCount(0);
         txtItemID.setText(null);
         txtName.setText(null);
         txtPrice.setText(null);
         txtQuantity.setText(null);
         txtSupplierID.setText(null);
-    }//GEN-LAST:event_BtnSaveActionPerformed
+        txtSupplierID.setEnabled(true);
+        txtSupplierID.setFocusable(true);
+        jTable1.clearSelection();
+        this.ViewTable();
+    }//GEN-LAST:event_BtnClearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -276,13 +419,15 @@ public class SM_ItemEntry extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SM_ItemEntry().setVisible(true);
+            new SM_ItemEntry().setVisible(true);
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAdd;
+    private javax.swing.JButton BtnClear;
     private javax.swing.JButton BtnDelete;
     private javax.swing.JButton BtnExit;
     private javax.swing.JButton BtnSave;
