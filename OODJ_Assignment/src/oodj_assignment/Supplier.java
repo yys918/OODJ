@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -19,88 +20,173 @@ import java.util.StringTokenizer;
  * @author yyun
  */
 public class Supplier {
-    private String ID;
+    private String id;
     private String name;
+    private String contactNumber;
     private String address;
     private ArrayList<String> supplier = new ArrayList<String>();
     private enum status{SUCCESSFUL, UNSUCCESSFUL;}
+    
+    public String WriteToFile(ArrayList<String> values){
+        try{
+            FileWriter fw = new FileWriter("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\supplier.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            for (int i =0; i < values.size(); i++){
+                bw.write(values.get(i)+ "\n");
+            }
+            bw.close();
+            fw.close();
+            return String.valueOf(status.SUCCESSFUL);
+        }    
+        catch (IOException e){
+            return String.valueOf(status.UNSUCCESSFUL);
+        }
+    }
     
     public ArrayList ViewSupplierEntry() throws FileNotFoundException, IOException{
         FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\supplier.txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
-        while((line= br.readLine())!=null){
-            StringTokenizer st = new StringTokenizer(line,"\n");
-            while(st.hasMoreTokens()){
-                System.out.print(st.nextToken());
-                supplier.add(String.valueOf(st.nextToken()));
+        
+        while ((line = br.readLine()) != null) {
+            String[] tokens = line.split("\\|"); // Use "|" as the delimiter
+
+            if (tokens.length >= 4) {
+                String id = tokens[0].trim();
+                String name = tokens[1].trim();
+                String contactNumber = tokens[2].trim();
+                String address = tokens[3].trim();
+
+                // Create a formatted string with the fields
+                String formattedSupplier = "[" + id + ", " + name + ", " + contactNumber + ", " + address + "]";
+
+                // Add the formatted supplier data to the ArrayList
+                supplier.add(formattedSupplier);
             }
         }
+        br.close();
         return supplier;
     }
     
-    public String AddSupplierEntry(String id, String name, String address) throws IOException{
+    public boolean CheckDuplicate(String id) throws IOException{
+        supplier = this.ViewSupplierEntry();
+        for (String stuff : supplier) {
+            if (stuff.equals(id)) {
+                return true; // Duplicate found
+            }
+        }
+        return false;
+    }
+    
+    public String generateNewId() {
+        // Find the maximum ID from the existing items and increment it
+        int maxId = 0;
+        for (String item : supplier) {
+            String replace = item.replace("[", "").replace("]", "");
+            String[] tokens = replace.split(", ");
+            System.out.println(tokens[0]);
+            if (tokens.length >= 1) {
+                String itemId = tokens[0].trim();
+                try {
+                    int currentId = Integer.parseInt(itemId.substring(1));// Extract the numeric part of the ID
+                    System.out.println(currentId);
+                    if (currentId > maxId) {
+                        maxId = currentId;
+                        System.out.println(maxId);
+                    }
+                } catch (NumberFormatException e) {
+                    // Handle parsing errors if the ID format is invalid
+                    // You may want to log an error or take appropriate action
+                }
+            }
+        }
+        // Increment the maximum ID and format it with "S" prefix
+        return "S" + String.format("%04d", maxId + 1);
+    }
+    
+    // Helper function to join array elements with a separator
+    private String joinWithSeparator(String[] array, String separator) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < array.length; i++) {
+            result.append(array[i]);
+            if (i < array.length - 1) {// in this case then the last element won't have seperator+
+                result.append(separator);
+            }
+        }
+        return result.toString();
+    }
+        
+    public String AddSupplierEntry(String id, String name, String contactNumber, String address) throws IOException{
         try{
-            FileWriter fw = new FileWriter("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\supplier.txt");
+            FileWriter fw = new FileWriter("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\supplier.txt",true);
             BufferedWriter bw = new BufferedWriter(fw);
-            Scanner sc = new Scanner(System.in);
-            String line = "";
-            StringTokenizer st = new StringTokenizer(line,"\n");
-            while(st.hasMoreTokens()){
-                String value[] = new String[st.countTokens()];//set them to array
-                supplier.add(String.valueOf(st.nextToken()));
-            }        
+            String values[] = {id,name,contactNumber, address};
+            bw.newLine();
+            String result = this.joinWithSeparator(values, "| ");
+            for (int i =0; i <values.length;i++){
+                bw.write(result);
+                bw.write("| ");
+            }
+            bw.close();
+            fw.close();        
             return String.valueOf(status.SUCCESSFUL);
         } catch (FileNotFoundException e){
-            e.printStackTrace();
             return String.valueOf(status.UNSUCCESSFUL);
         }
     }
-    
-    public String EditSupplierEntry(String id, String name, double price, int stock, String supplierID) throws IOException{
-            try{
-            FileWriter fw = new FileWriter("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\supplier.txt");
-            BufferedWriter bw = new BufferedWriter(fw);
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Please select which supplier Entry to be edit: ");
-            String selected = sc.next();
-            String line = "";
-            StringTokenizer st = new StringTokenizer(line,"\n");
-            while(st.hasMoreTokens()){
-                String value[] = new String[st.countTokens()];//set them to array
-                supplier.add(String.valueOf(st.nextToken()));
-            }        
+       
+    public String EditSupplierEntry(String id, String name, String contactNumber, String address) throws IOException{
+        try{
+            FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\supplier.txt");
+            BufferedReader br = new BufferedReader(fr);
+            // Read the file into memory and find the lines to edit
+            ArrayList<String> lines = new ArrayList<>();
+            ArrayList<Integer> linesToEdit = new ArrayList<>();
+            String line;
+            int lineIndex = 0;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+                if (line.startsWith(id)) {
+                    linesToEdit.add(lineIndex);
+                }
+                lineIndex++;
+            }
+            br.close();
+
+            // Modify the lines in the ArrayList
+            for (Integer editLineIndex : linesToEdit) {
+                String []editedLine = {id,name,contactNumber, address};
+                lines.set(editLineIndex, this.joinWithSeparator(editedLine, "| "));
+            }
+            
+            this.WriteToFile(lines);
             return String.valueOf(status.SUCCESSFUL);
         } catch (FileNotFoundException e){
-            e.printStackTrace();
             return String.valueOf(status.UNSUCCESSFUL);
         }
     }
     
     public String DeleteSupplierEntry(String id) throws IOException{
         try{
-            FileWriter fw = new FileWriter("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\supplier.txt");
-            BufferedWriter bw = new BufferedWriter(fw);
-            Scanner sc = new Scanner(System.in);
-            while (true){
-                String selected = id;
-                if (selected.startsWith("S")!= true ){
-                    System.out.println("Item ID shall start with S and follow with 6 digits.");
-                    continue;
-                }
-                else{
-                    break;
-                }
-            }
+            FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\supplier.txt");
+            BufferedReader br = new BufferedReader(fr);
             String line = "";
-            StringTokenizer st = new StringTokenizer(line,"\n");
-            while(st.hasMoreTokens()){
-                String value[] = new String[st.countTokens()];//set them to array
-                supplier.add(String.valueOf(st.nextToken()));
-            }        
+            ArrayList<String> lines = new ArrayList<>();
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+            br.close();
+            fr.close();
+
+            ArrayList<String> modifiedLines = new ArrayList<>();
+            for (String fileLine : lines) {
+                if (!fileLine.contains(id)) {
+                    modifiedLines.add(fileLine);
+                }               
+            }
+            this.WriteToFile(modifiedLines);
             return String.valueOf(status.SUCCESSFUL);
         } catch (FileNotFoundException e){
-            e.printStackTrace();
             return String.valueOf(status.UNSUCCESSFUL);
         }
     }

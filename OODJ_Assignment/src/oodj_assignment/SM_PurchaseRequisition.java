@@ -15,6 +15,8 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
      */
     public SM_PurchaseRequisition() {
         initComponents();
+        setVisible(true);
+        setLocationRelativeTo(null);
     }
 
     /**

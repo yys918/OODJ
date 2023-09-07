@@ -30,7 +30,7 @@ public class Item {
             for (int i =0; i < values.size(); i++){
                 bw.write(values.get(i).toString()+ "\n");
             }
-            //can ommit cuz automatically close in try,catch function
+            
             bw.close();
             fw.close();
             return String.valueOf(status.SUCCESSFUL);
