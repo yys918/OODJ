@@ -11,24 +11,30 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import javax.swing.JOptionPane;
+//TOtal daily & update stock
 public class DailyItemwiseSalesEntry implements Serializable{
-    private String itemID;
+    private String itemID, itemName;
     private int quantitySold;
     private String salesDate;
     private ArrayList<DailyItemwiseSalesEntry> dailyItemWiseSalesEntry = new ArrayList<DailyItemwiseSalesEntry>();
     private enum status{SUCCESSFUL, UNSUCCESSFUL;}
+    private static final long serialVersionUID = 4049679065376427895L;//To maintain compatibility
     
     public DailyItemwiseSalesEntry() {
     }
     
-    public DailyItemwiseSalesEntry(String itemID, int quantitySold, String salesDate) {
+    public DailyItemwiseSalesEntry(String itemID,String itemName, int quantitySold, String salesDate) {
         this.itemID = itemID;
+        this.itemName = itemName;
         this.quantitySold = quantitySold;
         this.salesDate = salesDate;
     }
@@ -36,6 +42,26 @@ public class DailyItemwiseSalesEntry implements Serializable{
     @Override
     public String toString(){
         return itemID + " "+ quantitySold + " " + salesDate;
+    }
+    
+    public boolean checkDuplicateDate(String date){
+        dailyItemWiseSalesEntry = this.ViewDailyItemwiseSalesEntry();
+        for (DailyItemwiseSalesEntry entry : dailyItemWiseSalesEntry) {
+            if (entry.getSalesDate().equals(date)) {
+                return true; // Duplicate found
+            }
+        }
+        return false;
+    }
+    
+    public boolean checkDuplicateItemID(String id){
+        dailyItemWiseSalesEntry = this.ViewDailyItemwiseSalesEntry();
+        for (DailyItemwiseSalesEntry entry : dailyItemWiseSalesEntry) {
+            if (entry.getItemID().equals(id)) {
+                return true; // Duplicate found
+            }
+        }
+        return false;
     }
     
     public ArrayList<DailyItemwiseSalesEntry> ViewDailyItemwiseSalesEntry() {
@@ -56,27 +82,46 @@ public class DailyItemwiseSalesEntry implements Serializable{
         }
         return dailyItemWiseSalesEntry;
     }     
+    
+    public String getCurrentDate(){
+        LocalDate now = LocalDate.now();
+        return String.valueOf(now); 
+    }
+    
+    public ArrayList<String> getExistingDates(){
+        ArrayList<String> dates = new ArrayList<>();
+        dailyItemWiseSalesEntry = this.ViewDailyItemwiseSalesEntry();
+        for(DailyItemwiseSalesEntry entry:dailyItemWiseSalesEntry){
+            dates.add(entry.getSalesDate());
+            System.out.println(entry.getSalesDate());
+        }
+        return dates;
+    }
 
-    public String AddDailyItemwiseSalesEntry(String id, int quantity) throws IOException{
-        try{
-            FileOutputStream fos = new FileOutputStream("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.dat",true);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            
-            Date currentDate = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            String date = dateFormat.format(currentDate);
-            
-            DailyItemwiseSalesEntry d2 = new DailyItemwiseSalesEntry(id,quantity,date);
-            // Write a delimiter (newline) before writing the object
-            oos.write("\n".getBytes());
-            oos.writeObject(d2);
-            oos.close();
-            fos.close();
-            return String.valueOf(status.SUCCESSFUL);
-        } catch (FileNotFoundException e){
-            e.printStackTrace();
+    public String AddDailyItemwiseSalesEntry(String id, String name, int quantity) throws IOException{
+        if(this.checkDuplicateItemID(id)){
+            System.out.println(String.valueOf(checkDuplicateItemID(id)));
+            JOptionPane.showMessageDialog(null, "Item has already added.\nPlease use 'edit' function", "Item ID exists", JOptionPane.ERROR_MESSAGE);
             return String.valueOf(status.UNSUCCESSFUL);
-        }  
+        }else{
+            try{
+                FileOutputStream fos = new FileOutputStream("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.dat",true);
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+                salesDate = this.getCurrentDate();
+                System.out.println("lala"+salesDate);
+                DailyItemwiseSalesEntry d2 = new DailyItemwiseSalesEntry(id,name,quantity,salesDate);
+                // Write a delimiter (newline) before writing the object
+                oos.write("\n".getBytes());
+                oos.writeObject(d2);
+                oos.close();
+                fos.close();
+                return String.valueOf(status.SUCCESSFUL);
+            } catch (FileNotFoundException e){
+                e.printStackTrace();
+                return String.valueOf(status.UNSUCCESSFUL);
+            }
+        }
     }
     
     public String EditDailyItemwiseSalesEntry(String id, int quantity) throws IOException{
@@ -166,6 +211,14 @@ public class DailyItemwiseSalesEntry implements Serializable{
 
     public void setItemID(String itemID) {
         this.itemID = itemID;
+    }
+    
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public int getQuantitySold() {
