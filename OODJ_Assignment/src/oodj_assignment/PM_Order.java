@@ -298,9 +298,6 @@ public class PM_Order extends javax.swing.JFrame {
         String orderdate = txtOrderDate.getText();
         String SupplierID = txtSupID.getText();
         
-
-
-        
          try {
             //check empty name
             PurchaseManager n = new PurchaseManager();
@@ -432,68 +429,66 @@ public class PM_Order extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-    // Edit
-    try {
-        if (lastSelectedRow == -1) {
-            JOptionPane.showMessageDialog(null, "Please select a row");
-        } else {
-            if (lastSelectedTable == jTable1) { // Only allow editing in jTable1
-                String name = txtName.getText();
-                String quantity = txtQuantity.getText();
-                String totalAmount = txtTotalAmount.getText();
-                String orderDate = txtOrderDate.getText();
-                String supplierID = txtSupID.getText();
-                //check empty name
-                PurchaseManager n = new PurchaseManager();
-                    if (!n.isValidName(name)) {
-                    JOptionPane.showMessageDialog(null, "Name cannot be empty.");
-                    return; // Exit the method if the name is empty
-                }
-                //check supplier id
-                PurchaseManager s = new PurchaseManager();
-                if (!s.isValidSupplierID(supplierID)) {
-                    JOptionPane.showMessageDialog(null, "Supplier ID must be in the format S### (e.g., S123).");
-                    return; // Exit the method if the supplier ID format is invalid
-                }
-
-                 //Check the date format
-                PurchaseManager date = new PurchaseManager();
-                if (!date.isValidDateFormat(orderDate)) {
-                JOptionPane.showMessageDialog(null, "Order Date must be in the format dd/mm/yyyy.");
-                return; // Exit the method if the date format is invalid
-                }
-
-                // Attempt to parse quantity as an integer
-                int parsedQuantity = Integer.parseInt(quantity);
-                double parsedamount = Double.parseDouble(totalAmount);
-
-                // Update value in the selected row
-                model.setValueAt(name, lastSelectedRow, 1);
-                model.setValueAt(quantity, lastSelectedRow, 2);
-                model.setValueAt(totalAmount, lastSelectedRow, 3);
-                model.setValueAt(orderDate, lastSelectedRow, 4);
-                model.setValueAt(supplierID, lastSelectedRow, 5);
-                
-                // Save the changes to the text file
-                PurchaseManager obj1 = new PurchaseManager();
-                obj1.Save(jTable1, "order.txt");
-
-                // Clear the text fields
-                txtName.setText("");
-                txtQuantity.setText("");
-                txtTotalAmount.setText("");
-                txtOrderDate.setText("");
-                txtSupID.setText("");
+        // Edit
+        try {
+            if (lastSelectedRow == -1) {
+                JOptionPane.showMessageDialog(null, "Please select a row");
             } else {
-                JOptionPane.showMessageDialog(null, "You can only edit rows in Order List.");
-            }
-        }
-    } 
-    catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Invalid Input.");
-    }
+                if (lastSelectedTable == jTable1) { // Only allow editing in jTable1
+                    String name = txtName.getText();
+                    String quantity = txtQuantity.getText();
+                    String totalAmount = txtTotalAmount.getText();
+                    String orderDate = txtOrderDate.getText();
+                    String supplierID = txtSupID.getText();
+                    //check empty name
+                    PurchaseManager n = new PurchaseManager();
+                        if (!n.isValidName(name)) {
+                        JOptionPane.showMessageDialog(null, "Name cannot be empty.");
+                        return; // Exit the method if the name is empty
+                    }
+                    //check supplier id
+                    PurchaseManager s = new PurchaseManager();
+                    if (!s.isValidSupplierID(supplierID)) {
+                        JOptionPane.showMessageDialog(null, "Supplier ID must be in the format S#### (e.g., S123).");
+                        return; // Exit the method if the supplier ID format is invalid
+                    }
 
-        
+                     //Check the date format
+                    PurchaseManager date = new PurchaseManager();
+                    if (!date.isValidDateFormat(orderDate)) {
+                    JOptionPane.showMessageDialog(null, "Order Date must be in the format dd/mm/yyyy.");
+                    return; // Exit the method if the date format is invalid
+                    }
+
+                    // Attempt to parse quantity as an integer
+                    int parsedQuantity = Integer.parseInt(quantity);
+                    double parsedamount = Double.parseDouble(totalAmount);
+
+                    // Update value in the selected row
+                    model.setValueAt(name, lastSelectedRow, 1);
+                    model.setValueAt(quantity, lastSelectedRow, 2);
+                    model.setValueAt(totalAmount, lastSelectedRow, 3);
+                    model.setValueAt(orderDate, lastSelectedRow, 4);
+                    model.setValueAt(supplierID, lastSelectedRow, 5);
+
+                    // Save the changes to the text file
+                    PurchaseManager obj1 = new PurchaseManager();
+                    obj1.Save(jTable1, "order.txt");
+
+                    // Clear the text fields
+                    txtName.setText("");
+                    txtQuantity.setText("");
+                    txtTotalAmount.setText("");
+                    txtOrderDate.setText("");
+                    txtSupID.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "You can only edit rows in Order List.");
+                }
+            }
+        } 
+        catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid Input.");
+        }       
         
     }//GEN-LAST:event_btnEditActionPerformed
 

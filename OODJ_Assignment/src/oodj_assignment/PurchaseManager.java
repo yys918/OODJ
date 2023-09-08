@@ -175,7 +175,7 @@ public class PurchaseManager {
 
                 // Convert the numeric part to an integer, increment it, and format it with leading zeros
                 int newNumericValue = Integer.parseInt(numericPart) + 1;
-                String newNumericPart = String.format("%03d", newNumericValue); // 3 digits for the numeric part
+                String newNumericPart = String.format("%04d", newNumericValue); // 4 digits for the numeric part
 
                 // Combine the string prefix and the new numeric part to create the new ID
                 String newID = matcher.group(1) + newNumericPart;
