@@ -4,23 +4,53 @@
  */
 package oodj_assignment;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author yyun
  */
 public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
-
+    private DefaultTableModel model1 = new DefaultTableModel();
+    private String []columnsName = {"Item ID", "Item Name", "Quantity Sold"};
+    private String itemID, salesDate;
+    private int quantitySold;
+    private ArrayList<DailyItemwiseSalesEntry> dailyItemWiseSalesEntry = new ArrayList<DailyItemwiseSalesEntry>();
+    DailyItemwiseSalesEntry d1 = new DailyItemwiseSalesEntry();
     /**
      * Creates new form SM_DailyItemWiseSalesEntry
      */
     public SM_DailyItemWiseSalesEntry() {
         initComponents();
         setVisible(true);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null);    
+        d1.ViewDailyItemwiseSalesEntry();
+        for (DailyItemwiseSalesEntry entry : dailyItemWiseSalesEntry) {
+            itemID = entry.getItemID();
+            CmbBoxDateList.addItem(itemID);
+        }
     }
     
-    //write object
-    
+    public void ViewDailySalesEntry(String date){
+        dailyItemWiseSalesEntry.clear();
+        model1.setColumnIdentifiers(columnsName);
+        d1.ViewDailyItemwiseSalesEntry();
+        for (DailyItemwiseSalesEntry entry : dailyItemWiseSalesEntry) {
+            itemID = entry.getItemID();
+            quantitySold = entry.getQuantitySold();
+            salesDate = entry.getSalesDate();
+            if (salesDate.equals(date)){
+                Object[] data = {itemID,quantitySold};
+                model1.addRow(data);
+            }
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,7 +62,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
         BtnSave = new javax.swing.JButton();
         BtnBack = new javax.swing.JButton();
         BtnAdd = new javax.swing.JButton();
@@ -52,27 +82,42 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
 
         jLabel2.setText("Date:");
 
-        jButton1.setText("Search");
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         BtnSave.setText("Save");
+        BtnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSaveActionPerformed(evt);
+            }
+        });
 
         BtnBack.setText("Back");
+        BtnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBackActionPerformed(evt);
+            }
+        });
 
         BtnAdd.setText("Add");
+        BtnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAddActionPerformed(evt);
+            }
+        });
 
         BtnDelete.setText("Delete");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        BtnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnDeleteActionPerformed(evt);
             }
-        ));
+        });
+
+        jTable1.setModel(model1);
         jScrollPane1.setViewportView(jTable1);
 
         jLabel3.setText("ItemID: ");
@@ -108,7 +153,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
                             .addComponent(BtnSave)
                             .addComponent(BtnAdd)
                             .addComponent(BtnDelete)
-                            .addComponent(jButton1)
+                            .addComponent(btnSearch)
                             .addComponent(BtnBack))))
                 .addGap(0, 13, Short.MAX_VALUE))
         );
@@ -138,7 +183,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addComponent(BtnBack)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(BtnAdd)
                         .addGap(18, 18, 18)
@@ -150,6 +195,34 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
+        setVisible(false);
+        SM_Menu form1 = new SM_Menu();
+    }//GEN-LAST:event_BtnBackActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        salesDate = (String)CmbBoxDateList.getSelectedItem();
+        this.ViewDailySalesEntry(salesDate);
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void BtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddActionPerformed
+        itemID = txtItemID.getText();
+        quantitySold = Integer.parseInt(txtQuantitySold.getText());//make sure no more than stock 
+        try {
+            d1.AddDailyItemwiseSalesEntry(itemID, quantitySold);
+        } catch (IOException ex) {
+            Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BtnAddActionPerformed
+
+    private void BtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnDeleteActionPerformed
+
+    private void BtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,7 +265,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
     private javax.swing.JButton BtnDelete;
     private javax.swing.JButton BtnSave;
     private javax.swing.JComboBox<String> CmbBoxDateList;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

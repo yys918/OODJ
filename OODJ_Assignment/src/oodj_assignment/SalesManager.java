@@ -3,7 +3,6 @@ package oodj_assignment;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Scanner;
 
@@ -25,7 +24,7 @@ public class SalesManager {
     public SalesManager(){
 
     }
-       
+       //Arrays.toString(dailyItemWiseSalesEntry.toArray())
     public void WriteToFile(String filename, ArrayList<String> values){
         try{
             FileWriter fw = new FileWriter(filename);
@@ -65,7 +64,7 @@ public class SalesManager {
             StringTokenizer st = new StringTokenizer(line,"\n");
             while(st.hasMoreTokens()){
                 String value[] = new String[st.countTokens()];//set them to array
-                dailyItemWiseSalesEntry.add(String.valueOf(st.nextToken()));
+                purchaseRequisition.add(String.valueOf(st.nextToken()));
             }        
               return String.valueOf(status.SUCCESSFUL);
         } catch (FileNotFoundException e){
@@ -85,7 +84,7 @@ public class SalesManager {
             StringTokenizer st = new StringTokenizer(line,"\n");
             while(st.hasMoreTokens()){
                 String value[] = new String[st.countTokens()];//set them to array
-                dailyItemWiseSalesEntry.add(String.valueOf(st.nextToken()));
+                purchaseRequisition.add(String.valueOf(st.nextToken()));
             }        
                 return String.valueOf(status.SUCCESSFUL);
         } catch (FileNotFoundException e){
@@ -114,7 +113,7 @@ public class SalesManager {
             StringTokenizer st = new StringTokenizer(line,"\n");
             while(st.hasMoreTokens()){
                 String value[] = new String[st.countTokens()];//set them to array
-                dailyItemWiseSalesEntry.add(String.valueOf(st.nextToken()));
+                purchaseRequisition.add(String.valueOf(st.nextToken()));
             }        
                 return String.valueOf(status.SUCCESSFUL);
         } catch (FileNotFoundException e){
