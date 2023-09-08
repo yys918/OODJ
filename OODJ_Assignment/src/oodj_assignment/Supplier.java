@@ -26,7 +26,7 @@ public class Supplier {
     private String address;
     private ArrayList<String> supplier = new ArrayList<String>();
     private enum status{SUCCESSFUL, UNSUCCESSFUL;}
-    
+    //Show item id supplied
     public String WriteToFile(ArrayList<String> values){
         try{
             FileWriter fw = new FileWriter("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\supplier.txt");

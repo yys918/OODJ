@@ -1,9 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package oodj_assignment;
 
+<<<<<<< HEAD
 import java.awt.Color;
 import java.io.IOException;
 import javax.swing.JOptionPane;
@@ -26,7 +24,12 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
     
     
     
+=======
+import javax.swing.table.DefaultTableModel;
+>>>>>>> c708a2ca4aa846f862ca7d3c61876028708d2d24
 
+
+public class SM_PurchaseRequisition extends javax.swing.JFrame {
     /**
      * Creates new form SM_PurchaseRequisition
      */
@@ -39,6 +42,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
             }
         };
         initComponents();
+<<<<<<< HEAD
         setVisible(true);
         setLocationRelativeTo(null);
         model.setColumnIdentifiers(columnsName);
@@ -50,6 +54,8 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
         //set text field uneditable
         txtName.setEditable(false);
         txtItemID.setEditable(false);
+=======
+>>>>>>> c708a2ca4aa846f862ca7d3c61876028708d2d24
     }
 
     /**
