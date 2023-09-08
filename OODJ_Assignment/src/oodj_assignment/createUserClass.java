@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package adminindiassignment;
+package oodj_assignment;
 import java.io.*;
 import java.util.Scanner;
-import java.util.Set;
-import javax.swing.JOptionPane;
+
 
 public class createUserClass {
-    private int userCounter = 1;
-    private Set<String> registeredUserIDs;
+    
+    private static String ID;
+
     private String name;
     private String password;
     private String role;
@@ -20,147 +20,105 @@ public class createUserClass {
     private String gender;
     private String filePath = "D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt";
     
-    /*
-    private boolean isNameRegistered(String Name){
-        try(BufferedReader reader = new BufferedReader(new FileReader(filePath))){
-            String line;
-            while ((line = reader.readLine()) != null){
-                String[]parts = line.split(",");
-                if(parts.length > 3 && parts[1].equals(Name)){
-                    return true;
+    
+    public static String lastID(){
+         try {
+            File file = new File("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt");
+            String id;
+            try (Scanner scanner = new Scanner(file)) {
+                id = "";
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    String[] details = line.split(",");
+                    id = details[0]; // Update lastItemId with the latest item ID
                 }
             }
-        }catch(IOException e){
-            e.printStackTrace();
+            System.out.println(id);
+            return id;
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+            return ""; // Return a default value in case of an exception
         }
-        return false;
     }
-    */
     
-    public boolean receiveTextPM(String name,String age, String gender, String address, String email, String password){
+
+    public static String PMgenerateNextId(String lastID) {
+        // Parse the lastUserId to get the numeric part
+        try {
+            int numPart = Integer.parseInt(lastID.substring(2)) + 1;
+            String numericStr = String.format("%03d", numPart);
+            String idPrefix = "PM";
+
+            // Combine the prefix and numeric part to form the next ID
+            ID = idPrefix + numericStr;
+            System.out.println(ID);
+            return ID;
+        } catch (NumberFormatException e) {
+            // Handle parsing error if lastUserId doesn't have a valid numeric part
+            return "Invalid";
+
+        }
+    }
+    
+    public void receiveTextPM(String name,String age, String gender, String address, String email, String password) throws FileNotFoundException, IOException{
         this.name = name;
         this.password = password;
         this.address = address;
         this.email = email;
         this.age = age;
         this.gender = gender;
-        
-        boolean uniqueIDGenerated = false;
-        if(isNameRegistered(name)){
-            JOptionPane.showMessageDialog(null,"Name is taken. Please choose a different name.", "Registration Failed", JOptionPane.ERROR_MESSAGE); 
-            return false;
-        }
-        
-         while (!uniqueIDGenerated) {
-            ID = String.format("USER%03d", userCounter);
-            if (!isIDRegistered(ID)) { // Check if the generated ID is unique
-                try {
-                    FileWriter fw = new FileWriter("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt", true);
-                    BufferedWriter bw = new BufferedWriter(fw);
-                    bw.write(ID + "," + name + "," + age + "," + gender + "," + address + "," + email + "," + "pm" + "," + password + "\n");
 
-                    bw.close();
-                    fw.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                uniqueIDGenerated = true;
-            } else {
-                userCounter++;
-            }
-        }
-        return true;
-    }
-
-    // Check if a username is already registered in the file
-    private boolean isNameRegistered(String name) {
-        try (BufferedReader reader = new BufferedReader(new FileReader("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] userData = line.split(",");
-                if (userData.length > 1 && userData[1].equals(name)) {
-                    return true;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    // Check if a generated user ID is already registered in the file
-    private boolean isIDRegistered(String generatedID) {
-        try (BufferedReader reader = new BufferedReader(new FileReader("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] userData = line.split(",");
-                if (userData.length > 0 && userData[0].equals(generatedID)) {
-                    return true;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
-    
-    
-    
-        /*
-        int userCount = 1;
-        try (Scanner scanner = new Scanner(new File(filePath))) {
-            while (scanner.hasNextLine()) {
-                scanner.nextLine();
-                userCount++;
-            }
-        } catch (FileNotFoundException e) {
-            // Handle file not found exception
-            e.printStackTrace();
-        }
-        
-        try{
-            FileWriter fw = new FileWriter("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt",true);
+        try {
+            FileWriter fw = new FileWriter("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write("U00" + userCount+ "," + name + ","+ age + "," + gender + ","+  address + ","+  email +  "," +  "pm" + "," + password + "\n");
+            bw.write(ID + "," + name + "," + age + "," + gender + "," + address + "," + email + "," + "pm" + "," + password + "\n");
 
             bw.close();
             fw.close();
-        }catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
         }
-        */
     }
+   
+    public static String SMgenerateNextId(String lastID) {
+        
+        // Parse the lastUserId to get the numeric part
+        try {
+            int numPart = Integer.parseInt(lastID.substring(2)) + 1;
+            String numericStr = String.format("%03d", numPart);
 
+            String idPrefix = "SM";
+
+            ID = idPrefix + numericStr;
+            System.out.println(ID);
+            return ID;
+        } catch (NumberFormatException e) {
+            // Handle parsing error if lastUserId doesn't have a valid numeric part
+            return "Invalid";
+
+        }
+    }
     
-    public void receiveTextSM(String name,String age, String gender, String address, String email, String password){
+    public void receiveTextSM(String name,String age, String gender, String address, String email, String password) throws FileNotFoundException, IOException{
         this.name = name;
         this.password = password;
         this.address = address;
         this.email = email;
         this.age = age;
-        this.gender = gender;   
-        
-        int userCount = 1;
-        try (Scanner scanner = new Scanner(new File(filePath))) {
-            while (scanner.hasNextLine()) {
-                scanner.nextLine();
-                userCount++;
-            }
-        } catch (FileNotFoundException e) {
-            // Handle file not found exception
-            e.printStackTrace();
-        }
-        
-        try{
-            FileWriter fw = new FileWriter("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt",true);
+        this.gender = gender;
+
+        try {
+            FileWriter fw = new FileWriter("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write("U00" + userCount+ "," + name + ","+ age + "," + gender + ","+  address + ","+  email +  "," +  "pm" + "," +  password + "\n");
+            bw.write(ID + "," + name + "," + age + "," + gender + "," + address + "," + email + "," + "sm" + "," + password + "\n");
 
             bw.close();
             fw.close();
-        }catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
+   
     
     public String getName() {
         return name;

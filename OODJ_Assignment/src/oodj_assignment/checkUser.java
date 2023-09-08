@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package adminindiassignment;
+package oodj_assignment;
 
 import java.io.IOException;
 import javax.swing.JOptionPane;
@@ -255,7 +255,7 @@ public class checkUser extends javax.swing.JFrame {
     }//GEN-LAST:event_btnChangeActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-      ck.deleteUser();
+        ck.deleteUser(row);
         
     }//GEN-LAST:event_btnDeleteActionPerformed
 

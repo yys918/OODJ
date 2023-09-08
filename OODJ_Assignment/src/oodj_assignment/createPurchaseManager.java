@@ -2,9 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package adminindiassignment;
+package oodj_assignment;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 
@@ -274,7 +276,15 @@ public class createPurchaseManager extends javax.swing.JFrame {
                 gender = holdGender;
 
                 createUserClass obj1 = new createUserClass();
-                obj1.receiveTextPM(name,age,gender,address,email,password);
+                String id = obj1.lastID();
+                System.out.println(id);
+                obj1.PMgenerateNextId(id);
+                System.out.println(obj1.PMgenerateNextId(id));
+                try {
+                    obj1.receiveTextPM(name,age,gender,address,email,password);
+                } catch (IOException e) {
+                   System.out.println("Error: " + e.getMessage());
+                }
                 JOptionPane.showMessageDialog(null, "User create successfully");
                 this.dispose();
                 new adminMainPage().setVisible(true);
@@ -284,11 +294,7 @@ public class createPurchaseManager extends javax.swing.JFrame {
 
             }     
         }
-            
-        
-        
-        
-        
+                 
         
     }//GEN-LAST:event_btnCreateActionPerformed
 

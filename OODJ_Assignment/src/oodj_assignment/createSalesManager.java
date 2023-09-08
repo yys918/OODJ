@@ -2,8 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package adminindiassignment;
+package oodj_assignment;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 
@@ -227,12 +230,13 @@ public class createSalesManager extends javax.swing.JFrame {
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         String name,address,email,age,gender,password;
         String holdGender = "";
-
+        
+        
         ButtonGroup gen = new ButtonGroup();
         gen.add(radMale);
         gen.add(radFemale);
-
-       if(txtName.getText().equals("") || 
+        
+        if(txtName.getText().equals("") || 
             txtAddress.getText().equals("") || 
             txtEmail.getText().equals("") || 
             txtAge.getText().equals("") || 
@@ -255,7 +259,15 @@ public class createSalesManager extends javax.swing.JFrame {
                 gender = holdGender;
 
                 createUserClass obj1 = new createUserClass();
-                obj1.receiveTextSM(name,password,address,email,age,gender);
+                String id = obj1.lastID();
+                System.out.println(id);
+                obj1.SMgenerateNextId(id);
+                System.out.println(obj1.SMgenerateNextId(id));
+                try {
+                    obj1.receiveTextPM(name,age,gender,address,email,password);
+                } catch (IOException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
                 JOptionPane.showMessageDialog(null, "User create successfully");
                 this.dispose();
                 new adminMainPage().setVisible(true);

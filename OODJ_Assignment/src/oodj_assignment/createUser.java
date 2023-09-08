@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package adminindiassignment;
+package oodj_assignment;
 
 /**
  *
@@ -17,7 +17,7 @@ public class createUser extends javax.swing.JFrame {
         initComponents();
         setTitle("Select User to Create");
         this.setSize(400, 350);
-        this.setLocation(600,300);
+        this.setLocation(600, 300);
     }
 
     @SuppressWarnings("unchecked")

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package adminindiassignment;
+package oodj_assignment;
 
 import java.awt.List;
 import java.io.BufferedReader;
@@ -58,7 +58,7 @@ public class checkUserClass {
         }
         br.close();
     } catch (IOException e) {
-        e.printStackTrace();
+         System.out.println("Error: " + e.getMessage());
     }
 }
     
@@ -76,12 +76,9 @@ public class checkUserClass {
                 data.add(line);               
             }
         } catch (IOException e) {
-            e.printStackTrace();
+             System.out.println("Error: " + e.getMessage());
         }
         
-        //System.out.println(pass);
-        //String selectedRow = data.get(row);
-
         // Make modifications to the selected row
         String modifiedRow = ID + "," + name + "," + age + "," + gender + "," + address + "," + email + "," + role + "," + pass; 
         //System.out.println("ID");
@@ -98,45 +95,54 @@ public class checkUserClass {
             
             System.out.println("Data updated successfully.");
         } catch (IOException e) {
-            System.out.println(e);
+             System.out.println("Error: " + e.getMessage());
         }
 
         }   
     }
     
-    public void deleteUser(){
-       ArrayList<String> data = new ArrayList<>();
-        String filePath = "D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt";
+    public void deleteUser(int row){
+        
+        if (row != 0) {
+            ArrayList<String> data = new ArrayList<>();
+            String filePath = "D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt";
 
-        // Read the data from the text file and store it in the ArrayList
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                data.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Make modifications to the selected row
-        String modifiedRow = "";
-
-        // Update the data in the ArrayList
-        data.set(row, modifiedRow);
-
-        // Write the updated data back to the file without empty lines
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (String rowData : data) {
-                if (!rowData.isEmpty()) {
-                    writer.write(rowData);
-                    writer.newLine(); // Add a newline character after each row
+            // Read the data from the text file and store it in the ArrayList
+            try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    data.add(line);
                 }
+            } catch (IOException e) {
+                System.out.println("Error reading the file: " + e.getMessage());
             }
-            System.out.println("Data updated successfully.");
-        } catch (IOException e) {
-            System.out.println(e);
-        } 
+
+            // Check if the row index is within the bounds of the ArrayList
+            if (row >= 0 && row < data.size()) {
+                // Remove the selected row from the ArrayList
+                data.remove(row);
+
+                // Write the updated data back to the file
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+                    for (String rowData : data) {
+                        if (!rowData.isEmpty()) {
+                            bw.write(rowData);
+                            bw.newLine(); // Add a newline character after each row
+                        }
+                    }
+                    System.out.println("Data updated successfully.");
+                } catch (IOException e) {
+                    System.out.println("Error writing the file: " + e.getMessage());
+                }
+            } else {
+                System.out.println("Please select a row to delete");
+            }
+        } else {
+            System.out.println("This is admin, cannot be deleted.");
+        }    
     }
+    
+
 
     public String getID() {
         return ID;
@@ -168,6 +174,10 @@ public class checkUserClass {
 
     public String getPass() {
         return pass;
+    }
+    
+    public int getRow() {
+        return row;
     }
        
 }
