@@ -67,6 +67,7 @@
                           <Component id="BtnDelete" linkSize="1" min="-2" max="-2" attributes="0"/>
                           <Component id="btnSearch" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="BtnBack" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="BtnClear" linkSize="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
@@ -127,6 +128,8 @@
                               <Component id="BtnSave" linkSize="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="BtnClear" linkSize="2" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="15" max="32767" attributes="0"/>
@@ -207,6 +210,9 @@
               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable1MouseReleased"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -265,6 +271,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Item Name:"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="BtnClear">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Clear"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnClearActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

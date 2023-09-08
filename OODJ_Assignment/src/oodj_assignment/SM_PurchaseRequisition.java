@@ -1,13 +1,15 @@
 
 package oodj_assignment;
 
-<<<<<<< HEAD
+
 import java.awt.Color;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+
+
 
 /**
  *
@@ -21,15 +23,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
     private int row = -1;
     
     private JTable lastSelectedTable = null;
-    
-    
-    
-=======
-import javax.swing.table.DefaultTableModel;
->>>>>>> c708a2ca4aa846f862ca7d3c61876028708d2d24
 
-
-public class SM_PurchaseRequisition extends javax.swing.JFrame {
     /**
      * Creates new form SM_PurchaseRequisition
      */
@@ -42,7 +36,6 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
             }
         };
         initComponents();
-<<<<<<< HEAD
         setVisible(true);
         setLocationRelativeTo(null);
         model.setColumnIdentifiers(columnsName);
@@ -54,8 +47,6 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
         //set text field uneditable
         txtName.setEditable(false);
         txtItemID.setEditable(false);
-=======
->>>>>>> c708a2ca4aa846f862ca7d3c61876028708d2d24
     }
 
     /**

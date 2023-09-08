@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package oodj_assignment;
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -55,7 +56,8 @@ public class DailyItemwiseSalesEntry implements Serializable{
     }
     
     public boolean checkDuplicateItemID(String id){
-        dailyItemWiseSalesEntry = this.ViewDailyItemwiseSalesEntry();
+        dailyItemWiseSalesEntry = this.ViewDailyItemwiseSalesEntry(); // Handle StreamCorruptedException here
+        // Print the exception details for debugging
         for (DailyItemwiseSalesEntry entry : dailyItemWiseSalesEntry) {
             if (entry.getItemID().equals(id)) {
                 return true; // Duplicate found
@@ -70,10 +72,17 @@ public class DailyItemwiseSalesEntry implements Serializable{
             ObjectInputStream ois = new ObjectInputStream(fis);
             // Read a DailySalesEntry object
             try {
+                
                 DailyItemwiseSalesEntry entry = (DailyItemwiseSalesEntry) ois.readObject();
                 dailyItemWiseSalesEntry.add(entry);
+                
+            }catch(EOFException eof){
+               //reach the end of file , no more object to read 
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(DailyItemwiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (java.io.StreamCorruptedException sce) {
+                // Handle StreamCorruptedException here
+                sce.printStackTrace(); // Print the exception details for debugging
             }
         } catch (FileNotFoundException e) {//'FileNotFoundException' is a subclass of 'IO Exception'
             e.printStackTrace();
@@ -93,14 +102,12 @@ public class DailyItemwiseSalesEntry implements Serializable{
         dailyItemWiseSalesEntry = this.ViewDailyItemwiseSalesEntry();
         for(DailyItemwiseSalesEntry entry:dailyItemWiseSalesEntry){
             dates.add(entry.getSalesDate());
-            System.out.println(entry.getSalesDate());
         }
         return dates;
     }
 
     public String AddDailyItemwiseSalesEntry(String id, String name, int quantity) throws IOException{
         if(this.checkDuplicateItemID(id)){
-            System.out.println(String.valueOf(checkDuplicateItemID(id)));
             JOptionPane.showMessageDialog(null, "Item has already added.\nPlease use 'edit' function", "Item ID exists", JOptionPane.ERROR_MESSAGE);
             return String.valueOf(status.UNSUCCESSFUL);
         }else{
@@ -109,10 +116,9 @@ public class DailyItemwiseSalesEntry implements Serializable{
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
 
                 salesDate = this.getCurrentDate();
-                System.out.println("lala"+salesDate);
                 DailyItemwiseSalesEntry d2 = new DailyItemwiseSalesEntry(id,name,quantity,salesDate);
                 // Write a delimiter (newline) before writing the object
-                oos.write("\n".getBytes());
+//                oos.write("\n".getBytes());
                 oos.writeObject(d2);
                 oos.close();
                 fos.close();
@@ -120,8 +126,12 @@ public class DailyItemwiseSalesEntry implements Serializable{
             } catch (FileNotFoundException e){
                 e.printStackTrace();
                 return String.valueOf(status.UNSUCCESSFUL);
+            } catch (java.io.StreamCorruptedException sce) {
+                // Handle StreamCorruptedException here
+                sce.printStackTrace(); // Print the exception details for debugging
             }
         }
+        return "";
     }
     
     public String EditDailyItemwiseSalesEntry(String id, int quantity) throws IOException{
