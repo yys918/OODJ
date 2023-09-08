@@ -4,6 +4,9 @@
  */
 package oodj_assignment;
 
+import java.io.IOException;
+import java.util.Arrays;
+
 /**
   Sow Mei Yun TP069692 - Sales Manager
   Wong Zhi How TP066006 - Purchase Manager
@@ -12,8 +15,8 @@ package oodj_assignment;
 public class OODJ_Assignment {
 
 
-    public static void main(String[] args) {
-        
+    public static void main(String[] args) throws IOException {
+             
     }
     
 }
