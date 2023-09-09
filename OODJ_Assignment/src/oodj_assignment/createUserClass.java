@@ -5,8 +5,6 @@
 package oodj_assignment;
 import java.io.*;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 
@@ -35,7 +33,6 @@ public class createUserClass {
                     id = details[0]; // Update lastItemId with the latest item ID
                 }
             }
-            System.out.println(id);
             return id;
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
@@ -45,16 +42,15 @@ public class createUserClass {
     
     
 
-    public static String PMgenerateNextId(String lastID) {
+    public static String generateNextId(String lastID) {
         // Parse the lastUserId to get the numeric part
         try {
             int numPart = Integer.parseInt(lastID.substring(2)) + 1;
             String numericStr = String.format("%03d", numPart);
-            String idPrefix = "PM";
+            
 
             // Combine the prefix and numeric part to form the next ID
-            ID = idPrefix + numericStr;
-            System.out.println(ID);
+            ID =numericStr;
             return ID;
         } catch (NumberFormatException e) {
             // Handle parsing error if lastUserId doesn't have a valid numeric part
@@ -63,14 +59,14 @@ public class createUserClass {
         }
     }
     
-       public boolean receiveTextPM(String name, String age, String gender, String address, String email, String password) throws IOException {
+    public boolean receiveTextAd(String name, String age, String gender, String address, String email, String password) throws IOException {
     this.name = name;
     this.password = password;
     this.address = address;
     this.email = email;
     this.age = age;
     this.gender = gender;
-
+    ID = "U" + ID;
     // Validate the email format
     if (!isValidEmail(email)) {
         JOptionPane.showMessageDialog(null, "Please enter a valid email address.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
@@ -81,6 +77,70 @@ public class createUserClass {
             JOptionPane.showMessageDialog(null, "Name is taken. Please choose a different name.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
+            // Validate age
+            try {
+                int ageValue = Integer.parseInt(age);
+                if (ageValue < 0 || ageValue > 120) { // Adjust age validation range as needed
+                    JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age between 0 and 120.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age as a number.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+
+            // Additional nested conditions or actions can be placed here
+            try {
+                FileWriter fw = new FileWriter("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt", true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(ID + "," + name + "," + age + "," + gender + "," + address + "," + email + "," + "admin" + "," + password + "\n");
+
+                bw.close();
+                fw.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false; // Return false if an error occurs during file writing
+            }
+
+            JOptionPane.showMessageDialog(null, "User created successfully, please press back button to the main page");
+            return true;
+        }
+    }
+}
+    
+    
+    public boolean receiveTextPM(String name, String age, String gender, String address, String email, String password) throws IOException {
+    this.name = name;
+    this.password = password;
+    this.address = address;
+    this.email = email;
+    this.age = age;
+    this.gender = gender;
+    ID = "PM" + ID;
+    
+    // Validate the email format
+    if (!isValidEmail(email)) {
+        JOptionPane.showMessageDialog(null, "Please enter a valid email address.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+        return false;
+    } else {
+        // Check if the name is already registered
+        if (isNameRegistered(name)) {
+            JOptionPane.showMessageDialog(null, "Name is taken. Please choose a different name.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
+            // Validate age
+            try {
+                int ageValue = Integer.parseInt(age);
+                if (ageValue < 0 || ageValue > 120) { // Adjust age validation range as needed
+                    JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age between 0 and 120.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age as a number.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+
             // Additional nested conditions or actions can be placed here
             try {
                 FileWriter fw = new FileWriter("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt", true);
@@ -95,30 +155,11 @@ public class createUserClass {
                 return false; // Return false if an error occurs during file writing
             }
 
-            JOptionPane.showMessageDialog(null, "User created successfully.");
+            JOptionPane.showMessageDialog(null, "User created successfully, please press back button to the main page");
             return true;
         }
     }
 }
-   
-    public static String SMgenerateNextId(String lastID) {
-        
-        // Parse the lastUserId to get the numeric part
-        try {
-            int numPart = Integer.parseInt(lastID.substring(2)) + 1;
-            String numericStr = String.format("%03d", numPart);
-
-            String idPrefix = "SM";
-
-            ID = idPrefix + numericStr;
-            System.out.println(ID);
-            return ID;
-        } catch (NumberFormatException e) {
-            // Handle parsing error if lastUserId doesn't have a valid numeric part
-            return "Invalid";
-
-        }
-    }
    
     
     public boolean receiveTextSM(String name, String age, String gender, String address, String email, String password) throws IOException {
@@ -128,7 +169,7 @@ public class createUserClass {
     this.email = email;
     this.age = age;
     this.gender = gender;
-
+    ID = "SM" + ID;
     // Validate the email format
     if (!isValidEmail(email)) {
         JOptionPane.showMessageDialog(null, "Please enter a valid email address.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
@@ -139,6 +180,18 @@ public class createUserClass {
             JOptionPane.showMessageDialog(null, "Name is taken. Please choose a different name.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
+            // Validate age
+            try {
+                int ageValue = Integer.parseInt(age);
+                if (ageValue < 0 || ageValue > 120) { // Adjust age validation range as needed
+                    JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age between 0 and 120.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age as a number.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+
             // Additional nested conditions or actions can be placed here
             try {
                 FileWriter fw = new FileWriter("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt", true);
@@ -153,7 +206,7 @@ public class createUserClass {
                 return false; // Return false if an error occurs during file writing
             }
 
-            JOptionPane.showMessageDialog(null, "User created successfully.");
+            JOptionPane.showMessageDialog(null, "User created successfully, please press back button to the main page");
             return true;
         }
     }
@@ -172,7 +225,6 @@ public class createUserClass {
             String line;
             while ((line = reader.readLine()) != null){
                 String[] parts = line.split(",");
-                System.out.println(parts[1]);
                 if(parts[1].equals(usernameToCheck)){
                     return true;
                 }

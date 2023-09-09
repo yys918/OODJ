@@ -93,7 +93,7 @@ public class checkUserClass {
             writer.newLine(); // Add a newline character after each row
         }
 
-        System.out.println("Data updated successfully.");
+        JOptionPane.showMessageDialog(null, "Information change successfully");
     } catch (IOException e) {
         System.out.println("Error: " + e.getMessage());
     }

@@ -12,17 +12,16 @@ import javax.swing.JOptionPane;
  *
  * @author tayya
  */
-public class createPurchaseManager extends javax.swing.JFrame {
+public class createAdmin extends javax.swing.JFrame {
 
     /**
-     * Creates new form createPurchaseManager
+     * Creates new form createAdmin
      */
-    public createPurchaseManager() {
+    public createAdmin() {
         initComponents();
-        setTitle("Create Purchase Manager");
+        setTitle("Create Admin");
         this.setSize(550, 550);
         this.setLocation(600,300);
-    
     }
 
     /**
@@ -34,42 +33,50 @@ public class createPurchaseManager extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnCreate = new javax.swing.JButton();
-        lblName = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         lblAge = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         lblGender = new javax.swing.JLabel();
+        txtPass = new javax.swing.JTextField();
         lblAddress = new javax.swing.JLabel();
+        txtConfirmPass = new javax.swing.JTextField();
         lblEmail = new javax.swing.JLabel();
+        btnBack = new javax.swing.JButton();
         txtName = new javax.swing.JTextField();
         txtAge = new javax.swing.JTextField();
         radMale = new javax.swing.JRadioButton();
         radFemale = new javax.swing.JRadioButton();
         txtAddress = new javax.swing.JTextField();
+        btnCreate = new javax.swing.JButton();
         txtEmail = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtPass = new javax.swing.JTextField();
-        txtConfirmPass = new javax.swing.JTextField();
-        btnBack = new javax.swing.JButton();
+        lblName = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnCreate.setText("Create");
-        btnCreate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateActionPerformed(evt);
-            }
-        });
-
-        lblName.setText("Name:");
+        jLabel1.setText("Password");
 
         lblAge.setText("Age:");
 
+        jLabel2.setText("Confirm password");
+
         lblGender.setText("Gender:");
+
+        txtPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPassActionPerformed(evt);
+            }
+        });
 
         lblAddress.setText("Address");
 
         lblEmail.setText("Email Address:");
+
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,28 +110,20 @@ public class createPurchaseManager extends javax.swing.JFrame {
             }
         });
 
+        btnCreate.setText("Create");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
+
         txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEmailActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Password");
-
-        jLabel2.setText("Confirm password");
-
-        txtPass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPassActionPerformed(evt);
-            }
-        });
-
-        btnBack.setText("Back");
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
-            }
-        });
+        lblName.setText("Name:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -206,7 +205,7 @@ public class createPurchaseManager extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtConfirmPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCreate)
                     .addComponent(btnBack))
@@ -216,26 +215,29 @@ public class createPurchaseManager extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgeActionPerformed
+    private void txtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtAgeActionPerformed
+    }//GEN-LAST:event_txtPassActionPerformed
 
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        this.dispose();
+        new adminMainPage().setVisible(true);
+    }//GEN-LAST:event_btnBackActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
 
+    private void txtAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAgeActionPerformed
+
     private void radMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radMaleActionPerformed
-        
-               
+
     }//GEN-LAST:event_radMaleActionPerformed
 
     private void radFemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radFemaleActionPerformed
-        
-        
+
     }//GEN-LAST:event_radFemaleActionPerformed
 
     private void txtAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAddressActionPerformed
@@ -250,10 +252,10 @@ public class createPurchaseManager extends javax.swing.JFrame {
         gen.add(radMale);
         gen.add(radFemale);
 
-        if (txtName.getText().equals("") || 
-            txtAddress.getText().equals("") || 
-            txtEmail.getText().equals("") || 
-            txtAge.getText().equals("") || 
+        if (txtName.getText().equals("") ||
+            txtAddress.getText().equals("") ||
+            txtEmail.getText().equals("") ||
+            txtAge.getText().equals("") ||
             txtPass.getText().equals("") ||
             (gen.getSelection() == null)) {
 
@@ -279,31 +281,22 @@ public class createPurchaseManager extends javax.swing.JFrame {
                 boolean userCreated = false;
 
                 try {
-                    userCreated = obj1.receiveTextSM(name, age, gender, address, email, password);
+                    userCreated = obj1.receiveTextAd(name, age, gender, address, email, password);
 
                 } catch (IOException e) {
                     System.out.println("Error: " + e.getMessage());
                 }
-                
-                
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "Password and confirm password do not match. Please try again.", "Warning", JOptionPane.WARNING_MESSAGE);
             }
         }
-        
-        
+
     }//GEN-LAST:event_btnCreateActionPerformed
 
-    private void txtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassActionPerformed
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtPassActionPerformed
-
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        this.dispose();
-        new adminMainPage().setVisible(true);
-
-    }//GEN-LAST:event_btnBackActionPerformed
+    }//GEN-LAST:event_txtEmailActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,20 +315,20 @@ public class createPurchaseManager extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(createPurchaseManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(createAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(createPurchaseManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(createAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(createPurchaseManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(createAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(createPurchaseManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(createAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new createPurchaseManager().setVisible(true);
+                new createAdmin().setVisible(true);
             }
         });
     }
