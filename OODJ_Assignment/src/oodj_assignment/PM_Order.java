@@ -59,14 +59,14 @@ public class PM_Order extends javax.swing.JFrame {
 
         
         //display text file data to table (Order List)
-        PurchaseManager order = new PurchaseManager(); //create an object from PM class        
+        PMView order = new PMView(); //create an object from PM class        
         order.ViewOrder("order.txt",model);//call method from PM class        
         jTable1.setModel(model);//display data
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Set single selection mode
         
         //Requisition
         model2.setColumnIdentifiers(columnsName2);
-        PurchaseManager r = new PurchaseManager();
+        PMView r = new PMView();
         r.ViewRequisition("requisition.txt", model2);
         jTable2.setModel(model2);
         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Set single selection mode
