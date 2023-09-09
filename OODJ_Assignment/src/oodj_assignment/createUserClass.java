@@ -63,7 +63,7 @@ public class createUserClass {
         }
     }
     
-       public boolean receiveTextPM(String name, String age, String gender, String address, String email, String password) throws IOException {
+    public boolean receiveTextPM(String name, String age, String gender, String address, String email, String password) throws IOException {
     this.name = name;
     this.password = password;
     this.address = address;
@@ -81,6 +81,18 @@ public class createUserClass {
             JOptionPane.showMessageDialog(null, "Name is taken. Please choose a different name.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
+            // Validate age
+            try {
+                int ageValue = Integer.parseInt(age);
+                if (ageValue < 0 || ageValue > 120) { // Adjust age validation range as needed
+                    JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age between 0 and 120.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age as a number.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+
             // Additional nested conditions or actions can be placed here
             try {
                 FileWriter fw = new FileWriter("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt", true);
@@ -139,6 +151,18 @@ public class createUserClass {
             JOptionPane.showMessageDialog(null, "Name is taken. Please choose a different name.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
+            // Validate age
+            try {
+                int ageValue = Integer.parseInt(age);
+                if (ageValue < 0 || ageValue > 120) { // Adjust age validation range as needed
+                    JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age between 0 and 120.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age as a number.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+
             // Additional nested conditions or actions can be placed here
             try {
                 FileWriter fw = new FileWriter("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt", true);
