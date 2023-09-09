@@ -5,8 +5,6 @@
 package oodj_assignment;
 import java.io.*;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 
@@ -105,7 +103,7 @@ public class createUserClass {
                 return false; // Return false if an error occurs during file writing
             }
 
-            JOptionPane.showMessageDialog(null, "User created successfully.");
+            JOptionPane.showMessageDialog(null, "User created successfully, please press back button to the main page");
             return true;
         }
     }
@@ -157,29 +155,11 @@ public class createUserClass {
                 return false; // Return false if an error occurs during file writing
             }
 
-            JOptionPane.showMessageDialog(null, "User created successfully.");
+            JOptionPane.showMessageDialog(null, "User created successfully, please press back button to the main page");
             return true;
         }
     }
 }
-  /* 
-    public static String SMgenerateNextId(String lastID) {
-        
-        // Parse the lastUserId to get the numeric part
-        try {
-            int numPart = Integer.parseInt(lastID.substring(2)) + 1;
-            String numericStr = String.format("%03d", numPart);
-
-            String idPrefix = "SM";
-
-            ID = idPrefix + numericStr;
-            return ID;
-        } catch (NumberFormatException e) {
-            // Handle parsing error if lastUserId doesn't have a valid numeric part
-            return "Invalid";
-
-        }
-    }*/
    
     
     public boolean receiveTextSM(String name, String age, String gender, String address, String email, String password) throws IOException {
@@ -226,7 +206,7 @@ public class createUserClass {
                 return false; // Return false if an error occurs during file writing
             }
 
-            JOptionPane.showMessageDialog(null, "User created successfully.");
+            JOptionPane.showMessageDialog(null, "User created successfully, please press back button to the main page");
             return true;
         }
     }
@@ -245,7 +225,6 @@ public class createUserClass {
             String line;
             while ((line = reader.readLine()) != null){
                 String[] parts = line.split(",");
-                System.out.println(parts[1]);
                 if(parts[1].equals(usernameToCheck)){
                     return true;
                 }

@@ -19,6 +19,9 @@ public class createAdmin extends javax.swing.JFrame {
      */
     public createAdmin() {
         initComponents();
+        setTitle("Create Admin");
+        this.setSize(550, 550);
+        this.setLocation(600,300);
     }
 
     /**
