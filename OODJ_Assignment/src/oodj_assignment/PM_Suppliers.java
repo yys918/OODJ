@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PM_Suppliers extends javax.swing.JFrame {
     DefaultTableModel model ;
-    String [] columnsName = {"ID","Name"};
+    String [] columnsName = {"ID","Name","Contact Number","Address"};
 
     /**
      * Creates new form PM_Suppliers
@@ -29,8 +29,8 @@ public class PM_Suppliers extends javax.swing.JFrame {
         initComponents();
         model.setColumnIdentifiers(columnsName);
         //display text file data to table
-        PurchaseManager order = new PurchaseManager(); //create an object from PM class
-        order.ViewOrder("supplier.txt",model);//call method from PM class
+        PMView sup = new PMView(); //create an object from PMView class
+        sup.ViewSuppliers("supplier.txt",model);//call method from PM class
         jTable1.setModel(model);//display data
     }
 

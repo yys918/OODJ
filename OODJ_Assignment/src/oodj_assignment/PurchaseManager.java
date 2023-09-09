@@ -21,8 +21,64 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PurchaseManager {
     
-    private String name,Pid,email,address;
-    private int contactNo;
+    private String name,id,email,address,age,gender,password;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
     private String filePath = "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\order.txt";
    
     
@@ -83,82 +139,6 @@ public class PurchaseManager {
         }
     }
 
-        
-    public void ViewItem(String filename, DefaultTableModel model){
-        try{
-            FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\item.txt");
-            BufferedReader br = new BufferedReader(fr);
-            String line;
-            while ((line=br.readLine())!= null){
-                //Split
-                String []data = line.split(",");
-                model.addRow(data);            
-            }
-
-            fr.close();            
-        } 
-        catch(Exception e){
-            System.out.println(e);
-        }
-    }   
-
-    public void ViewSuppliers(String filename, DefaultTableModel model){
-        try{
-            FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\supplier.txt");
-            BufferedReader br = new BufferedReader(fr);
-            String line;
-            while ((line=br.readLine())!= null){
-                //Split
-                String []data = line.split(",");
-                model.addRow(data);            
-            }
-
-            fr.close();            
-        } 
-        catch(Exception e){
-            System.out.println(e);
-        }
-    
-    }
-    
-    public void ViewRequisition(String filename, DefaultTableModel model){
-        try{
-            FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\requisition.txt");
-            BufferedReader br = new BufferedReader(fr);
-            String line;
-            while ((line=br.readLine())!= null){
-                //Split
-                String []data = line.split(",");
-                model.addRow(data);            
-            }
-
-            fr.close();            
-        } 
-        catch(Exception e){
-            System.out.println(e);
-        }
-    
-    }
-    
-    public void ViewOrder(String filename, DefaultTableModel model){
-        try{
-            FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\order.txt");
-            BufferedReader br = new BufferedReader(fr);
-            String line;
-            while ((line=br.readLine())!= null){
-                //Split
-                String []data = line.split(","); 
-                model.addRow(data);
-            }
-            fr.close();        
-            
-        } 
-        catch(Exception e){
-            System.out.println(e);
-        }
-        
-    }
-    
     public String AddOrder(String name,String quantity,String amount,String orderdate,String SupllierID){
         try {
             // Read all lines from the file into an ArrayList
@@ -183,7 +163,7 @@ public class PurchaseManager {
 
                 // Convert the numeric part to an integer, increment it, and format it with leading zeros
                 int newNumericValue = Integer.parseInt(numericPart) + 1;
-                String newNumericPart = String.format("%03d", newNumericValue); // 3 digits for the numeric part
+                String newNumericPart = String.format("%04d", newNumericValue); // 4 digits for the numeric part
 
                 // Combine the string prefix and the new numeric part to create the new ID
                 String newID = matcher.group(1) + newNumericPart;

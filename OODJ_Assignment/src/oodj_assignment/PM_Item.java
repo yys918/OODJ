@@ -29,7 +29,7 @@ public class PM_Item extends javax.swing.JFrame {
         initComponents();
         model.setColumnIdentifiers(columnsName);
         //Display data from text file at table
-        PurchaseManager item = new PurchaseManager();//create object from PM class
+        PMView item = new PMView();//create object from PMView class
         item.ViewItem("item.txt", model);//call method from PM class by providing filename and the table object
         jTable1.setModel(model);//display data
     }
