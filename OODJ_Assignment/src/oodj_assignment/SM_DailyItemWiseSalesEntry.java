@@ -7,7 +7,6 @@ package oodj_assignment;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,6 +59,11 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
         }
         txtItemID.setFocusable(false);
         txtItemID.setEnabled(false);
+        txtItemName.setFocusable(false);
+        txtItemName.setEnabled(false);
+        txtStockLeft.setFocusable(false);
+        txtStockLeft.setEnabled(false);
+
     }
     
     public void LoadCmbBoxDateList(){
@@ -131,6 +135,8 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
         txtItemName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         BtnClear = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        txtStockLeft = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -185,7 +191,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
 
         jLabel3.setText("Item ID: ");
 
-        jLabel4.setText("Quantity sold: ");
+        jLabel4.setText("Quantity Sold: ");
 
         CmbBoxDateList.setModel(dateListModel
         );
@@ -207,6 +213,8 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
                 BtnClearActionPerformed(evt);
             }
         });
+
+        jLabel6.setText("Stock Left:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -237,9 +245,13 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
                                     .addComponent(txtItemID, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtItemName, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel4))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtQuantitySold, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtQuantitySold, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtStockLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(BtnSave)
@@ -251,12 +263,12 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(62, 62, 62)
                         .addComponent(jLabel1)))
-                .addGap(0, 42, Short.MAX_VALUE))
+                .addGap(0, 40, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BtnAdd, BtnBack, BtnClear, BtnDelete, BtnSave, btnSearch});
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {CmbBoxDateList, txtItemID, txtItemName, txtQuantitySold});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {CmbBoxDateList, txtItemID, txtItemName, txtQuantitySold, txtStockLeft});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,6 +285,18 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(BtnBack)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnAdd)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnDelete)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnSave)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnClear))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGap(22, 22, 22)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel2)
@@ -288,25 +312,17 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtQuantitySold, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(BtnBack)
+                                    .addComponent(jLabel4))
                                 .addGap(18, 18, 18)
-                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(BtnAdd)
-                                .addGap(18, 18, 18)
-                                .addComponent(BtnDelete)
-                                .addGap(18, 18, 18)
-                                .addComponent(BtnSave)))
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnClear)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(txtStockLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {BtnAdd, BtnBack, BtnClear, BtnDelete, BtnSave, btnSearch});
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {CmbBoxDateList, txtItemID, txtItemName, txtQuantitySold});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {CmbBoxDateList, txtItemID, txtItemName, txtQuantitySold, txtStockLeft});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -332,11 +348,13 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
             itemID = txtItemID.getText();
             itemName = txtItemName.getText();
             quantitySold = Integer.parseInt(txtQuantitySold.getText());
-            try {
-                d1.AddDailyItemwiseSalesEntry(itemID, itemName, quantitySold);
-                this.LoadCmbBoxDateList();
-            } catch (IOException ex) {
-                Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
+            if(!d1.checkDuplicateItemID(itemID)){
+                try {
+                    d1.AddDailyItemwiseSalesEntry(itemID, itemName, quantitySold);
+                    this.LoadCmbBoxDateList();
+                } catch (IOException ex) {
+                    Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
+                }   
             }
         }
         jTable1.removeAll();
@@ -445,6 +463,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
@@ -452,5 +471,6 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
     private javax.swing.JTextField txtItemID;
     private javax.swing.JTextField txtItemName;
     private javax.swing.JTextField txtQuantitySold;
+    private javax.swing.JTextField txtStockLeft;
     // End of variables declaration//GEN-END:variables
 }
