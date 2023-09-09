@@ -699,6 +699,7 @@ public class PM_Order extends javax.swing.JFrame {
         txtItemID.setEditable(false);
         txtSMID.setEditable(true);
         txtSMID.setText("");
+        txtOrderDate.setText("");
         
         
         //get values from the column
