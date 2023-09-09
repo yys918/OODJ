@@ -167,8 +167,7 @@ public class SM_Menu extends javax.swing.JFrame {
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         setVisible(false);
-        //yanyi
-        //SM_ItemEntry form1 = new SM_ItemEntry();
+        loginPage form1 = new loginPage();
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     /**

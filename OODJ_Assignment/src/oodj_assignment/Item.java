@@ -16,11 +16,41 @@ public class Item {
     private String id;
     private String name;
     private double price;
+    private int stock;
     private String supplierID;
     private ArrayList<String> items = new ArrayList<String>();
     private enum status{SUCCESSFUL, UNSUCCESSFUL;}
        
     public Item() {
+    }
+    
+    public Item(String id, String name, double price, int stock , String  supplierID) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.supplierID = supplierID;
+    }
+    
+    public int checkStock(String checkID) throws IOException{
+        boolean itemFound = false;
+        items = this.ViewItemEntry();
+        for (String itemArray : items) {
+            String[] tokens = itemArray.substring(1, itemArray.length() - 1).split(", ");
+            if (tokens.length == 5) {
+                id = tokens[0].trim();
+                stock = Integer.parseInt(tokens[3].trim());
+                if(id.equals(checkID)){
+                    itemFound = true;
+                    if(stock>=0){
+                       return stock; 
+                    }else{
+                        return -2;
+                    }
+                }
+            }
+        }
+        return -1;
     }
     
     public String WriteToFile(ArrayList<String> values){
@@ -30,7 +60,6 @@ public class Item {
             for (int i =0; i < values.size(); i++){
                 bw.write(values.get(i).toString()+ "\n");
             }
-            
             bw.close();
             fw.close();
             return String.valueOf(status.SUCCESSFUL);
