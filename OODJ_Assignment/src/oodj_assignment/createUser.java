@@ -28,6 +28,7 @@ public class createUser extends javax.swing.JFrame {
         btnPurchase = new javax.swing.JButton();
         btnSales = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        Admin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,6 +55,13 @@ public class createUser extends javax.swing.JFrame {
             }
         });
 
+        Admin.setText("Admin");
+        Admin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AdminActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -65,14 +73,17 @@ public class createUser extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addComponent(btnSales))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(136, 136, 136)
                         .addComponent(btnPurchase))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(159, 159, 159)
-                        .addComponent(btnBack)))
+                        .addComponent(btnBack))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(145, 145, 145)
+                        .addComponent(btnSales))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(162, 162, 162)
+                        .addComponent(Admin)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -80,13 +91,15 @@ public class createUser extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(lblTitle)
-                .addGap(62, 62, 62)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addComponent(Admin)
+                .addGap(26, 26, 26)
                 .addComponent(btnPurchase)
-                .addGap(43, 43, 43)
+                .addGap(35, 35, 35)
                 .addComponent(btnSales)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addGap(42, 42, 42)
                 .addComponent(btnBack)
-                .addGap(31, 31, 31))
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -106,6 +119,11 @@ public class createUser extends javax.swing.JFrame {
         new adminMainPage().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void AdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminActionPerformed
+       new createAdmin().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_AdminActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,6 +161,7 @@ public class createUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Admin;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnPurchase;
     private javax.swing.JButton btnSales;

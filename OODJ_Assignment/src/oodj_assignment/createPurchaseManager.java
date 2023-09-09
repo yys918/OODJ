@@ -276,7 +276,7 @@ public class createPurchaseManager extends javax.swing.JFrame {
 
                 createUserClass obj1 = new createUserClass();
                 String id = obj1.lastID();
-                obj1.PMgenerateNextId(id);
+                obj1.generateNextId(id);
 
                 boolean userCreated = false;
 

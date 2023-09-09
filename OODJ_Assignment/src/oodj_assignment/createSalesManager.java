@@ -259,7 +259,7 @@ public class createSalesManager extends javax.swing.JFrame {
 
                 createUserClass obj1 = new createUserClass();
                 String id = obj1.lastID();
-                obj1.SMgenerateNextId(id);
+                obj1.generateNextId(id);
 
                 boolean userCreated = false;
 
