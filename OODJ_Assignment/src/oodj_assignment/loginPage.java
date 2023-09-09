@@ -19,7 +19,7 @@ public class loginPage extends javax.swing.JFrame {
     public loginPage() {
         initComponents();
         setTitle("Log In");
-        setVisible(true);
+       
         this.setSize(400, 350);
         this.setLocation(600,300);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -135,8 +135,6 @@ public class loginPage extends javax.swing.JFrame {
             loginPage loginPage = new loginPage();
             while ((line = reader.readLine()) != null) {
                 String[] login = line.split(",");
-                System.out.println(login[1]); 
-                System.out.println(login[7]);
                 if (x.equals(login[1]) && y.equals(login[7])) { 
                     logIn = true;
                     user = login[6];
