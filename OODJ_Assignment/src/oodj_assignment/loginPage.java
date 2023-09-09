@@ -19,6 +19,7 @@ public class loginPage extends javax.swing.JFrame {
     public loginPage() {
         initComponents();
         setTitle("Log In");
+        setVisible(true);
         this.setSize(400, 350);
         this.setLocation(600,300);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -152,11 +153,13 @@ public class loginPage extends javax.swing.JFrame {
                 }
                 else if(user.equals("pm")){
                     JOptionPane.showMessageDialog(null, "Login successful, Purchase Manager");
+                    PM_Main form1 = new PM_Main();
                     this.dispose();
                     
                 }
                 else if(user.equals("sm")){
                     JOptionPane.showMessageDialog(null, "Login successful, Sales Manager");
+                    SM_Menu form1 = new SM_Menu();
                     this.dispose();
                 }
                 else{
