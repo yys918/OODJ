@@ -87,34 +87,7 @@ public class PurchaseManager {
     public PurchaseManager(String name,String quantity,String amount,String orderdate){} //add order constructor
     
     //Function
-    public boolean isValidName(String name) {
-        // Check if the name is not empty and does not consist of only whitespace characters
-        return !name.trim().isEmpty();
-    }
-    
-    public boolean isValidSupplierID(String supplierID) {//check supplier id
-        // Define a regex pattern for the supplier ID format S#### (S followed by 4 digits)
-        String supplierIDPattern = "^S\\d{4}$";
 
-        // Check if the input matches the regex pattern
-        return supplierID.matches(supplierIDPattern);
-    }
-    
-    public boolean isValidSMID(String SMID) {//check sales manager id
-        // Define a regex pattern for the supplier ID format SM##### (SM followed by 4 digits)
-        String SMIDPattern = "^SM\\d{4}$";
-
-        // Check if the input matches the regex pattern
-        return SMID.matches(SMIDPattern);
-    }
-
-    public boolean isValidDateFormat(String dateStr) {//check date format
-        // Define a regex pattern for the date format dd/mm/yyyy
-        String dateFormatPattern = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\\d{4}$";
-
-        // Check if the input matches the regex pattern
-        return dateStr.matches(dateFormatPattern);
-    }
     public void Save(JTable table, String filePath) {//rewrite the latest data to file
         DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         try {
@@ -139,58 +112,63 @@ public class PurchaseManager {
         }
     }
 
-    public String AddOrder(String name,String quantity,String amount,String orderdate,String SupllierID){
-        try {
-            // Read all lines from the file into an ArrayList
-            ArrayList<String> lines = new ArrayList<>();
-            BufferedReader br = new BufferedReader(new FileReader(filePath));
-            String line;
-            while ((line = br.readLine()) != null) {
-                lines.add(line);
-            }
-            br.close();
-
-            // Extract the last line from the ArrayList (latest data)
-            String latestLine = lines.get(lines.size() - 1);
-
-            // Use a regular expression to extract the ID from the last line
-            Pattern pattern = Pattern.compile("^([A-Z]+)(\\d+),");
-            Matcher matcher = pattern.matcher(latestLine);
-
-            if (matcher.find()) {
-                // Extract the numeric part of the ID
-                String numericPart = matcher.group(2);
-
-                // Convert the numeric part to an integer, increment it, and format it with leading zeros
-                int newNumericValue = Integer.parseInt(numericPart) + 1;
-                String newNumericPart = String.format("%04d", newNumericValue); // 4 digits for the numeric part
-
-                // Combine the string prefix and the new numeric part to create the new ID
-                String newID = matcher.group(1) + newNumericPart;
-
-                // Create the new order data line
-                String newOrderData = newID + "," + name + "," + quantity + "," + amount + "," + orderdate + "," + SupllierID;
-
-                // Append the new data to the ArrayList
-                lines.add(newOrderData);
-
-                // Write all lines (including the new ID) back to the file
-                BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
-                for (String updatedLine : lines) {
-                    bw.write(updatedLine);
-                    bw.newLine();
-                }
-                bw.close();
-
-                return newID;
-            }
-        } 
-        catch (IOException e) {
-            System.out.println(e);
+    public String AddOrder(String itemID,String name, String quantity, String amount, String orderdate, String SMID, String SupplierID) {
+    try {
+        // Read all lines from the file into an ArrayList
+        ArrayList<String> lines = new ArrayList<>();
+        BufferedReader br = new BufferedReader(new FileReader(filePath));
+        String line;
+        while ((line = br.readLine()) != null) {
+            lines.add(line);
         }
-        return null;  
+        br.close();
+
+        // Extract the last line from the ArrayList (latest data)
+        String latestLine = lines.get(lines.size() - 1);
+        
+        // Use a regular expression to extract the numeric part from the Oid
+        Pattern orderPattern = Pattern.compile("^O(\\d+),");
+        Matcher orderMatcher = orderPattern.matcher(latestLine);
+
+        if (orderMatcher.find()) {
+            // Extract the numeric parts of the last SMID and SupplierID
+            String orderNumericPart = orderMatcher.group(1);
+            
+
+            // Convert the numeric parts to integers, increment them, and format them with leading zeros            
+            int newOrderNumericValue = Integer.parseInt(orderNumericPart) + 1;
+            String newOrderNumericPart = String.format("%04d", newOrderNumericValue); // 4 digits for order id
+            
+
+            // Combine the string prefixes and the new numeric parts to create the new SMID and SupplierID
+            String newOID = "O" + newOrderNumericPart;
+            
+
+            // Create the new order data line
+            String newOrderData =  newOID+","+itemID+","+name + "," + quantity + "," + amount + "," + orderdate + ","+SMID+","+ SupplierID;
+
+            // Append the new data to the ArrayList
+            lines.add(newOrderData);
+
+            // Write all lines (including the new SMID and SupplierID) back to the file
+            BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
+            for (String updatedLine : lines) {
+                bw.write(updatedLine);
+                bw.newLine();
+            }
+            
+            bw.close();
+            return newOID;
+            
+
+            
+        }
+    } catch (IOException e) {
+        System.out.println(e);
     }
-    
+    return null;
+}   
+             
     
     public boolean DeleteOrder(DefaultTableModel tableModel, String orderId, String filePath) {
         try {
