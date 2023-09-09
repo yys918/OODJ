@@ -257,6 +257,14 @@ public class checkUser extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         ck.deleteUser(row);
+        txtName.setText("");
+        txtAge.setText("");
+        txtGender.setText("");
+        txtAddress.setText("");
+        txtEmail.setText("");
+        new adminMainPage().setVisible(true);
+        this.dispose();
+        
         
     }//GEN-LAST:event_btnDeleteActionPerformed
 

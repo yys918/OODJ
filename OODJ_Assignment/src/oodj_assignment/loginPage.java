@@ -171,7 +171,7 @@ public class loginPage extends javax.swing.JFrame {
                 
             
         } catch (IOException e) {
-            e.printStackTrace();
+             System.out.println("Error: " + e.getMessage());
         }
         //JOptionPane.showMessageDialog(null, "Username or password not match\nPlease try again","Warning", JOptionPane.WARNING_MESSAGE);
        

@@ -6,6 +6,7 @@ package oodj_assignment;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
@@ -14,7 +15,10 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
+/**
+ *
+ * @author yyun
+ */
 public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
     private DefaultTableModel model1 = new DefaultTableModel();
     private DefaultTableModel model2 = new DefaultTableModel();
@@ -82,7 +86,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
         ArrayList<DailyItemwiseSalesEntry> originalList = dailyItemWiseSalesEntry; //  original ArrayList
         Set<String> uniqueItemIDs = new HashSet<>();
         ArrayList<DailyItemwiseSalesEntry> uniqueList = new ArrayList<>();
-
+        System.out.println(Arrays.toString(dailyItemWiseSalesEntry.toArray()));
         for (DailyItemwiseSalesEntry entry : originalList) {
             // Check if the itemID is already in the set 
             if (!uniqueItemIDs.contains(entry.getItemID())) {
@@ -90,16 +94,19 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
                 uniqueList.add(entry); // Add the unique object to the new list
             }
         }
+        System.out.println(Arrays.toString(uniqueList.toArray()));
         
         for (DailyItemwiseSalesEntry entry : uniqueList) {
             itemID = entry.getItemID();
-            
             itemName = entry.getItemName();
             quantitySold = entry.getQuantitySold();
             salesDate = entry.getSalesDate();
+            System.out.println("checking id" + itemID);
+            
+            System.out.println("Date" + date);
+            System.out.println("Checked date: " + salesDate);
             if (salesDate.equals(date)){
                 Object[] data = {itemID,itemName,quantitySold};
-                
                 model1.addRow(data);
                 } 
         jTable1.clearSelection();
@@ -346,18 +353,30 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
             return;
         } else{
             itemID = txtItemID.getText();
+            
             itemName = txtItemName.getText();
+            
             quantitySold = Integer.parseInt(txtQuantitySold.getText());
-            if(!d1.checkDuplicateItemID(itemID)){
-                try {
-                    d1.AddDailyItemwiseSalesEntry(itemID, itemName, quantitySold);
-                    this.LoadCmbBoxDateList();
-                } catch (IOException ex) {
-                    Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
-                }   
+            
+            try {
+                if(d1.checkStock(itemID, quantitySold)){
+                    try {
+                        System.out.println(itemID);
+                        System.out.println(itemName);
+                        System.out.println(String.valueOf(quantitySold));
+                        String status = d1.AddDailyItemwiseSalesEntry(itemID, itemName, quantitySold);
+                        this.LoadCmbBoxDateList();
+                    } catch (IOException ex) {
+                        Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } catch (IOException ex) {   
+                Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
         }
         jTable1.removeAll();
+        this.ViewDailySalesEntry(d1.getCurrentDate());
     }//GEN-LAST:event_BtnAddActionPerformed
 
     private void BtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDeleteActionPerformed
@@ -372,7 +391,6 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
                 String status = d1.DeleteDailyItemwiseSalesEntry(itemID);
                 this.LoadCmbBoxDateList();
                 this.ViewDailySalesEntry(salesDate);
-                System.out.println(status);
                 jTable1.clearSelection();
                 jTable2.clearSelection();  
             } catch (IOException ex) {
@@ -382,8 +400,18 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnDeleteActionPerformed
 
     private void BtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSaveActionPerformed
-        jTable1.clearSelection();
-        jTable2.clearSelection();
+        quantitySold = Integer.parseInt(txtQuantitySold.getText());
+        itemID = txtItemID.getText();
+        try {
+            if(d1.checkStock(itemID, quantitySold)){
+            //            stock = quantitySold -  ;
+            txtStockLeft.setText(stock);
+            jTable1.clearSelection();
+            jTable2.clearSelection();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BtnSaveActionPerformed
 
     private void jTable2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseReleased

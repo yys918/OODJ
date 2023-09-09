@@ -99,7 +99,7 @@ public class createUserClass {
                 fw.close();
 
             } catch (IOException e) {
-                e.printStackTrace();
+                 System.out.println("Error: " + e.getMessage());
                 return false; // Return false if an error occurs during file writing
             }
 
@@ -151,7 +151,7 @@ public class createUserClass {
                 fw.close();
 
             } catch (IOException e) {
-                e.printStackTrace();
+                 System.out.println("Error: " + e.getMessage());
                 return false; // Return false if an error occurs during file writing
             }
 
@@ -202,7 +202,7 @@ public class createUserClass {
                 fw.close();
 
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Error: " + e.getMessage());
                 return false; // Return false if an error occurs during file writing
             }
 
@@ -230,7 +230,7 @@ public class createUserClass {
                 }
             }
         }catch(IOException e){
-            e.printStackTrace();
+             System.out.println("Error: " + e.getMessage());
         }
         return false;
     }
