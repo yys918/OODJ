@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class checkUser extends javax.swing.JFrame {
     
-    private DefaultTableModel model = new DefaultTableModel();
+     private DefaultTableModel model = new DefaultTableModel();
     private String[] columnNames = {"ID","Name","Age","Gender","Address","Email","Role","Password"};
     checkUserClass ck = new checkUserClass();
     private int row = -1;
@@ -231,6 +231,7 @@ public class checkUser extends javax.swing.JFrame {
         txtGender.setText(gender);
         txtAddress.setText(address);
         txtEmail.setText(email);
+        
         
     }//GEN-LAST:event_tblUserMouseReleased
 

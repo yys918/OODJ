@@ -5,12 +5,14 @@
 package oodj_assignment;
 import java.io.*;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 
 public class createUserClass {
     
     private static String ID;
-
     private String name;
     private String password;
     private String role;
@@ -41,6 +43,7 @@ public class createUserClass {
         }
     }
     
+    
 
     public static String PMgenerateNextId(String lastID) {
         // Parse the lastUserId to get the numeric part
@@ -60,25 +63,43 @@ public class createUserClass {
         }
     }
     
-    public void receiveTextPM(String name,String age, String gender, String address, String email, String password) throws FileNotFoundException, IOException{
-        this.name = name;
-        this.password = password;
-        this.address = address;
-        this.email = email;
-        this.age = age;
-        this.gender = gender;
+       public boolean receiveTextPM(String name, String age, String gender, String address, String email, String password) throws IOException {
+    this.name = name;
+    this.password = password;
+    this.address = address;
+    this.email = email;
+    this.age = age;
+    this.gender = gender;
 
-        try {
-            FileWriter fw = new FileWriter("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt", true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(ID + "," + name + "," + age + "," + gender + "," + address + "," + email + "," + "pm" + "," + password + "\n");
+    // Validate the email format
+    if (!isValidEmail(email)) {
+        JOptionPane.showMessageDialog(null, "Please enter a valid email address.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+        return false;
+    } else {
+        // Check if the name is already registered
+        if (isNameRegistered(name)) {
+            JOptionPane.showMessageDialog(null, "Name is taken. Please choose a different name.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
+            // Additional nested conditions or actions can be placed here
+            try {
+                FileWriter fw = new FileWriter("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt", true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(ID + "," + name + "," + age + "," + gender + "," + address + "," + email + "," + "pm" + "," + password + "\n");
 
-            bw.close();
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+                bw.close();
+                fw.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false; // Return false if an error occurs during file writing
+            }
+
+            JOptionPane.showMessageDialog(null, "User created successfully.");
+            return true;
         }
     }
+}
    
     public static String SMgenerateNextId(String lastID) {
         
@@ -98,28 +119,71 @@ public class createUserClass {
 
         }
     }
-    
-    public void receiveTextSM(String name,String age, String gender, String address, String email, String password) throws FileNotFoundException, IOException{
-        this.name = name;
-        this.password = password;
-        this.address = address;
-        this.email = email;
-        this.age = age;
-        this.gender = gender;
-
-        try {
-            FileWriter fw = new FileWriter("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt", true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(ID + "," + name + "," + age + "," + gender + "," + address + "," + email + "," + "sm" + "," + password + "\n");
-
-            bw.close();
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
    
     
+    public boolean receiveTextSM(String name, String age, String gender, String address, String email, String password) throws IOException {
+    this.name = name;
+    this.password = password;
+    this.address = address;
+    this.email = email;
+    this.age = age;
+    this.gender = gender;
+
+    // Validate the email format
+    if (!isValidEmail(email)) {
+        JOptionPane.showMessageDialog(null, "Please enter a valid email address.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+        return false;
+    } else {
+        // Check if the name is already registered
+        if (isNameRegistered(name)) {
+            JOptionPane.showMessageDialog(null, "Name is taken. Please choose a different name.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
+            // Additional nested conditions or actions can be placed here
+            try {
+                FileWriter fw = new FileWriter("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt", true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(ID + "," + name + "," + age + "," + gender + "," + address + "," + email + "," + "sm" + "," + password + "\n");
+
+                bw.close();
+                fw.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false; // Return false if an error occurs during file writing
+            }
+
+            JOptionPane.showMessageDialog(null, "User created successfully.");
+            return true;
+        }
+    }
+}
+    
+    private boolean isValidEmail(String email) {
+       // Define a regex pattern for a simple email validation
+       String emailPattern = "^.+@.+\\.com$";
+
+       // Use the pattern to match the email
+       return email.matches(emailPattern);
+   }
+    
+     private boolean isNameRegistered(String usernameToCheck){
+        try(BufferedReader reader = new BufferedReader(new FileReader(filePath))){
+            String line;
+            while ((line = reader.readLine()) != null){
+                String[] parts = line.split(",");
+                System.out.println(parts[1]);
+                if(parts[1].equals(usernameToCheck)){
+                    return true;
+                }
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+   
     public String getName() {
         return name;
     }

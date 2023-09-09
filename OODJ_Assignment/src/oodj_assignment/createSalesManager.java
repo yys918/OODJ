@@ -228,31 +228,30 @@ public class createSalesManager extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPassActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        String name,address,email,age,gender,password;
+        String name, address, email, age, gender, password;
         String holdGender = "";
-        
-        
+
         ButtonGroup gen = new ButtonGroup();
         gen.add(radMale);
         gen.add(radFemale);
-        
-        if(txtName.getText().equals("") || 
+
+        if (txtName.getText().equals("") || 
             txtAddress.getText().equals("") || 
             txtEmail.getText().equals("") || 
             txtAge.getText().equals("") || 
             txtPass.getText().equals("") ||
-            (gen.getSelection() == null)){
-            
-            JOptionPane.showMessageDialog(null, "Please enter information required");
-        }else{
+            (gen.getSelection() == null)) {
+
+            JOptionPane.showMessageDialog(null, "Please enter all required information.");
+        } else {
             if (radMale.isSelected()) {
                 holdGender = radMale.getText();
-            }else if(radFemale.isSelected()){
+            } else if (radFemale.isSelected()) {
                 holdGender = radFemale.getText();
             }
-            if(txtPass.getText().equals(txtConfirmPass.getText())){
+            if (txtPass.getText().equals(txtConfirmPass.getText())) {
                 name = txtName.getText();
-                address = txtAddress.getText() ;
+                address = txtAddress.getText();
                 email = txtEmail.getText();
                 age = txtAge.getText();
                 password = txtPass.getText();
@@ -260,22 +259,22 @@ public class createSalesManager extends javax.swing.JFrame {
 
                 createUserClass obj1 = new createUserClass();
                 String id = obj1.lastID();
-                System.out.println(id);
                 obj1.SMgenerateNextId(id);
-                System.out.println(obj1.SMgenerateNextId(id));
+
+                boolean userCreated = false;
+
                 try {
-                    obj1.receiveTextPM(name,age,gender,address,email,password);
+                    userCreated = obj1.receiveTextSM(name, age, gender, address, email, password);
+
                 } catch (IOException e) {
                     System.out.println("Error: " + e.getMessage());
                 }
-                JOptionPane.showMessageDialog(null, "User create successfully");
-                this.dispose();
-                new adminMainPage().setVisible(true);
-
-            }else{
-                JOptionPane.showMessageDialog(null, "Password and confirm password are not match\nPlease try again","Warning", JOptionPane.WARNING_MESSAGE); 
-
-            }     
+                
+                
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Password and confirm password do not match. Please try again.", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
         }
 
     }//GEN-LAST:event_btnCreateActionPerformed

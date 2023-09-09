@@ -98,7 +98,8 @@ public class createUser extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPurchaseActionPerformed
 
     private void btnSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalesActionPerformed
-        // TODO add your handling code here:
+        new createSalesManager().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnSalesActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
