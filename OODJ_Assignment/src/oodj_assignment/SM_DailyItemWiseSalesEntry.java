@@ -6,22 +6,29 @@ package oodj_assignment;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author yyun
- */
+
 public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
     private DefaultTableModel model1 = new DefaultTableModel();
-    private String []columnsName = {"Item ID", "Item Name", "Quantity Sold"};
-    private String itemID, salesDate;
+    private DefaultTableModel model2 = new DefaultTableModel();
+    private String []dcolumnsName = {"Item ID", "Item Name", "Quantity Sold"};
+    private String []icolumnsName = {"Item ID", "Item Name", "Price" ,"In Stock quantity"};
+    private String itemID,itemName, stock, salesDate, sprice;
+    private double itemPrice,total;
     private int quantitySold;
+    private int row = -1;
     private ArrayList<DailyItemwiseSalesEntry> dailyItemWiseSalesEntry = new ArrayList<DailyItemwiseSalesEntry>();
+    private ArrayList<String> items = new ArrayList<String>();
     DailyItemwiseSalesEntry d1 = new DailyItemwiseSalesEntry();
+    private DefaultComboBoxModel<String> dateListModel = new DefaultComboBoxModel();
+    
     /**
      * Creates new form SM_DailyItemWiseSalesEntry
      */
@@ -29,25 +36,74 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);    
-        d1.ViewDailyItemwiseSalesEntry();
-        for (DailyItemwiseSalesEntry entry : dailyItemWiseSalesEntry) {
-            itemID = entry.getItemID();
-            CmbBoxDateList.addItem(itemID);
+        this.LoadCmbBoxDateList();
+        model2.setColumnIdentifiers(icolumnsName);
+        Item i = new Item();
+        try {
+            items = i.ViewItemEntry();
+            for ( String item : items){
+               
+            String[] tokens = item.substring(1, item.length() - 1).split(", ");
+
+            if (tokens.length == 5) {
+                itemID = tokens[0].trim();
+                itemName = tokens[1].trim();
+                itemPrice = Double.parseDouble(tokens[2].trim());
+                stock = tokens[3].trim();
+                Object[] data = {itemID, itemName,itemPrice,stock};
+                model2.addRow(data);
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        txtItemID.setFocusable(false);
+        txtItemID.setEnabled(false);
+        txtItemName.setFocusable(false);
+        txtItemName.setEnabled(false);
+        txtStockLeft.setFocusable(false);
+        txtStockLeft.setEnabled(false);
+
+    }
+    
+    public void LoadCmbBoxDateList(){
+        dateListModel.removeAllElements();
+        ArrayList<String> existingDates = d1.getExistingDates(); // Replace this with your actual data source
+        for (String date : existingDates) {
+        dateListModel.addElement(date);
         }
     }
     
     public void ViewDailySalesEntry(String date){
+        model1.setRowCount(0);
         dailyItemWiseSalesEntry.clear();
-        model1.setColumnIdentifiers(columnsName);
-        d1.ViewDailyItemwiseSalesEntry();
-        for (DailyItemwiseSalesEntry entry : dailyItemWiseSalesEntry) {
+        model1.setColumnIdentifiers(dcolumnsName);
+        dailyItemWiseSalesEntry = d1.ViewDailyItemwiseSalesEntry();
+        ArrayList<DailyItemwiseSalesEntry> originalList = dailyItemWiseSalesEntry; //  original ArrayList
+        Set<String> uniqueItemIDs = new HashSet<>();
+        ArrayList<DailyItemwiseSalesEntry> uniqueList = new ArrayList<>();
+
+        for (DailyItemwiseSalesEntry entry : originalList) {
+            // Check if the itemID is already in the set 
+            if (!uniqueItemIDs.contains(entry.getItemID())) {
+                uniqueItemIDs.add(entry.getItemID()); // Add the itemID to the set
+                uniqueList.add(entry); // Add the unique object to the new list
+            }
+        }
+        
+        for (DailyItemwiseSalesEntry entry : uniqueList) {
             itemID = entry.getItemID();
+            
+            itemName = entry.getItemName();
             quantitySold = entry.getQuantitySold();
             salesDate = entry.getSalesDate();
             if (salesDate.equals(date)){
-                Object[] data = {itemID,quantitySold};
+                Object[] data = {itemID,itemName,quantitySold};
+                
                 model1.addRow(data);
-            }
+                } 
+        jTable1.clearSelection();
+        jTable2.clearSelection();
         }
     }
 
@@ -74,6 +130,13 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
         txtQuantitySold = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         CmbBoxDateList = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        txtItemName = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        BtnClear = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        txtStockLeft = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,13 +181,40 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
         });
 
         jTable1.setModel(model1);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel3.setText("ItemID: ");
+        jLabel3.setText("Item ID: ");
 
-        jLabel4.setText("Quantity sold: ");
+        jLabel4.setText("Quantity Sold: ");
 
-        CmbBoxDateList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CmbBoxDateList.setModel(dateListModel
+        );
+
+        jTable2.setModel(model2);
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable2MouseReleased(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
+
+        jLabel5.setText("Item Name:");
+
+        BtnClear.setText("Clear");
+        BtnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnClearActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Stock Left:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,30 +223,53 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2))
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtItemID, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtQuantitySold, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CmbBoxDateList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(9, 9, 9)
+                                        .addComponent(jLabel5))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(25, 25, 25)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(CmbBoxDateList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtItemID, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtItemName, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtQuantitySold, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtStockLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(BtnSave)
                             .addComponent(BtnAdd)
                             .addComponent(BtnDelete)
                             .addComponent(btnSearch)
-                            .addComponent(BtnBack))))
-                .addGap(0, 13, Short.MAX_VALUE))
+                            .addComponent(BtnBack)
+                            .addComponent(BtnClear)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(jLabel1)))
+                .addGap(0, 40, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BtnAdd, BtnBack, BtnClear, BtnDelete, BtnSave, btnSearch});
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {CmbBoxDateList, txtItemID, txtItemName, txtQuantitySold, txtStockLeft});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -165,33 +278,51 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(CmbBoxDateList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtItemID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtQuantitySold, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(BtnBack)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BtnAdd)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnDelete)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnSave)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(BtnBack)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnAdd)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnDelete)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnSave)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnClear))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(CmbBoxDateList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(16, 16, 16)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtItemID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtItemName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtQuantitySold, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(txtStockLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {BtnAdd, BtnBack, BtnClear, BtnDelete, BtnSave, btnSearch});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {CmbBoxDateList, txtItemID, txtItemName, txtQuantitySold, txtStockLeft});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -203,26 +334,86 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         salesDate = (String)CmbBoxDateList.getSelectedItem();
+        model1.setRowCount(0);
         this.ViewDailySalesEntry(salesDate);
+        jTable1.clearSelection();
+        jTable2.clearSelection();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void BtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddActionPerformed
-        itemID = txtItemID.getText();
-        quantitySold = Integer.parseInt(txtQuantitySold.getText());//make sure no more than stock 
-        try {
-            d1.AddDailyItemwiseSalesEntry(itemID, quantitySold);
-        } catch (IOException ex) {
-            Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
+        if(txtQuantitySold.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Please enter quantity sold.", "Blank exist", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else{
+            itemID = txtItemID.getText();
+            itemName = txtItemName.getText();
+            quantitySold = Integer.parseInt(txtQuantitySold.getText());
+            if(!d1.checkDuplicateItemID(itemID)){
+                try {
+                    d1.AddDailyItemwiseSalesEntry(itemID, itemName, quantitySold);
+                    this.LoadCmbBoxDateList();
+                } catch (IOException ex) {
+                    Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
+                }   
+            }
         }
+        jTable1.removeAll();
     }//GEN-LAST:event_BtnAddActionPerformed
 
     private void BtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDeleteActionPerformed
-        // TODO add your handling code here:
+        salesDate = (String)CmbBoxDateList.getSelectedItem();
+        row = jTable1.getSelectedRow();
+        itemID = String.valueOf(model1.getValueAt(row, 0));
+        if (row<0){
+            JOptionPane.showMessageDialog(null, "Please selected a row from the upper table.","Error in selecting row.",JOptionPane.ERROR_MESSAGE);
+            return;
+        }else{
+            try {
+                String status = d1.DeleteDailyItemwiseSalesEntry(itemID);
+                this.LoadCmbBoxDateList();
+                this.ViewDailySalesEntry(salesDate);
+                System.out.println(status);
+                jTable1.clearSelection();
+                jTable2.clearSelection();  
+            } catch (IOException ex) {
+                Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_BtnDeleteActionPerformed
 
     private void BtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSaveActionPerformed
-        // TODO add your handling code here:
+        jTable1.clearSelection();
+        jTable2.clearSelection();
     }//GEN-LAST:event_BtnSaveActionPerformed
+
+    private void jTable2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseReleased
+        row = jTable2.getSelectedRow(); 
+        itemID = String.valueOf(model2.getValueAt(row, 0));
+        itemName = String.valueOf(model2.getValueAt(row, 1));
+        sprice = String.valueOf(model2.getValueAt(row, 2));
+        stock = String.valueOf(model2.getValueAt(row, 3));
+        txtItemID.setText(itemID);
+        txtItemName.setText(itemName);
+        txtQuantitySold.setText("");
+    }//GEN-LAST:event_jTable2MouseReleased
+
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        row = jTable1.getSelectedRow(); 
+        itemID = String.valueOf(model1.getValueAt(row, 0));
+        itemName = String.valueOf(model1.getValueAt(row, 1));
+        quantitySold = Integer.parseInt(String.valueOf(model1.getValueAt(row, 2)));
+        txtItemID.setText(itemID);
+        txtItemName.setText(itemName);
+        txtQuantitySold.setText(String.valueOf(quantitySold));
+    }//GEN-LAST:event_jTable1MouseReleased
+
+    private void BtnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClearActionPerformed
+        txtItemID.setText(null);
+        txtItemName.setText(null);
+        txtQuantitySold.setText(null);
+        jTable1.clearSelection();
+        jTable2.clearSelection();
+    }//GEN-LAST:event_BtnClearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -262,6 +453,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAdd;
     private javax.swing.JButton BtnBack;
+    private javax.swing.JButton BtnClear;
     private javax.swing.JButton BtnDelete;
     private javax.swing.JButton BtnSave;
     private javax.swing.JComboBox<String> CmbBoxDateList;
@@ -270,9 +462,15 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextField txtItemID;
+    private javax.swing.JTextField txtItemName;
     private javax.swing.JTextField txtQuantitySold;
+    private javax.swing.JTextField txtStockLeft;
     // End of variables declaration//GEN-END:variables
 }

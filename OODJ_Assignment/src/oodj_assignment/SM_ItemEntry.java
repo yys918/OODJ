@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class SM_ItemEntry extends javax.swing.JFrame {
     
     private DefaultTableModel model1 = new DefaultTableModel();
-    private int size ,row = -1;
+    private int row = -1;
     private String id,name,supplierID;
     private double price;
     private int stock;
@@ -268,7 +268,7 @@ public class SM_ItemEntry extends javax.swing.JFrame {
         name = txtName.getText();
         price = Double.parseDouble(txtPrice.getText());
         stock = Integer.parseInt(txtQuantity.getText());
-        supplierID = txtSupplierID.getText();
+        supplierID = txtSupplierID.getText();//check if exists
 
         try {
             String status = i1.AddItemEntry(id, name, price, stock, supplierID);

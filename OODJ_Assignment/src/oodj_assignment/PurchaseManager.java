@@ -37,11 +37,19 @@ public class PurchaseManager {
     }
     
     public boolean isValidSupplierID(String supplierID) {//check supplier id
-        // Define a regex pattern for the supplier ID format S### (S followed by 3 digits)
-        String supplierIDPattern = "^S\\d{3}$";
+        // Define a regex pattern for the supplier ID format S#### (S followed by 4 digits)
+        String supplierIDPattern = "^S\\d{4}$";
 
         // Check if the input matches the regex pattern
         return supplierID.matches(supplierIDPattern);
+    }
+    
+    public boolean isValidSMID(String SMID) {//check sales manager id
+        // Define a regex pattern for the supplier ID format SM##### (SM followed by 4 digits)
+        String SMIDPattern = "^SM\\d{4}$";
+
+        // Check if the input matches the regex pattern
+        return SMID.matches(SMIDPattern);
     }
 
     public boolean isValidDateFormat(String dateStr) {//check date format

@@ -4,11 +4,9 @@
  */
 package oodj_assignment;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
+import java.io.ObjectOutputStream;
 
 /**
   Sow Mei Yun TP069692 - Sales Manager
@@ -19,7 +17,6 @@ public class OODJ_Assignment {
 
 
     public static void main(String[] args) throws IOException {
-        
     }
     
 }
