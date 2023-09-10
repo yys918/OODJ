@@ -1,0 +1,5 @@
+S0001| Ali| 034563209| 12,Jalan Besar
+S0002| M Sdn Bhd| 033778809| 39,Jalan Besar
+
+S0003| Jack| 01232123| 123,jalan abc| S0003| Jack| 01232123| 123,jalan abc| S0003| Jack| 01232123| 123,jalan abc| S0003| Jack| 01232123| 123,jalan abc| 
+S0004| Chris| 12323| test| S0004| Chris| 12323| test| S0004| Chris| 12323| test| S0004| Chris| 12323| test| 
