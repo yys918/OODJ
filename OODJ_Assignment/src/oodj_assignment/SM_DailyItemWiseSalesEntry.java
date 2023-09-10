@@ -6,7 +6,6 @@ package oodj_assignment;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -94,16 +93,15 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
     public void LoadCmbBoxDateList(){
         dateListModel.removeAllElements();
         ArrayList<String> existingDates = d1.getExistingDates(); // Replace this with your actual data source
-        System.out.println(Arrays.toString(existingDates.toArray()));
         for (String date : existingDates) {
             dateListModel.addElement(date);
         }
     }
     
     public void ViewDailySalesEntry(String date){
-        model1.setRowCount(0);
-        dailyItemWiseSalesEntry.clear();
-        model1.setColumnIdentifiers(dcolumnsName);
+       model1.setRowCount(0);
+       dailyItemWiseSalesEntry.clear();
+       model1.setColumnIdentifiers(dcolumnsName);
        dailyItemWiseSalesEntry = d1.ViewDailyItemwiseSalesEntry();
         for (DailyItemwiseSalesEntry entry : dailyItemWiseSalesEntry) {
             itemID = entry.getItemID();
