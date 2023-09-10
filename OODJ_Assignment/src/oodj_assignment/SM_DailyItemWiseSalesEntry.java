@@ -20,13 +20,27 @@ import javax.swing.table.DefaultTableModel;
  * @author yyun
  */
 public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
-    private DefaultTableModel model1 = new DefaultTableModel();
-    private DefaultTableModel model2 = new DefaultTableModel();
+    private String userID;
+    private DefaultTableModel model1 = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            // Make all cells in jTable1 non-editable
+            return false;
+        }
+    };
     private String []dcolumnsName = {"Item ID", "Item Name", "Quantity Sold"};
-    private String []icolumnsName = {"Item ID", "Item Name", "Price" ,"In Stock quantity"};
-    private String itemID,itemName, stock, salesDate, sprice;
-    private double itemPrice,total;
     private int quantitySold;
+    
+    private DefaultTableModel model2 = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            // Make all cells in jTable1 non-editable
+            return false;
+        }
+    };;
+    private String []icolumnsName = {"Item ID", "Item Name", "Price" ,"In Stock quantity"};
+    private String itemID,itemName, stock, salesDate;
+    private double itemPrice,total;
     private int row = -1;
     private ArrayList<DailyItemwiseSalesEntry> dailyItemWiseSalesEntry = new ArrayList<>();
     private ArrayList<String> items = new ArrayList<>();
@@ -37,7 +51,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
     /**
      * Creates new form SM_DailyItemWiseSalesEntry
      */
-    public SM_DailyItemWiseSalesEntry() {
+    public SM_DailyItemWiseSalesEntry(String userID) {
         initComponents();
         initTxtQuantitySoldDocumentListener();
         setVisible(true);
@@ -51,8 +65,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
         txtItemName.setEnabled(false);
         txtStockLeft.setFocusable(false);
         txtStockLeft.setEnabled(false);
-        model1.isCellEditable(model1.getRowCount(), model1.getColumnCount());
-        model2.isCellEditable(model2.getRowCount(), model2.getColumnCount());
+        this.userID = userID;
     }
     
     public void LoadItemTable(){
@@ -287,7 +300,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
                             .addComponent(BtnClear)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(62, 62, 62)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 40, Short.MAX_VALUE))
         );
 
@@ -342,7 +355,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel6)
                                     .addComponent(txtStockLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {BtnAdd, BtnBack, BtnClear, BtnDelete, BtnSave, btnSearch});
@@ -373,8 +386,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
     
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
         setVisible(false);
-        SM_Menu form1 = new SM_Menu();
-        form1 = new SM_Menu(form1.userID);
+        SM_Menu form1 = new SM_Menu(userID);
     }//GEN-LAST:event_BtnBackActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -454,7 +466,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
         row = jTable2.getSelectedRow(); 
         itemID = String.valueOf(model2.getValueAt(row, 0));
         itemName = String.valueOf(model2.getValueAt(row, 1));
-        sprice = String.valueOf(model2.getValueAt(row, 2));
+        itemPrice = Double.parseDouble(String.valueOf(model2.getValueAt(row, 2)));
         stock = String.valueOf(model2.getValueAt(row, 3));
         txtItemID.setText(itemID);
         txtItemName.setText(itemName);
@@ -489,41 +501,6 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
     private void BtnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClearActionPerformed
         clearAll();
     }//GEN-LAST:event_BtnClearActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SM_DailyItemWiseSalesEntry().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAdd;

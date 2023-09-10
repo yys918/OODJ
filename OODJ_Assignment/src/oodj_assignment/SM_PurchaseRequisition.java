@@ -15,19 +15,19 @@ import javax.swing.table.DefaultTableModel;
  * @author yyun
  */
 public class SM_PurchaseRequisition extends javax.swing.JFrame {
-    
+    private String userID;
     //jtable1
     private DefaultTableModel model;
     private String [] columnsName = {"ID","Item ID","Name","Quantity","Total Amount (RM)","Request Delivery Date","Sales Manager ID","Supplier ID"};
     private int row = -1;
     
     private JTable lastSelectedTable = null;
-    SM_Menu f1 = new SM_Menu();
+    SM_Menu f1 = new SM_Menu(userID);
     String SMid = f1.userID;
     /**
      * Creates new form SM_PurchaseRequisition
      */
-    public SM_PurchaseRequisition() {
+    public SM_PurchaseRequisition(String userID) {
         this.model = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -44,7 +44,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
         req.ViewPurchaseRequisition("requisition.txt",model);//call method from PM class        
         jTable1.setModel(model);//display data
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Set single selection mode
-        
+        this.userID = userID;
     }
 
     /**
@@ -74,6 +74,8 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
         txtDDate = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtItemID = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtSupID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -144,6 +146,8 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
 
         jLabel5.setText("Item ID");
 
+        jLabel6.setText("Supplier ID");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -161,11 +165,13 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
                         .addGap(99, 99, 99))
                     .addComponent(BtnBack, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -188,9 +194,11 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(193, 193, 193)
                                 .addComponent(BtnSave))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(txtDDate, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtSupID)
+                                    .addComponent(txtDDate, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(BtnClear)))
                         .addGap(18, 18, 18)
@@ -217,7 +225,11 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lblDDate)
                                     .addComponent(txtDDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(34, 34, 34))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(txtSupID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(9, 9, 9))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtItemID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -252,12 +264,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
 
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
         // back to main
-<<<<<<< HEAD
-        SM_Menu form1 = null;
-        form1 = new SM_Menu(SMid);
-=======
-        SM_Menu form1 = new SM_Menu(SMid);
->>>>>>> 3fbbd75da285c181185a8955c923ff95b1cd8239
+        SM_Menu form1 = new SM_Menu(userID);
         this.dispose();
     }//GEN-LAST:event_BtnBackActionPerformed
 
@@ -268,39 +275,50 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
         String amount = txtAmount.getText();
         String Ddate = txtDDate.getText();
         String ItemID = txtItemID.getText();
-        
-         try {
-            //check empty name
+        String SupID = txtSupID.getText();
+
+        try {
+            // Check empty name
             SalesManager n = new SalesManager();
-                if (!n.isValidName(name)) {
+            if (!n.isValidName(name)) {
                 JOptionPane.showMessageDialog(null, "Name cannot be empty.");
                 return; // Exit the method if the name is empty
             }
-            //check item id
+
+            // Check item id
             SalesManager s = new SalesManager();
             if (!s.isValidItemID(ItemID)) {
                 JOptionPane.showMessageDialog(null, "Item ID must be in the format I##### (e.g., I1233).");
                 return; // Exit the method if the supplier ID format is invalid
             }
-             
-             //Check the date format
+            
+            // Check supplier id
+            SalesManager sup = new SalesManager();
+            if (!s.isValidSupplierID(SupID)) {
+                JOptionPane.showMessageDialog(null, "Supplier ID must be in the format S##### (e.g., S1233).");
+                return; // Exit the method if the supplier ID format is invalid
+            }
+
+            // Check the date format
             SalesManager date = new SalesManager();
             if (!date.isValidDateFormat(Ddate)) {
-            JOptionPane.showMessageDialog(null, "Delivery Date must be in the format dd/mm/yyyy.");
-            return; // Exit the method if the date format is invalid
+                JOptionPane.showMessageDialog(null, "Delivery Date must be in the format dd/mm/yyyy.");
+                return; // Exit the method if the date format is invalid
             }
-            Item sup = new Item();
-            sup.getId();
+
             // Attempt to parse quantity as an integer
             int parsedQuantity = Integer.parseInt(quantity);
-            double parsedamount = Double.parseDouble(amount);
+            double parsedAmount = Double.parseDouble(amount);
 
             // Valid numeric input, proceed to add
             SalesManager add = new SalesManager();
-            String generatedID = add.AddPurchaseRequisition(name, quantity, amount, Ddate, ItemID);
+
+            // Pass the userID and SupplierID to AddPurchaseRequisition
+            String generatedID = add.AddPurchaseRequisition(name, quantity, amount, Ddate, userID, SupID);
+
             if (generatedID != null) {
                 // Create an array to store the values from text fields
-                String[] values = {generatedID,ItemID, name, quantity, amount, Ddate };
+                String[] values = { generatedID, ItemID, name, quantity, amount, Ddate,userID,SupID };
 
                 // Add row to jTable1
                 model.addRow(values);
@@ -311,19 +329,16 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
                 txtAmount.setText("");
                 txtDDate.setText("");
                 txtItemID.setText("");
+                txtSupID.setText("");
 
                 // Save the changes to the text file
                 SalesManager obj1 = new SalesManager();
                 obj1.Save(jTable1, "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\requisition.txt");
-            } 
-            else {
+            } else {
                 JOptionPane.showMessageDialog(null, "Failed to generate a unique ID.");
             }
-
-
-        } 
-        catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Invalid Input.");        
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid Input.");
         }
     }//GEN-LAST:event_BtnAddActionPerformed
 
@@ -338,6 +353,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
         String quantity = String.valueOf(model.getValueAt(row, 3));
         String amount = String.valueOf(model.getValueAt(row, 4));
         String date = String.valueOf(model.getValueAt(row, 5));
+        String SupID = String.valueOf(model.getValueAt(row, 7));
         
         //set the value selected into the text field
         txtName.setText(name);
@@ -345,6 +361,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
         txtAmount.setText(amount);
         txtDDate.setText(date);
         txtItemID.setText(ItemID);
+        txtSupID.setText(SupID);
         
         SalesManager obj1 = new SalesManager();
         obj1.Save(jTable1, "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\requisition.txt");
@@ -387,6 +404,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
                     String totalAmount = txtAmount.getText();
                     String DDate = txtDDate.getText();
                     String ItemID = txtItemID.getText();
+                    String SupID = txtSupID.getText();
                     //check empty name
                     SalesManager n = new SalesManager();
                     if (!n.isValidName(name)) {
@@ -417,6 +435,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
                     model.setValueAt(quantity, row, 3);
                     model.setValueAt(totalAmount, row, 4);
                     model.setValueAt(DDate, row, 5);
+                    model.setValueAt(SupID,row, 7);
                     
 
                     // Save the changes to the text file
@@ -429,6 +448,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
                     txtAmount.setText("");
                     txtDDate.setText("");
                     txtItemID.setText("");
+                    txtSupID.setText("");
                 } else {
                     JOptionPane.showMessageDialog(null, "Select an row");
                 }
@@ -472,40 +492,6 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
         txtItemID.setText("");
     }//GEN-LAST:event_BtnDeleteActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SM_PurchaseRequisition.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SM_PurchaseRequisition.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SM_PurchaseRequisition.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SM_PurchaseRequisition.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SM_PurchaseRequisition().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAdd;
@@ -518,6 +504,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblDDate;
@@ -526,5 +513,6 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
     private javax.swing.JTextField txtItemID;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtQuantity;
+    private javax.swing.JTextField txtSupID;
     // End of variables declaration//GEN-END:variables
 }

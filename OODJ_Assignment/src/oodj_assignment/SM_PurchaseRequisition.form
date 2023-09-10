@@ -38,13 +38,15 @@
                   </Group>
                   <Component id="BtnBack" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="txtQuantity" min="-2" pref="115" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -76,9 +78,12 @@
                               <EmptySpace min="-2" pref="193" max="-2" attributes="0"/>
                               <Component id="BtnSave" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="txtDDate" min="-2" pref="125" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txtSupID" max="32767" attributes="0"/>
+                                  <Component id="txtDDate" pref="125" max="32767" attributes="0"/>
+                              </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="BtnClear" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -114,7 +119,12 @@
                                   <Component id="lblDDate" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtDDate" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtSupID" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -299,6 +309,13 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtItemID">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel6">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Supplier ID"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtSupID">
     </Component>
   </SubComponents>
 </Form>

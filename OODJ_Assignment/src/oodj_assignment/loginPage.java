@@ -121,7 +121,7 @@ public class loginPage extends javax.swing.JFrame {
         y = txtPassword.getText();
         y = y.trim();
         
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\user.txt"))) {
             String line;
             String userID = "";
             boolean logIn = false;

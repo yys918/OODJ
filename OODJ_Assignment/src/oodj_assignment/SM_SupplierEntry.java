@@ -16,9 +16,14 @@ import javax.swing.table.DefaultTableModel;
  * @author yyun
  */
 public class SM_SupplierEntry extends javax.swing.JFrame {
-    
-    private DefaultTableModel model = new DefaultTableModel();
-    private int size ,row = -1;
+    private String userID;
+    private DefaultTableModel model = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Make all cells in jTable1 non-editable
+                return false;
+            }
+        };private int size ,row = -1;
     private String id,name,contactNumber,address;
     private String itemID, itemName;
     private String iColumnName[] = {"Item ID","Item Name","Item Stock"};
@@ -27,18 +32,20 @@ public class SM_SupplierEntry extends javax.swing.JFrame {
     private ArrayList<String> items = new ArrayList<String>();
     Supplier s1 = new Supplier();
     Item i1 = new Item();
+    
 
     /**
      * Creates new form SM_SupplierEntry
      */
-    public SM_SupplierEntry() {
+    public SM_SupplierEntry(String userID) {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
         model.setColumnIdentifiers(sColumnName);        
         this.ViewSupplierTable();
-        model.isCellEditable(model.getRowCount(), model.getColumnCount());
-        
+        this.userID = userID;
+        txtID.setEditable(false);
+        txtID.setFocusable(false);
     }
     
     public void ViewSupplierTable() {
@@ -210,8 +217,8 @@ public class SM_SupplierEntry extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -231,11 +238,11 @@ public class SM_SupplierEntry extends javax.swing.JFrame {
                     .addComponent(BtnBack)
                     .addComponent(BtnClear)
                     .addComponent(BtnSearch))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(179, 179, 179))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(157, 157, 157))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BtnAdd, BtnBack, BtnClear, BtnDelete, BtnSave, BtnSearch});
@@ -268,7 +275,7 @@ public class SM_SupplierEntry extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BtnBack)
@@ -294,9 +301,7 @@ public class SM_SupplierEntry extends javax.swing.JFrame {
 
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
         setVisible(false);
-        SM_Menu form1 = new SM_Menu();
-        form1 = new SM_Menu(form1.userID);
-        form1.show();
+        SM_Menu form1 = new SM_Menu(userID);
     }//GEN-LAST:event_BtnBackActionPerformed
 
     private void BtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddActionPerformed
@@ -484,41 +489,6 @@ public class SM_SupplierEntry extends javax.swing.JFrame {
         model.setRowCount(0);
         this.ViewSupplierTable();
     }//GEN-LAST:event_BtnClearActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SM_SupplierEntry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SM_SupplierEntry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SM_SupplierEntry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SM_SupplierEntry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SM_SupplierEntry().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAdd;

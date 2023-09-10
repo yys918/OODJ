@@ -16,27 +16,33 @@ import javax.swing.table.DefaultTableModel;
  * @author yyun
  */
 public class SM_ItemEntry extends javax.swing.JFrame {
-    
-    private DefaultTableModel model1 = new DefaultTableModel();
+    private String userID;
+    private DefaultTableModel model1 = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Make all cells in jTable1 non-editable
+                return false;
+            }
+        };
+    private String ColumnName[] = {"ID","Name","Price","Stock","Supplier ID"};
     private int row = -1;
+    
     private String id,name,supplierID;
     private double price;
     private int stock;
-    private String ColumnName[] = {"ID","Name","Price","Stock","Supplier ID"};
     private ArrayList<String> items = new ArrayList<String>();
     Item i1 = new Item();
 
     /**
      * Creates new form SM_ItemEntry
      */
-    public SM_ItemEntry() {
+    public SM_ItemEntry(String userID) {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
         model1.setColumnIdentifiers(ColumnName);
         this.ViewTable();
-        model1.isCellEditable(model1.getRowCount(), model1.getColumnCount());
-        
+        this.userID = userID;
     }
 
     public void ViewTable(){
@@ -289,12 +295,15 @@ public class SM_ItemEntry extends javax.swing.JFrame {
     private void BtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnExitActionPerformed
         setVisible(false);
 <<<<<<< HEAD
-        SM_Menu form1 = new SM_Menu(SMid);
-        form1.show();
-=======
-        SM_Menu form1 = new SM_Menu();
+
+        SM_Menu form1 = new SM_Menu(userID);
+       
         form1 = new SM_Menu(form1.userID);
->>>>>>> 3fbbd75da285c181185a8955c923ff95b1cd8239
+
+
+=======
+        SM_Menu form1 = new SM_Menu(userID);
+>>>>>>> 01c98b9e69669443f02f2869122aa8c98ee30405
     }//GEN-LAST:event_BtnExitActionPerformed
 
     private void BtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDeleteActionPerformed
@@ -390,42 +399,6 @@ public class SM_ItemEntry extends javax.swing.JFrame {
         jTable1.clearSelection();
         this.ViewTable();
     }//GEN-LAST:event_BtnClearActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SM_ItemEntry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SM_ItemEntry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SM_ItemEntry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SM_ItemEntry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-            new SM_ItemEntry().setVisible(true);
-            }
-        });
-    }
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAdd;
