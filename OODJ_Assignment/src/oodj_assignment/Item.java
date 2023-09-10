@@ -90,7 +90,7 @@ public class Item {
     public boolean CheckDuplicate(String id) throws IOException{
         items = this.ViewItemEntry();
         for (String stuff : items) {
-            if (items.equals(id)) {
+            if (stuff.equals(id)) {
                 return true; // Duplicate found
             }
         }
