@@ -9,14 +9,11 @@ package oodj_assignment;
  * @author yyun
  */
 public class SM_Menu extends javax.swing.JFrame {
-    String userID;
+    private String userID;
     /**
      * Creates new form SM_Menu
      */
-    public SM_Menu() {
-        //used to get the userID
-    }
-    
+
     public SM_Menu(String userID) {
         initComponents();
         setVisible(true);
@@ -143,28 +140,27 @@ public class SM_Menu extends javax.swing.JFrame {
 
     private void btnItemEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnItemEntryActionPerformed
         setVisible(false);
-        SM_ItemEntry form1 = new SM_ItemEntry();
+        SM_ItemEntry form1 = new SM_ItemEntry(userID);
     }//GEN-LAST:event_btnItemEntryActionPerformed
 
     private void btnSupplierEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupplierEntryActionPerformed
         setVisible(false);
-        SM_SupplierEntry form1 = new SM_SupplierEntry();
+        SM_SupplierEntry form1 = new SM_SupplierEntry( userID);
     }//GEN-LAST:event_btnSupplierEntryActionPerformed
 
     private void btnDailyItemwiseSalesEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDailyItemwiseSalesEntryActionPerformed
         setVisible(false);
-        SM_DailyItemWiseSalesEntry form1 = new SM_DailyItemWiseSalesEntry();
+        SM_DailyItemWiseSalesEntry form1 = new SM_DailyItemWiseSalesEntry(userID);
     }//GEN-LAST:event_btnDailyItemwiseSalesEntryActionPerformed
 
     private void btnPurchaseRequisitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPurchaseRequisitionActionPerformed
         setVisible(false);
-        SM_PurchaseRequisition form1 = new SM_PurchaseRequisition();
+        SM_PurchaseRequisition form1 = new SM_PurchaseRequisition(userID);
     }//GEN-LAST:event_btnPurchaseRequisitionActionPerformed
 
     private void btnListOfPurchaserOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListOfPurchaserOrdersActionPerformed
         setVisible(false);
-        PM_Order form1 = new PM_Order();
-        form1.setVisible(true);
+        SM_Order form1 = new SM_Order(userID);
     }//GEN-LAST:event_btnListOfPurchaserOrdersActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed

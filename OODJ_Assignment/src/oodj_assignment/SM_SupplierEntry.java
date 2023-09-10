@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  * @author yyun
  */
 public class SM_SupplierEntry extends javax.swing.JFrame {
-    
+    private String userID;
     private DefaultTableModel model = new DefaultTableModel();
     private int size ,row = -1;
     private String id,name,contactNumber,address;
@@ -31,14 +31,14 @@ public class SM_SupplierEntry extends javax.swing.JFrame {
     /**
      * Creates new form SM_SupplierEntry
      */
-    public SM_SupplierEntry() {
+    public SM_SupplierEntry(String userID) {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
         model.setColumnIdentifiers(sColumnName);        
         this.ViewSupplierTable();
         model.isCellEditable(model.getRowCount(), model.getColumnCount());
-        
+        this.userID = userID;
     }
     
     public void ViewSupplierTable() {
@@ -294,9 +294,7 @@ public class SM_SupplierEntry extends javax.swing.JFrame {
 
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
         setVisible(false);
-        SM_Menu form1 = new SM_Menu();
-        form1 = new SM_Menu(form1.userID);
-        form1.show();
+        SM_Menu form1 = new SM_Menu(userID);
     }//GEN-LAST:event_BtnBackActionPerformed
 
     private void BtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddActionPerformed
@@ -484,41 +482,6 @@ public class SM_SupplierEntry extends javax.swing.JFrame {
         model.setRowCount(0);
         this.ViewSupplierTable();
     }//GEN-LAST:event_BtnClearActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SM_SupplierEntry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SM_SupplierEntry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SM_SupplierEntry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SM_SupplierEntry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SM_SupplierEntry().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAdd;

@@ -15,19 +15,17 @@ import javax.swing.table.DefaultTableModel;
  * @author yyun
  */
 public class SM_PurchaseRequisition extends javax.swing.JFrame {
-    
+    private String userID;
     //jtable1
     private DefaultTableModel model;
     private String [] columnsName = {"ID","Item ID","Name","Quantity","Total Amount (RM)","Request Delivery Date","Sales Manager ID","Supplier ID"};
     private int row = -1;
     
     private JTable lastSelectedTable = null;
-    SM_Menu f1 = new SM_Menu();
-    String SMid = f1.userID;
     /**
      * Creates new form SM_PurchaseRequisition
      */
-    public SM_PurchaseRequisition() {
+    public SM_PurchaseRequisition(String userID) {
         this.model = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -44,7 +42,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
         req.ViewPurchaseRequisition("requisition.txt",model);//call method from PM class        
         jTable1.setModel(model);//display data
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Set single selection mode
-        
+        this.userID = userID;
     }
 
     /**
@@ -252,7 +250,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
 
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
         // back to main
-        SM_Menu form1 = new SM_Menu(SMid);
+        SM_Menu form1 = new SM_Menu(userID);
         this.dispose();
     }//GEN-LAST:event_BtnBackActionPerformed
 
@@ -467,40 +465,6 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
         txtItemID.setText("");
     }//GEN-LAST:event_BtnDeleteActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SM_PurchaseRequisition.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SM_PurchaseRequisition.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SM_PurchaseRequisition.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SM_PurchaseRequisition.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SM_PurchaseRequisition().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAdd;
