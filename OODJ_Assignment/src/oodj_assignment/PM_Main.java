@@ -124,7 +124,7 @@ public class PM_Main extends javax.swing.JFrame {
     private void btnSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupplierActionPerformed
         // Proceed to suppliers list page
         PM_Suppliers s = new PM_Suppliers();
-        s./setVisible(true);;
+        s.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnSupplierActionPerformed
 

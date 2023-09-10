@@ -161,6 +161,7 @@ public class SM_Menu extends javax.swing.JFrame {
     private void btnListOfPurchaserOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListOfPurchaserOrdersActionPerformed
         setVisible(false);
         SM_Order form1 = new SM_Order(userID);
+        form1.show();
     }//GEN-LAST:event_btnListOfPurchaserOrdersActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
