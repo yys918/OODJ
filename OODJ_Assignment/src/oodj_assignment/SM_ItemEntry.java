@@ -288,13 +288,10 @@ public class SM_ItemEntry extends javax.swing.JFrame {
 
     private void BtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnExitActionPerformed
         setVisible(false);
-<<<<<<< HEAD
-        SM_Menu form1 = new SM_Menu(SMid);
-        form1.show();
-=======
+
         SM_Menu form1 = new SM_Menu();
         form1 = new SM_Menu(form1.userID);
->>>>>>> 3fbbd75da285c181185a8955c923ff95b1cd8239
+
     }//GEN-LAST:event_BtnExitActionPerformed
 
     private void BtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDeleteActionPerformed
