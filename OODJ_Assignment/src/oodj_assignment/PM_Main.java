@@ -64,6 +64,11 @@ public class PM_Main extends javax.swing.JFrame {
 
         btnLogOut.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnLogOut.setText("Log Out");
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -122,6 +127,12 @@ public class PM_Main extends javax.swing.JFrame {
         s.show();
         dispose();
     }//GEN-LAST:event_btnSupplierActionPerformed
+
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+        loginPage out = new loginPage();
+        out.show();
+        this.dispose();
+    }//GEN-LAST:event_btnLogOutActionPerformed
 
     /**
      * @param args the command line arguments

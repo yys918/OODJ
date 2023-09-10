@@ -18,18 +18,18 @@ public class createUserClass {
     private String email;
     private String age;
     private String gender;
-    private String filePath = "D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt";
+    private String filePath = "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt";
     
     
     public static String lastID(){
          try {
-            File file = new File("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt");
+            File file = new File("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt");
             String id;
             try (Scanner scanner = new Scanner(file)) {
                 id = "";
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
-                    String[] details = line.split(",");
+                    String[] details = line.split("/");
                     id = details[0]; // Update lastItemId with the latest item ID
                 }
             }
@@ -91,9 +91,9 @@ public class createUserClass {
 
             // Additional nested conditions or actions can be placed here
             try {
-                FileWriter fw = new FileWriter("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt", true);
+                FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt", true);
                 BufferedWriter bw = new BufferedWriter(fw);
-                bw.write(ID + "," + name + "," + age + "," + gender + "," + address + "," + email + "," + "admin" + "," + password + "\n");
+                bw.write(ID + "/" + name + "/" + age + "/" + gender + "/" + address + "/" + email + "/" + "admin" + "/" + password + "\n");
 
                 bw.close();
                 fw.close();
@@ -143,9 +143,9 @@ public class createUserClass {
 
             // Additional nested conditions or actions can be placed here
             try {
-                FileWriter fw = new FileWriter("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt", true);
+                FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt", true);
                 BufferedWriter bw = new BufferedWriter(fw);
-                bw.write(ID + "," + name + "," + age + "," + gender + "," + address + "," + email + "," + "pm" + "," + password + "\n");
+                bw.write(ID + "/" + name + "/" + age + "/" + gender + "/" + address + "/" + email + "/" + "pm" + "/" + password + "\n");
 
                 bw.close();
                 fw.close();
@@ -194,9 +194,9 @@ public class createUserClass {
 
             // Additional nested conditions or actions can be placed here
             try {
-                FileWriter fw = new FileWriter("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt", true);
+                FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt", true);
                 BufferedWriter bw = new BufferedWriter(fw);
-                bw.write(ID + "," + name + "," + age + "," + gender + "," + address + "," + email + "," + "sm" + "," + password + "\n");
+                bw.write(ID + "/" + name + "/" + age + "/" + gender + "/" + address + "/" + email + "/" + "sm" + "/" + password + "\n");
 
                 bw.close();
                 fw.close();
@@ -224,7 +224,7 @@ public class createUserClass {
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath))){
             String line;
             while ((line = reader.readLine()) != null){
-                String[] parts = line.split(",");
+                String[] parts = line.split("/");
                 if(parts[1].equals(usernameToCheck)){
                     return true;
                 }

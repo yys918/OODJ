@@ -35,6 +35,7 @@ public class SM_ItemEntry extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         model1.setColumnIdentifiers(ColumnName);
         this.ViewTable();
+        
     }
 
     public void ViewTable(){
@@ -242,19 +243,12 @@ public class SM_ItemEntry extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddActionPerformed
-        // Generate a new item ID
-        String newItemId = i1.generateNewId();
-        txtItemID.setText(newItemId);
-        // Check if the generated ID is not a duplicate
         try {
-            if (i1.CheckDuplicate(newItemId)) {//return boolean so true/false directly
-                JOptionPane.showMessageDialog(null, "ItemID is already in use. Please try again.", "Duplicate ItemID", JOptionPane.ERROR_MESSAGE);
-                return; // Exit the method without adding the item
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(SM_ItemEntry.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "An error occurred while checking for duplicates. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-            return; // Exit the method without adding the item
+            items = i1.ViewItemEntry(); // Load data from the data source
+        } 
+        catch (IOException e) {
+            // Handle the exception if loading data fails
+            e.printStackTrace();
         }
 
         // Check if the required fields are empty
@@ -264,11 +258,11 @@ public class SM_ItemEntry extends javax.swing.JFrame {
         }
 
         // If everything is valid, proceed to add the item
-        id = newItemId; // Use the generated ID
+        id = i1.generateNewId(); // Generate a new item ID based on existing data
         name = txtName.getText();
         price = Double.parseDouble(txtPrice.getText());
         stock = Integer.parseInt(txtQuantity.getText());
-        supplierID = txtSupplierID.getText();//check if exists
+        supplierID = txtSupplierID.getText(); // check if exists
 
         try {
             String status = i1.AddItemEntry(id, name, price, stock, supplierID);
@@ -284,7 +278,8 @@ public class SM_ItemEntry extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Item unsuccessfully added.\nPlease try again.", "Item added status", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (IOException ex) {
+        } 
+        catch (IOException ex) {
             Logger.getLogger(SM_ItemEntry.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "An error occurred while adding the item. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
         }

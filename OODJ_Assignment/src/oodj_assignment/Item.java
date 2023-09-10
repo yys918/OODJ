@@ -36,7 +36,7 @@ public class Item {
         boolean itemFound = false;
         items = this.ViewItemEntry();
         for (String itemArray : items) {
-            String[] tokens = itemArray.substring(1, itemArray.length() - 1).split(", ");
+            String[] tokens = itemArray.substring(1, itemArray.length() - 1).split(" ");
             if (tokens.length == 5) {
                 id = tokens[0].trim();
                 stock = Integer.parseInt(tokens[3].trim());
@@ -55,7 +55,7 @@ public class Item {
     
     public String WriteToFile(ArrayList<String> values){
         try{
-            FileWriter fw = new FileWriter("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\item.txt");
+            FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\item.txt");
             BufferedWriter bw = new BufferedWriter(fw);
             for (int i =0; i < values.size(); i++){
                 bw.write(values.get(i).toString()+ "\n");
@@ -71,7 +71,7 @@ public class Item {
     }
     
     public ArrayList ViewItemEntry() throws FileNotFoundException, IOException{
-        FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\item.txt");
+        FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\item.txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
         while ((line = br.readLine()) != null) {
@@ -101,33 +101,37 @@ public class Item {
     public String generateNewId() {
         // Find the maximum ID from the existing items and increment it
         int maxId = 0;
-        for (String itemStr : items) {
-            String replace = itemStr.replace("[", "").replace("]", "");
-            String[] tokens = replace.split(", ");
-            System.out.println(tokens[0]);
+        for (String ItemsEntry : items) {
+            String cleanEntry = ItemsEntry.replace("[", "").replace("]", "");
+            String[] tokens = cleanEntry.split(", ");
             if (tokens.length >= 1) {
                 String itemId = tokens[0].trim();
                 try {
-                    int currentId = Integer.parseInt(itemId.substring(1));// Extract the numeric part of the ID
-                    System.out.println(currentId);
+                    int currentId = Integer.parseInt(itemId.substring(1));
+                    System.out.println("Current ID: " + currentId);
                     if (currentId > maxId) {
                         maxId = currentId;
-                        System.out.println(maxId);
+                        System.out.println("New Max ID: " + maxId);
                     }
                 } catch (NumberFormatException e) {
                     // Handle parsing errors if the ID format is invalid
                     // You may want to log an error or take appropriate action
+                    System.err.println("Error parsing ID: " + itemId);
                 }
             }
         }
         // Increment the maximum ID and format it with "I" prefix
-        return "I" + String.format("%04d", maxId + 1);
+        String newId = "I" + String.format("%04d", maxId + 1);
+        System.out.println("Generated ID: " + newId);
+        return newId;
     }
+
+
 
     
     public String AddItemEntry(String id, String name, double price, int stock, String supplierID) throws IOException{
         try{
-            FileWriter fw = new FileWriter("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\item.txt",true);
+            FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\item.txt",true);
             BufferedWriter bw = new BufferedWriter(fw);
             String values[] = {id,name,String.valueOf(price),String.valueOf(stock),supplierID};
             bw.newLine();
@@ -147,7 +151,7 @@ public class Item {
   
     public String EditItemEntry(String id, String name, double price, int stock, String supplierID) throws IOException{
         try{
-            FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\item.txt");
+            FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\item.txt");
             BufferedReader br = new BufferedReader(fr);
             // Read the file into memory and find the lines to edit
             ArrayList<String> lines = new ArrayList<>();
@@ -179,7 +183,7 @@ public class Item {
     
     public String DeleteItemEntry(String id) throws IOException{
         try{
-            FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\item.txt");
+            FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\item.txt");
             BufferedReader br = new BufferedReader(fr);
             String line = "";
             ArrayList<String> lines = new ArrayList<>();

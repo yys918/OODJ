@@ -112,40 +112,44 @@ public class PurchaseManager {
         }
     }
 
-    public String AddOrder(String itemID,String name, String quantity, String amount, String orderdate, String SMID, String SupplierID) {
-    try {
-        // Read all lines from the file into an ArrayList
-        ArrayList<String> lines = new ArrayList<>();
-        BufferedReader br = new BufferedReader(new FileReader(filePath));
-        String line;
-        while ((line = br.readLine()) != null) {
-            lines.add(line);
-        }
-        br.close();
+    public String AddOrder(String itemID, String name, String quantity, String amount, String orderdate, String SMID, String SupplierID) {
+        try {
+            // Read all lines from the file into an ArrayList
+            ArrayList<String> lines = new ArrayList<>();
+            BufferedReader br = new BufferedReader(new FileReader(filePath));
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+            br.close();
 
-        // Extract the last line from the ArrayList (latest data)
-        String latestLine = lines.get(lines.size() - 1);
-        
-        // Use a regular expression to extract the numeric part from the Oid
-        Pattern orderPattern = Pattern.compile("^O(\\d+),");
-        Matcher orderMatcher = orderPattern.matcher(latestLine);
+            // Initialize a default value for the newOrderNumericPart
+            String newOrderNumericPart = "0001"; // Default if the file is empty
 
-        if (orderMatcher.find()) {
-            // Extract the numeric parts of the last SMID and SupplierID
-            String orderNumericPart = orderMatcher.group(1);
-            
+            // If there are lines in the file, extract the last line and update newOrderNumericPart
+            if (!lines.isEmpty()) {
+                // Extract the last line from the ArrayList (latest data)
+                String latestLine = lines.get(lines.size() - 1);
 
-            // Convert the numeric parts to integers, increment them, and format them with leading zeros            
-            int newOrderNumericValue = Integer.parseInt(orderNumericPart) + 1;
-            String newOrderNumericPart = String.format("%04d", newOrderNumericValue); // 4 digits for order id
-            
+                // Use a regular expression to extract the numeric part from the Oid
+                Pattern orderPattern = Pattern.compile("^O(\\d+),");
+                Matcher orderMatcher = orderPattern.matcher(latestLine);
+
+                if (orderMatcher.find()) {
+                    // Extract the numeric parts of the last SMID and SupplierID
+                    String orderNumericPart = orderMatcher.group(1);
+
+                    // Convert the numeric parts to integers, increment them, and format them with leading zeros
+                    int newOrderNumericValue = Integer.parseInt(orderNumericPart) + 1;
+                    newOrderNumericPart = String.format("%04d", newOrderNumericValue); // 4 digits for order id
+                }
+            }
 
             // Combine the string prefixes and the new numeric parts to create the new SMID and SupplierID
             String newOID = "O" + newOrderNumericPart;
-            
 
             // Create the new order data line
-            String newOrderData =  newOID+","+itemID+","+name + "," + quantity + "," + amount + "," + orderdate + ","+SMID+","+ SupplierID;
+            String newOrderData = newOID + "," + itemID + "," + name + "," + quantity + "," + amount + "," + orderdate + "," + SMID + "," + SupplierID;
 
             // Append the new data to the ArrayList
             lines.add(newOrderData);
@@ -156,18 +160,16 @@ public class PurchaseManager {
                 bw.write(updatedLine);
                 bw.newLine();
             }
-            
+
             bw.close();
             return newOID;
-            
 
-            
+        } catch (IOException e) {
+            System.out.println(e);
         }
-    } catch (IOException e) {
-        System.out.println(e);
+        return null;
     }
-    return null;
-}   
+
              
     
     public boolean DeleteOrder(DefaultTableModel tableModel, String orderId, String filePath) {

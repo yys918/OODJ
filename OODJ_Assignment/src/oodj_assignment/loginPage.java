@@ -40,6 +40,7 @@ public class loginPage extends javax.swing.JFrame {
         txtUsername = new javax.swing.JTextField();
         txtPassword = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +69,13 @@ public class loginPage extends javax.swing.JFrame {
             }
         });
 
+        btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,18 +84,23 @@ public class loginPage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(71, 71, 71)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblPassword)
-                            .addComponent(lblUsername))
-                        .addGap(101, 101, 101)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblPassword)
+                                    .addComponent(lblUsername))
+                                .addGap(101, 101, 101)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(btnLogin)
+                                .addGap(66, 66, 66)
+                                .addComponent(btnExit))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(139, 139, 139)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnLogin)
-                            .addComponent(lblTitle))))
+                        .addComponent(lblTitle)))
                 .addGap(80, 104, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -103,9 +116,11 @@ public class loginPage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPassword)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addComponent(btnLogin)
-                .addGap(30, 30, 30))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogin)
+                    .addComponent(btnExit))
+                .addGap(34, 34, 34))
         );
 
         pack();
@@ -127,14 +142,14 @@ public class loginPage extends javax.swing.JFrame {
         y = txtPassword.getText();
         y = y.trim();
         
-        try (BufferedReader reader = new BufferedReader(new FileReader("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt"))) {
             String line;
             boolean logIn = false;
             adminMainPage adminMain = new adminMainPage();
             
             loginPage loginPage = new loginPage();
             while ((line = reader.readLine()) != null) {
-                String[] login = line.split(",");
+                String[] login = line.split("/");
                 if (x.equals(login[1]) && y.equals(login[7])) { 
                     logIn = true;
                     user = login[6];
@@ -152,12 +167,14 @@ public class loginPage extends javax.swing.JFrame {
                 else if(user.equals("pm")){
                     JOptionPane.showMessageDialog(null, "Login successful, Purchase Manager");
                     PM_Main form1 = new PM_Main();
+                    form1.show();
                     this.dispose();
                     
                 }
                 else if(user.equals("sm")){
                     JOptionPane.showMessageDialog(null, "Login successful, Sales Manager");
                     SM_Menu form1 = new SM_Menu();
+                    form1.show();
                     this.dispose();
                 }
                 else{
@@ -176,6 +193,10 @@ public class loginPage extends javax.swing.JFrame {
         //JOptionPane.showMessageDialog(null, "Username or password not match\nPlease try again","Warning", JOptionPane.WARNING_MESSAGE);
        
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnExitActionPerformed
 
 
     public static void main(String args[]) {
@@ -211,6 +232,7 @@ public class loginPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblTitle;

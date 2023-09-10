@@ -32,7 +32,7 @@ public class PM_Order extends javax.swing.JFrame {
     
     //Item list
     private DefaultTableModel model3;
-    private String [] columnsName3 = {"Item ID","Name","Quantity","Price (RM)","Supplier ID"};
+    private String [] columnsName3 = {"Item ID","Name","Price (RM)","Quantity","Supplier ID"};
     private int row3 = -1;
     
     // Keep track of the last selected table and row
@@ -479,7 +479,9 @@ public class PM_Order extends javax.swing.JFrame {
         lastSelectedRow = jTable1.getSelectedRow();
         txtName.setEditable(false);
         txtSupID.setEditable(false);
-        txtItemID.setEditable(false);  
+        txtItemID.setEditable(false); 
+        txtSMID.setEditable(false); 
+        
         
         
         
@@ -489,7 +491,8 @@ public class PM_Order extends javax.swing.JFrame {
         String quantity = String.valueOf(model.getValueAt(lastSelectedRow, 3));
         String amount = String.valueOf(model.getValueAt(lastSelectedRow, 4));
         String date = String.valueOf(model.getValueAt(lastSelectedRow, 5));
-        String supID = String.valueOf(model.getValueAt(lastSelectedRow, 6));
+        String SMID = String.valueOf(model.getValueAt(lastSelectedRow, 6));
+        String supID = String.valueOf(model.getValueAt(lastSelectedRow, 7));
         
         
         //set the value selected into the text field
@@ -498,7 +501,8 @@ public class PM_Order extends javax.swing.JFrame {
         txtTotalAmount.setText(amount);
         txtOrderDate.setText(date);
         txtSupID.setText(supID);
-        txtItemID.setText(itemID);       
+        txtItemID.setText(itemID);
+        txtSMID.setText(SMID);
      
         
     }//GEN-LAST:event_jTable1MouseReleased
@@ -554,7 +558,22 @@ public class PM_Order extends javax.swing.JFrame {
                 String orderDate = txtOrderDate.getText();
                 String supplierID = txtSupID.getText();
                 String itemID = txtItemID.getText();
-                //check empty name
+                String SMID = txtSMID.getText();
+                
+                //Check Valid SMID
+                PMCheck sm = new PMCheck();
+                if (!sm.isValidSMID(SMID)) {
+                    JOptionPane.showMessageDialog(null, "Sales Manager ID must be in the format SM#### (e.g., SM1123).");
+                    return; // Exit the method if the supplier ID format is invalid
+                }
+                
+                //check item id
+                PMCheck i = new PMCheck();
+                if (!i.isValidItemID(itemID)) {
+                    JOptionPane.showMessageDialog(null, "Item ID must be in the format I#### (e.g., I1123).");
+                    return; // Exit the method if the supplier ID format is invalid
+                }
+                //check empty name           
                 PMCheck n = new PMCheck();
                     if (!n.isValidName(name)) {
                     JOptionPane.showMessageDialog(null, "Name cannot be empty.");
@@ -579,11 +598,13 @@ public class PM_Order extends javax.swing.JFrame {
                 double parsedamount = Double.parseDouble(totalAmount);
 
                 // Update value in the selected row
-                model.setValueAt(name, lastSelectedRow, 1);
-                model.setValueAt(quantity, lastSelectedRow, 2);
-                model.setValueAt(totalAmount, lastSelectedRow, 3);
-                model.setValueAt(orderDate, lastSelectedRow, 4);
-                model.setValueAt(supplierID, lastSelectedRow, 5);
+                model.setValueAt(itemID, lastSelectedRow, 1);
+                model.setValueAt(name, lastSelectedRow, 2);
+                model.setValueAt(quantity, lastSelectedRow, 3);
+                model.setValueAt(totalAmount, lastSelectedRow, 4);
+                model.setValueAt(orderDate, lastSelectedRow, 5);
+                model.setValueAt(SMID, lastSelectedRow, 6);
+                model.setValueAt(supplierID, lastSelectedRow, 7);
                 
                 // Save the changes to the text file
                 PurchaseManager obj1 = new PurchaseManager();
@@ -595,6 +616,9 @@ public class PM_Order extends javax.swing.JFrame {
                 txtTotalAmount.setText("");
                 txtOrderDate.setText("");
                 txtSupID.setText("");
+                txtItemID.setText("");
+                txtSMID.setText("");
+                
             } else {
                 JOptionPane.showMessageDialog(null, "You can only edit rows in Order List.");
             }
@@ -705,8 +729,8 @@ public class PM_Order extends javax.swing.JFrame {
         //get values from the column
         String itemID = String.valueOf(model3.getValueAt(lastSelectedRow, 0));
         String name = String.valueOf(model3.getValueAt(lastSelectedRow, 1));
-        String quantity = String.valueOf(model3.getValueAt(lastSelectedRow, 2));
-        String amount = String.valueOf(model3.getValueAt(lastSelectedRow, 3));        
+        String quantity = String.valueOf(model3.getValueAt(lastSelectedRow, 3));
+        String amount = String.valueOf(model3.getValueAt(lastSelectedRow, 2));        
         String supID = String.valueOf(model3.getValueAt(lastSelectedRow, 4));
         
         

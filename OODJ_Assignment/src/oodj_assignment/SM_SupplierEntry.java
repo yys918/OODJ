@@ -36,61 +36,83 @@ public class SM_SupplierEntry extends javax.swing.JFrame {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
-        model.setColumnIdentifiers(sColumnName);
+        model.setColumnIdentifiers(sColumnName);        
         this.ViewSupplierTable();
+        
     }
     
-    public void ViewSupplierTable(){
+    public void ViewSupplierTable() {
+        // Set column headers
         model.setColumnIdentifiers(sColumnName);
+
+        // Clear any existing data in the supplier list
         supplier.clear();
+
         try {
+            // Retrieve supplier data from some source (e.g., ViewSupplierEntry)
             supplier = s1.ViewSupplierEntry();
+
+            // Iterate through each supplier entry
             for (String supplierArray : supplier) {
-            String[] tokens = supplierArray.substring(1, supplierArray.length() - 1).split(", ");
-            if (tokens.length == 4) {
-                id = tokens[0].trim();
-                name = tokens[1].trim();
-                contactNumber = tokens[2].trim();
-                address = tokens[3].trim();
-                Object[] data = {id, name, contactNumber, address};
-                model.addRow(data);
+                // Split the data using the delimiter ", "
+                String[] tokens = supplierArray.substring(1, supplierArray.length() - 1).split(", ");
+
+                // Check if the data has four tokens (assumed to be valid)
+                if (tokens.length == 4) {
+                    // Extract individual fields
+                    id = tokens[0].trim();
+                    name = tokens[1].trim();
+                    contactNumber = tokens[2].trim();
+                    address = tokens[3].trim();
+
+                    // Create an object array to represent a row of data
+                    Object[] data = {id, name, contactNumber, address};
+
+                    // Add the row to the table model
+                    model.addRow(data);
                 }
             }
         } catch (IOException ex) {
+            // Handle any exceptions (e.g., logging or showing an error message)
             Logger.getLogger(SM_ItemEntry.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        // Enable and focus the table
         jTable1.setEnabled(true);
         jTable1.setFocusable(true);
     }
 
-    public void ViewItemTable(String supplierID){
+
+    public void ViewItemTable(String supplierID) {
         model.setColumnIdentifiers(iColumnName);
         items.clear();
+
         try {
             items = i1.ViewItemEntry();
-            try {
-                for (String itemArray : items) {
-                String[] tokens = itemArray.substring(1, itemArray.length() - 1).split(", ");
-                if (tokens.length == 5) {
+            for (String itemArray : items) {
+                String[] tokens = itemArray.substring(1, itemArray.length() - 1).split(",");
+                if (tokens.length >= 5) {
                     itemID = tokens[0].trim();
                     itemName = tokens[1].trim();
                     String stock = tokens[3].trim();
                     id = tokens[4].trim();
                     Object[] data = {itemID, itemName, stock};
-                    if(id.equals(supplierID)){
+
+                    // Check if the item's supplier ID matches the specified supplier ID
+                    if (id.equals(supplierID)) {
                         model.addRow(data);
                     }
-                }    
                 }
-            }catch(java.lang.ArrayIndexOutOfBoundsException e){
-                e.printStackTrace();
-            } 
+            }
         } catch (IOException ex) {
             Logger.getLogger(SM_ItemEntry.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        
         jTable1.setEnabled(false);
         jTable1.setFocusable(false);
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -276,36 +298,47 @@ public class SM_SupplierEntry extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnBackActionPerformed
 
     private void BtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddActionPerformed
-        // Generate a new item ID
-        String newItemId = s1.generateNewId();
-        txtID.setText(newItemId);
+        try {
+            supplier = s1.ViewSupplierEntry();
+            System.out.println("Supplier Data: " + supplier);
+        } 
+        catch (IOException ex) {
+            System.out.print(ex);
+        }
+
+        // Generate a new supplier ID
+        String newSupId = s1.generateNewId();
+        txtID.setText(newSupId);
+
         // Check if the generated ID is not a duplicate
         try {
-            if (s1.CheckDuplicate(newItemId)) {//return boolean so true/false directly
+            if (s1.CheckDuplicate(newSupId)) {
                 JOptionPane.showMessageDialog(null, "ItemID is already in use. Please try again.", "Duplicate ItemID", JOptionPane.ERROR_MESSAGE);
-                return; // Exit the method without adding the item
+                System.out.println("Duplicate ID detected");
+                return;
             }
         } catch (IOException ex) {
             Logger.getLogger(SM_ItemEntry.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "An error occurred while checking for duplicates. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-            return; // Exit the method without adding the item
+            System.out.println("Error checking for duplicates: " + ex.getMessage());
+            return;
         }
 
         // Check if the required fields are empty
         if (txtName.getText().isEmpty() || txtContactNumber.getText().isEmpty() || txtAddress.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please fill in all required fields.", "Missing Information", JOptionPane.ERROR_MESSAGE);
-            return; // Exit the method without adding the item
+            System.out.println("Required fields are empty");
+            return;
         }
 
         // If everything is valid, proceed to add the item
-        id = newItemId; // Use the generated ID
+        id = newSupId; // Use the generated ID
         name = txtName.getText();
         contactNumber = txtContactNumber.getText();
         address = txtAddress.getText();
-        
 
         try {
-            String status = s1.AddSupplierEntry(id, name, contactNumber,address);
+            String status = s1.AddSupplierEntry(id, name, contactNumber, address);
             if (status.equals("SUCCESSFUL")) {
                 JOptionPane.showMessageDialog(null, "Supplier successfully added.", "Supplier added status", JOptionPane.INFORMATION_MESSAGE);
                 txtID.setText(null);
@@ -316,32 +349,53 @@ public class SM_SupplierEntry extends javax.swing.JFrame {
                 txtAddress.setText(null);
                 jTable1.clearSelection();
                 model.setRowCount(0);
-                System.out.println("before");
+                System.out.println("Before ViewSupplierTable");
                 this.ViewSupplierTable();
-                System.out.println("after");
-
+                System.out.println("After ViewSupplierTable");
             } else {
                 JOptionPane.showMessageDialog(null, "Supplier unsuccessfully added.\nPlease try again.", "Supplier added status", JOptionPane.ERROR_MESSAGE);
+                System.out.println("Supplier not added successfully");
             }
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "An error occurred while adding the item. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Error adding supplier: " + ex.getMessage());
         }
+
     }//GEN-LAST:event_BtnAddActionPerformed
 
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
-        row = jTable1.getSelectedRow(); 
-        this.row = row;
-        id = String.valueOf(model.getValueAt(row, 0));
-        name = String.valueOf(model.getValueAt(row, 1));
-        contactNumber = String.valueOf(model.getValueAt(row, 2));
-        address = String.valueOf(model.getValueAt(row, 3));
-        
-        txtID.setText(id);
-        txtID.setEnabled(false);
-        txtID.setFocusable(false);
-        txtName.setText(name);
-        txtContactNumber.setText(contactNumber);
-        txtAddress.setText(address);
+        int selectedRow = jTable1.getSelectedRow();
+    
+        if (selectedRow >= 0) {
+            // A row is selected
+            row = selectedRow;
+            id = String.valueOf(model.getValueAt(row, 0));
+            name = String.valueOf(model.getValueAt(row, 1));
+            contactNumber = String.valueOf(model.getValueAt(row, 2));
+            address = String.valueOf(model.getValueAt(row, 3));
+
+            txtID.setText(id);
+            txtID.setEnabled(false);
+            txtID.setFocusable(false);
+            txtName.setText(name);
+            txtContactNumber.setText(contactNumber);
+            txtAddress.setText(address);
+        } 
+        else {
+            // No row is selected, you might want to clear the fields or take appropriate action
+            row = -1;
+            id = "";
+            name = "";
+            contactNumber = "";
+            address = "";
+
+            txtID.setText("");
+            txtID.setEnabled(true);
+            txtID.setFocusable(true);
+            txtName.setText("");
+            txtContactNumber.setText("");
+            txtAddress.setText("");
+        }
     }//GEN-LAST:event_jTable1MouseReleased
 
     private void BtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSaveActionPerformed

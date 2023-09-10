@@ -29,7 +29,7 @@ public class PMView {
             String line;
             while ((line=br.readLine())!= null){
                 //Split
-                String []data = line.split(",");
+                String []data = line.split(" ");
                 model.addRow(data);            
             }
 
@@ -47,7 +47,7 @@ public class PMView {
             String line;
             while ((line=br.readLine())!= null){
                 //Split
-                String []data = line.split(",");
+                String []data = line.split("\\|");
                 model.addRow(data);            
             }
 

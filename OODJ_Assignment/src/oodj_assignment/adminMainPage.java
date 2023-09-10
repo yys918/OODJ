@@ -37,6 +37,7 @@ public class adminMainPage extends javax.swing.JFrame {
         btnCreate = new javax.swing.JButton();
         btnCheckStock = new javax.swing.JButton();
         btnCheck = new javax.swing.JButton();
+        btnLogOut = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +69,13 @@ public class adminMainPage extends javax.swing.JFrame {
             }
         });
 
+        btnLogOut.setText("Log Out");
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,7 +93,10 @@ public class adminMainPage extends javax.swing.JFrame {
                         .addComponent(btnCheckStock))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(142, 142, 142)
-                        .addComponent(btnCreate)))
+                        .addComponent(btnCreate))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(159, 159, 159)
+                        .addComponent(btnLogOut)))
                 .addContainerGap(136, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -99,7 +110,9 @@ public class adminMainPage extends javax.swing.JFrame {
                 .addComponent(btnCreate)
                 .addGap(18, 18, 18)
                 .addComponent(btnCheckStock)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnLogOut)
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         pack();
@@ -123,6 +136,12 @@ public class adminMainPage extends javax.swing.JFrame {
         new checkUser().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCheckActionPerformed
+
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+        loginPage out = new loginPage();
+        out.show();
+        this.dispose();
+    }//GEN-LAST:event_btnLogOutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,6 +182,7 @@ public class adminMainPage extends javax.swing.JFrame {
     private javax.swing.JButton btnCheck;
     private javax.swing.JButton btnCheckStock;
     private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnLogOut;
     private javax.swing.JLabel lblTitle;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 public class PM_Item extends javax.swing.JFrame {
     
     private DefaultTableModel model;
-    private String[] columnsName = {"ID","Name","Quantity","Price(RM)","Supplier ID"};
+    private String[] columnsName = {"ID","Name","Price(RM)","Quantity","Supplier ID"};
 
     /**
      * Creates new form ViewItem

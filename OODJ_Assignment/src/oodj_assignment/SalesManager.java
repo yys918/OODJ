@@ -161,7 +161,7 @@ public class SalesManager {
     
     public String EditPurchaseRequisition() throws IOException{
         try{
-            FileWriter fw = new FileWriter("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\purchaseRequisition.txt");
+            FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\requisition.txt");
             BufferedWriter bw = new BufferedWriter(fw);
             Scanner sc = new Scanner(System.in);
             System.out.println("Please select which Item Sales Entry to be edit: ");
@@ -232,7 +232,7 @@ public class SalesManager {
     }   
     
     public ArrayList ViewRequisition() throws FileNotFoundException, IOException{
-        FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\purchaseRequisition.txt");
+        FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\requisition.txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
         while ((line = br.readLine()) != null) {
@@ -244,7 +244,7 @@ public class SalesManager {
     }
     
     public ArrayList ViewListOfPurchaseOrders() throws FileNotFoundException, IOException{
-        FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\purchaseOrder.txt");
+        FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\order.txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
         while ((line = br.readLine()) != null) {

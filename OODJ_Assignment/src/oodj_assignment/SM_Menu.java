@@ -142,11 +142,13 @@ public class SM_Menu extends javax.swing.JFrame {
     private void btnItemEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnItemEntryActionPerformed
         setVisible(false);
         SM_ItemEntry form1 = new SM_ItemEntry();
+        form1.show();
     }//GEN-LAST:event_btnItemEntryActionPerformed
 
     private void btnSupplierEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupplierEntryActionPerformed
         setVisible(false);
         SM_SupplierEntry form1 = new SM_SupplierEntry();
+        form1.show();
     }//GEN-LAST:event_btnSupplierEntryActionPerformed
 
     private void btnDailyItemwiseSalesEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDailyItemwiseSalesEntryActionPerformed
@@ -166,8 +168,9 @@ public class SM_Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListOfPurchaserOrdersActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
-        setVisible(false);
-        loginPage form1 = new loginPage();
+        loginPage out = new loginPage();
+        out.show();
+        this.dispose();
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     /**

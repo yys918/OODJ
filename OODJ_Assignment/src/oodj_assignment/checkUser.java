@@ -24,7 +24,7 @@ public class checkUser extends javax.swing.JFrame {
 
         model.setColumnIdentifiers(columnNames);
         
-        ck.loadUsersFromFile("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt", model,7);
+        ck.loadUsersFromFile("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt", model,7);
         tblUser.setModel(model);
     }
 
@@ -270,7 +270,7 @@ public class checkUser extends javax.swing.JFrame {
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         model.setRowCount(0);
-        ck.loadUsersFromFile("D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt", model,7);
+        ck.loadUsersFromFile("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt", model,7);
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     

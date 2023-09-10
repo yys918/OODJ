@@ -27,7 +27,7 @@ public class Supplier {
     //Show item id supplied
     public String WriteToFile(ArrayList<String> values){
         try{
-            FileWriter fw = new FileWriter("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\supplier.txt");
+            FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\supplier.txt");
             BufferedWriter bw = new BufferedWriter(fw);
             for (int i =0; i < values.size(); i++){
                 bw.write(values.get(i)+ "\n");
@@ -41,30 +41,36 @@ public class Supplier {
         }
     }
     
-    public ArrayList ViewSupplierEntry() throws FileNotFoundException, IOException{
-        FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\supplier.txt");
-        BufferedReader br = new BufferedReader(fr);
-        String line;
-        
-        while ((line = br.readLine()) != null) {
-            String[] tokens = line.split("\\|"); // Use "|" as the delimiter
+    public ArrayList<String> ViewSupplierEntry() throws FileNotFoundException, IOException {
+        ArrayList<String> supplier = new ArrayList<>(); // Initialize the ArrayList
 
-            if (tokens.length >= 4) {
-                String id = tokens[0].trim();
-                String name = tokens[1].trim();
-                String contactNumber = tokens[2].trim();
-                String address = tokens[3].trim();
+        try (FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\supplier.txt");
+             BufferedReader br = new BufferedReader(fr)) {
 
-                // Create a formatted string with the fields
-                String formattedSupplier = "[" + id + ", " + name + ", " + contactNumber + ", " + address + "]";
+            String line;
 
-                // Add the formatted supplier data to the ArrayList
-                supplier.add(formattedSupplier);
+            while ((line = br.readLine()) != null) {
+                String[] tokens = line.split("\\|"); // Use "|" as the delimiter
+
+                if (tokens.length >= 4) {
+                    String id = tokens[0].trim();
+                    String name = tokens[1].trim();
+                    String contactNumber = tokens[2].trim();
+                    String address = tokens[3].trim();
+
+                    // Create a formatted string with the fields
+                    String formattedSupplier = "[" + id + ", " + name + ", " + contactNumber + ", " + address + "]";
+
+                    // Add the formatted supplier data to the ArrayList
+                    supplier.add(formattedSupplier);
+                }
             }
-        }
-        br.close();
+            fr.close();
+        } 
+
         return supplier;
     }
+
     
     public boolean CheckDuplicate(String id) throws IOException{
         supplier = this.ViewSupplierEntry();
@@ -77,30 +83,46 @@ public class Supplier {
     }
     
     public String generateNewId() {
+        //Update latest data
+        try {
+            supplier = ViewSupplierEntry();
+        }
+        catch (IOException e){
+            System.out.println(e);
+        }
         // Find the maximum ID from the existing items and increment it
         int maxId = 0;
-        for (String item : supplier) {
-            String replace = item.replace("[", "").replace("]", "");
-            String[] tokens = replace.split(", ");
-            System.out.println(tokens[0]);
+        for (String SupplierEntry : supplier) {
+            String cleanEntry = SupplierEntry.replace("[", "").replace("]", "");
+            String[] tokens = cleanEntry.split(", ");
+            
             if (tokens.length >= 1) {
                 String itemId = tokens[0].trim();
                 try {
-                    int currentId = Integer.parseInt(itemId.substring(1));// Extract the numeric part of the ID
-                    System.out.println(currentId);
+                    int currentId = Integer.parseInt(itemId.substring(1));
+                    System.out.println("Current ID: " + currentId);
                     if (currentId > maxId) {
                         maxId = currentId;
-                        System.out.println(maxId);
+                        System.out.println("New Max ID: " + maxId);
                     }
                 } catch (NumberFormatException e) {
                     // Handle parsing errors if the ID format is invalid
                     // You may want to log an error or take appropriate action
+                    System.err.println("Error parsing ID: " + itemId);
                 }
             }
         }
         // Increment the maximum ID and format it with "S" prefix
-        return "S" + String.format("%04d", maxId + 1);
+        String newId = "S" + String.format("%04d", maxId + 1);
+        System.out.println("Generated ID: " + newId);
+        return newId;
+        
+        
     }
+
+
+
+
     
     // Helper function to join array elements with a separator
     private String joinWithSeparator(String[] array, String separator) {
@@ -116,7 +138,7 @@ public class Supplier {
         
     public String AddSupplierEntry(String id, String name, String contactNumber, String address) throws IOException{
         try{
-            FileWriter fw = new FileWriter("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\supplier.txt",true);
+            FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\supplier.txt",true);
             BufferedWriter bw = new BufferedWriter(fw);
             String values[] = {id,name,contactNumber, address};
             bw.newLine();
@@ -135,7 +157,7 @@ public class Supplier {
        
     public String EditSupplierEntry(String id, String name, String contactNumber, String address) throws IOException{
         try{
-            FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\supplier.txt");
+            FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\supplier.txt");
             BufferedReader br = new BufferedReader(fr);
             // Read the file into memory and find the lines to edit
             ArrayList<String> lines = new ArrayList<>();
@@ -166,7 +188,7 @@ public class Supplier {
     
     public String DeleteSupplierEntry(String id) throws IOException{
         try{
-            FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\supplier.txt");
+            FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\supplier.txt");
             BufferedReader br = new BufferedReader(fr);
             String line = "";
             ArrayList<String> lines = new ArrayList<>();

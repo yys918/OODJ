@@ -47,7 +47,7 @@ public class checkUserClass {
         String line1;
 
         while ((line1 = br.readLine()) != null) {
-            String[] data = line1.split(",");
+            String[] data = line1.split("/");
 
             pass = data[passwordColumnIndex];
             
@@ -63,7 +63,7 @@ public class checkUserClass {
     
     
     public void changeUserInformation() {
-    String filePath = "D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt";
+    String filePath = "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt";
 
     ArrayList<String> data = new ArrayList<>();
 
@@ -79,7 +79,7 @@ public class checkUserClass {
     }
 
     // Make modifications to the selected row
-    String modifiedRow = ID + "," + name + "," + age + "," + gender + "," + address + "," + email + "," + role + "," + pass;
+    String modifiedRow = ID + "/" + name + "/" + age + "/" + gender + "/" + address + "/" + email + "/" + role + "/" + pass;
 
     // Update the data in the ArrayList
     data.set(row, modifiedRow);
@@ -111,7 +111,7 @@ public class checkUserClass {
     }
 
     ArrayList<String> data = new ArrayList<>();
-    String filePath = "D:\\APU SCHOOL LIFEE\\Degree Year 2\\OODJ\\textFile\\user.txt";
+    String filePath = "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt";
 
     // Read the data from the text file and store it in the ArrayList
     try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
