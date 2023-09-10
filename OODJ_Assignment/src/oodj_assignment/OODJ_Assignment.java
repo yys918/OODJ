@@ -19,7 +19,10 @@ public class OODJ_Assignment {
     public static void main(String[] args) throws IOException {
         loginPage form1 = new loginPage();
         form1.setVisible(true);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 04d88d1071146438c2edd95d31aa68c830974de6
     }
     
 }
