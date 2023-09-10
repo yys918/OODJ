@@ -26,9 +26,9 @@ public class SalesManager {
     private enum status{SUCCESSFUL, UNSUCCESSFUL;}
     
     
-    public SalesManager(){
-
-    }
+    public SalesManager(){}
+    
+        
     public boolean isValidName(String name) {
         // Check if the name is not empty and does not consist of only whitespace characters
         return !name.trim().isEmpty();
