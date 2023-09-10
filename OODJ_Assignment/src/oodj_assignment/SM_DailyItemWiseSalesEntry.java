@@ -21,13 +21,26 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
     private String userID;
-    private DefaultTableModel model1 = new DefaultTableModel();
-    private DefaultTableModel model2 = new DefaultTableModel();
+    private DefaultTableModel model1 = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            // Make all cells in jTable1 non-editable
+            return false;
+        }
+    };
     private String []dcolumnsName = {"Item ID", "Item Name", "Quantity Sold"};
-    private String []icolumnsName = {"Item ID", "Item Name", "Price" ,"In Stock quantity"};
-    private String itemID,itemName, stock, salesDate, sprice;
-    private double itemPrice,total;
     private int quantitySold;
+    
+    private DefaultTableModel model2 = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            // Make all cells in jTable1 non-editable
+            return false;
+        }
+    };;
+    private String []icolumnsName = {"Item ID", "Item Name", "Price" ,"In Stock quantity"};
+    private String itemID,itemName, stock, salesDate;
+    private double itemPrice,total;
     private int row = -1;
     private ArrayList<DailyItemwiseSalesEntry> dailyItemWiseSalesEntry = new ArrayList<>();
     private ArrayList<String> items = new ArrayList<>();
@@ -52,8 +65,6 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
         txtItemName.setEnabled(false);
         txtStockLeft.setFocusable(false);
         txtStockLeft.setEnabled(false);
-        model1.isCellEditable(model1.getRowCount(), model1.getColumnCount());
-        model2.isCellEditable(model2.getRowCount(), model2.getColumnCount());
         this.userID = userID;
     }
     
@@ -289,7 +300,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
                             .addComponent(BtnClear)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(62, 62, 62)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 40, Short.MAX_VALUE))
         );
 
@@ -344,7 +355,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel6)
                                     .addComponent(txtStockLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {BtnAdd, BtnBack, BtnClear, BtnDelete, BtnSave, btnSearch});
@@ -455,7 +466,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
         row = jTable2.getSelectedRow(); 
         itemID = String.valueOf(model2.getValueAt(row, 0));
         itemName = String.valueOf(model2.getValueAt(row, 1));
-        sprice = String.valueOf(model2.getValueAt(row, 2));
+        itemPrice = Double.parseDouble(String.valueOf(model2.getValueAt(row, 2)));
         stock = String.valueOf(model2.getValueAt(row, 3));
         txtItemID.setText(itemID);
         txtItemName.setText(itemName);

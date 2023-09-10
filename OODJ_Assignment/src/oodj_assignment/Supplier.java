@@ -24,10 +24,12 @@ public class Supplier {
     private String address;
     private ArrayList<String> supplier = new ArrayList<String>();
     private enum status{SUCCESSFUL, UNSUCCESSFUL;}
+    private String filename = "C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\supplier.txt";
+    
     //Show item id supplied
     public String WriteToFile(ArrayList<String> values){
         try{
-            FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\supplier.txt");
+            FileWriter fw = new FileWriter(filename);
             BufferedWriter bw = new BufferedWriter(fw);
             for (int i =0; i < values.size(); i++){
                 bw.write(values.get(i)+ "\n");
@@ -44,7 +46,7 @@ public class Supplier {
     public ArrayList<String> ViewSupplierEntry() throws FileNotFoundException, IOException {
         ArrayList<String> supplier = new ArrayList<>(); // Initialize the ArrayList
 
-        try (FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\supplier.txt");
+        try (FileReader fr = new FileReader(filename);
              BufferedReader br = new BufferedReader(fr)) {
 
             String line;
@@ -115,15 +117,9 @@ public class Supplier {
         // Increment the maximum ID and format it with "S" prefix
         String newId = "S" + String.format("%04d", maxId + 1);
         System.out.println("Generated ID: " + newId);
-        return newId;
-        
-        
+        return newId;   
     }
 
-
-
-
-    
     // Helper function to join array elements with a separator
     private String joinWithSeparator(String[] array, String separator) {
         StringBuilder result = new StringBuilder();
@@ -138,7 +134,7 @@ public class Supplier {
         
     public String AddSupplierEntry(String id, String name, String contactNumber, String address) throws IOException{
         try{
-            FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\supplier.txt",true);
+            FileWriter fw = new FileWriter(filename,true);
             BufferedWriter bw = new BufferedWriter(fw);
             String values[] = {id,name,contactNumber, address};
             bw.newLine();
@@ -157,7 +153,7 @@ public class Supplier {
        
     public String EditSupplierEntry(String id, String name, String contactNumber, String address) throws IOException{
         try{
-            FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\supplier.txt");
+            FileReader fr = new FileReader(filename);
             BufferedReader br = new BufferedReader(fr);
             // Read the file into memory and find the lines to edit
             ArrayList<String> lines = new ArrayList<>();
@@ -188,7 +184,7 @@ public class Supplier {
     
     public String DeleteSupplierEntry(String id) throws IOException{
         try{
-            FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\supplier.txt");
+            FileReader fr = new FileReader(filename);
             BufferedReader br = new BufferedReader(fr);
             String line = "";
             ArrayList<String> lines = new ArrayList<>();
