@@ -6,7 +6,6 @@ package oodj_assignment;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -295,7 +294,7 @@ public class SM_SupplierEntry extends javax.swing.JFrame {
 
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
         setVisible(false);
-        SM_Menu form1 = null;
+        SM_Menu form1 = new SM_Menu();
         form1 = new SM_Menu(form1.userID);
     }//GEN-LAST:event_BtnBackActionPerformed
 
