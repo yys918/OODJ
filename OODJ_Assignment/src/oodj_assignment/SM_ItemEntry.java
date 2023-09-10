@@ -17,12 +17,19 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SM_ItemEntry extends javax.swing.JFrame {
     private String userID;
-    private DefaultTableModel model1 = new DefaultTableModel();
+    private DefaultTableModel model1 = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Make all cells in jTable1 non-editable
+                return false;
+            }
+        };
+    private String ColumnName[] = {"ID","Name","Price","Stock","Supplier ID"};
     private int row = -1;
+    
     private String id,name,supplierID;
     private double price;
     private int stock;
-    private String ColumnName[] = {"ID","Name","Price","Stock","Supplier ID"};
     private ArrayList<String> items = new ArrayList<String>();
     Item i1 = new Item();
 
@@ -35,7 +42,6 @@ public class SM_ItemEntry extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         model1.setColumnIdentifiers(ColumnName);
         this.ViewTable();
-        model1.isCellEditable(model1.getRowCount(), model1.getColumnCount());
         this.userID = userID;
     }
 
@@ -288,14 +294,7 @@ public class SM_ItemEntry extends javax.swing.JFrame {
 
     private void BtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnExitActionPerformed
         setVisible(false);
-<<<<<<< HEAD
         SM_Menu form1 = new SM_Menu(userID);
-=======
-
-        SM_Menu form1 = new SM_Menu();
-        form1 = new SM_Menu(form1.userID);
-
->>>>>>> 2266479d7befe36dbd5839123fa6224944c36c6e
     }//GEN-LAST:event_BtnExitActionPerformed
 
     private void BtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDeleteActionPerformed

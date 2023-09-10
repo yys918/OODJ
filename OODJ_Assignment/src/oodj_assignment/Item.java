@@ -20,6 +20,7 @@ public class Item {
     private String supplierID;
     private ArrayList<String> items = new ArrayList<String>();
     private enum status{SUCCESSFUL, UNSUCCESSFUL;}
+    private String filename = "C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\item.txt";
        
     public Item() {
     }
@@ -55,7 +56,7 @@ public class Item {
     
     public String WriteToFile(ArrayList<String> values){
         try{
-            FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\item.txt");
+            FileWriter fw = new FileWriter(filename);
             BufferedWriter bw = new BufferedWriter(fw);
             for (int i =0; i < values.size(); i++){
                 bw.write(values.get(i).toString()+ "\n");
@@ -71,7 +72,7 @@ public class Item {
     }
     
     public ArrayList ViewItemEntry() throws FileNotFoundException, IOException{
-        FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\item.txt");
+        FileReader fr = new FileReader(filename);
         BufferedReader br = new BufferedReader(fr);
         String line;
         while ((line = br.readLine()) != null) {
@@ -128,7 +129,7 @@ public class Item {
 
     public String AddItemEntry(String id, String name, double price, int stock, String supplierID) throws IOException{
         try{
-            FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\item.txt",true);
+            FileWriter fw = new FileWriter(filename,true);
             BufferedWriter bw = new BufferedWriter(fw);
             String values[] = {id,name,String.valueOf(price),String.valueOf(stock),supplierID};
             bw.newLine();
@@ -148,7 +149,7 @@ public class Item {
 
     public String EditItemStock(String id, int stock){
         try {
-            FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\item.txt");
+            FileReader fr = new FileReader(filename);
             BufferedReader br = new BufferedReader(fr);
             // Read the file into memory and find the lines to edit
             ArrayList<String> lines = new ArrayList<>();
@@ -179,7 +180,7 @@ public class Item {
 
     public String EditItemEntry(String id, String name, double price, int stock, String supplierID) throws IOException{
         try{
-            FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\item.txt");
+            FileReader fr = new FileReader(filename);
             BufferedReader br = new BufferedReader(fr);
             // Read the file into memory and find the lines to edit
             ArrayList<String> lines = new ArrayList<>();
@@ -211,7 +212,7 @@ public class Item {
     
     public String DeleteItemEntry(String id) throws IOException{
         try{
-            FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\item.txt");
+            FileReader fr = new FileReader(filename);
             BufferedReader br = new BufferedReader(fr);
             String line = "";
             ArrayList<String> lines = new ArrayList<>();
