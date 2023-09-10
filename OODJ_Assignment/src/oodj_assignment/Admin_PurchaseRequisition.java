@@ -265,7 +265,7 @@ public class Admin_PurchaseRequisition extends javax.swing.JFrame {
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
         // back to main
         adminMainPage form1 = new adminMainPage();
-        form1.show();
+        form1.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnBackActionPerformed
 

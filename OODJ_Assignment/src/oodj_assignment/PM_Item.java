@@ -105,7 +105,7 @@ public class PM_Item extends javax.swing.JFrame {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // Back to the main page
         PM_Main m = new PM_Main();
-        m.show();
+        m.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
