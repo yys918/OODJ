@@ -91,30 +91,34 @@ public class SalesManager {
         }
     }
     
-    public String AddPurchaseRequisition(String name,String quantity,String amount,String orderdate,String SupllierID){
+    public String AddPurchaseRequisition(String name, String quantity, String amount, String orderdate, String SupplierID) {
         try {
-            // Read all lines from the file into an ArrayList
+            File file = new File("requisition.txt");
+
+            // Check if the file is empty or does not exist
+            if (!file.exists() || file.length() == 0) {
+                // The file is empty or does not exist, so set a default value for the new order ID
+                String newID = "R0001"; // You can adjust the default value as needed
+
+                // Create the new order data line
+                String newOrderData = newID + "," + name + "," + quantity + "," + amount + "," + orderdate + "," + SupplierID;
+
+                // Write the new data to the file
+                BufferedWriter bw = new BufferedWriter(new FileWriter("requisition.txt"));
+                bw.write(newOrderData);
+                bw.newLine();
+                bw.close();
+
+                return newID;
+            }
+
+            // The file is not empty, proceed with reading and updating the ID
             ArrayList<String> lines = new ArrayList<>();
             BufferedReader br = new BufferedReader(new FileReader("requisition.txt"));
             String line;
-            
+
             while ((line = br.readLine()) != null) {
                 lines.add(line);
-            }
-            br.close();
-            
-            //item file
-            ArrayList<String> lines2 = new ArrayList<>();
-            BufferedReader br2 = new BufferedReader(new FileReader("item.txt"));
-            String line2;
-            
-            while ((line2 = br2.readLine()) != null) {
-                String [] tokens =line.split(" ");
-                if (tokens.length >= 4){
-                    String supid = tokens[4].trim();
-                    
-                    lines2.add(supid);
-                }
             }
             br.close();
 
@@ -137,7 +141,7 @@ public class SalesManager {
                 String newID = matcher.group(1) + newNumericPart;
 
                 // Create the new order data line
-                String newOrderData = newID + "," + name + "," + quantity + "," + amount + "," + orderdate + "," + SupllierID;
+                String newOrderData = newID + "," + name + "," + quantity + "," + amount + "," + orderdate + "," + SupplierID;
 
                 // Append the new data to the ArrayList
                 lines.add(newOrderData);
@@ -152,12 +156,12 @@ public class SalesManager {
 
                 return newID;
             }
-        } 
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e);
         }
         return null;
     }
+
     
     public String EditPurchaseRequisition() throws IOException{
         try{
