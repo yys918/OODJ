@@ -138,32 +138,33 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
             System.out.println("Error again lah ");
             return false;
         }else{
-                if (jTable1.getSelectedRow() == -1 || jTable1.getRowCount()<=0){
-                    JOptionPane.showMessageDialog(null, "Please select an item from the upper table.", "No item selected", JOptionPane.ERROR_MESSAGE);
+                if (jTable2.getSelectedRow() == -1 || jTable2.getRowCount()<=0){
+                    JOptionPane.showMessageDialog(null, "Please select an item from the lower table.", "No item selected", JOptionPane.ERROR_MESSAGE);
                     return false;
-                }
-                row = jTable1.getSelectedRow(); 
-                itemID = txtItemID.getText();
-                quantitySold = Integer.parseInt(txtQuantitySold.getText());
-                System.out.println("Find this one lah " + itemID);
-                System.out.println(txtQuantitySold.getText() + "Correct le mah");
-            try{
-                System.out.println("Sure ah "+quantitySold);
-                int currentStock = 0;
-                // i.checkStock(itemID);
-                System.out.println("I am herererere");
-                int soldStock = Integer.parseInt(String.valueOf(model1.getValueAt(row, 2)));
-                System.out.println("Wa sold this more "+String.valueOf(model1.getValueAt(row, 2)));
-                int totalStock = currentStock + soldStock;
-                int updatedStock = totalStock - quantitySold;      
-                txtStockLeft.setText(String.valueOf(updatedStock));
-            } catch (java.lang.NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Please enter integer for quantity sold.", "Format Errer",JOptionPane.ERROR_MESSAGE);
-                System.out.println("Error le leh");
-            // }catch(IOException e){
-            //     e.printStackTrace();
+                }else{
+                    row = jTable1.getSelectedRow(); 
+                    itemID = txtItemID.getText();
+                    quantitySold = Integer.parseInt(txtQuantitySold.getText());
+                    try{
+                        int currentStock = i.checkStock(itemID);
+                        int soldStock =0;
+                        try{
+                            soldStock = Integer.parseInt(String.valueOf(model1.getValueAt(row, 2)));
+                        } catch (java.lang.ArrayIndexOutOfBoundsException e) {
+                            System.out.println("Nothing from the table lah");
+                        }
+                        int totalStock = currentStock + soldStock;
+                        int updatedStock = totalStock - quantitySold;      
+                        txtStockLeft.setText(String.valueOf(updatedStock));
+                    } catch (java.lang.NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "Please enter integer for quantity sold.", "Format Errer",JOptionPane.ERROR_MESSAGE);
+                        System.out.println("Error le leh");
+                    }catch(IOException e){
+                        System.out.println("Item stock cannot found");
+                        e.printStackTrace();
+                    }
+                    return true;
             }
-            return true;
         }
     }
     

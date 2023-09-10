@@ -36,13 +36,15 @@ public class Item {
     public int checkStock(String checkID) throws IOException{
         boolean itemFound = false;
         items = this.ViewItemEntry();
+        
         for (String itemArray : items) {
-            String[] tokens = itemArray.substring(1, itemArray.length() - 1).split(" ");
+            String[] tokens = itemArray.substring(1, itemArray.length() - 1).split(",");
             if (tokens.length == 5) {
                 id = tokens[0].trim();
-                stock = Integer.parseInt(tokens[3].trim());
+                stock = Integer.parseInt(tokens[3].trim());                
                 if(id.equals(checkID)){
                     itemFound = true;
+                    
                     if(stock>=0){
                        return stock; 
                     }else{
