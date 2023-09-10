@@ -6,6 +6,7 @@ package oodj_assignment;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -15,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author yyun
  */
-public class SM_SupplierEntry extends javax.swing.JFrame {
+public class Admin_SupplierEntry extends javax.swing.JFrame {
     
     private DefaultTableModel model = new DefaultTableModel();
     private int size ,row = -1;
@@ -31,7 +32,7 @@ public class SM_SupplierEntry extends javax.swing.JFrame {
     /**
      * Creates new form SM_SupplierEntry
      */
-    public SM_SupplierEntry() {
+    public Admin_SupplierEntry() {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
@@ -293,10 +294,10 @@ public class SM_SupplierEntry extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
-        setVisible(false);
-        SM_Menu form1 = new SM_Menu();
-        form1 = new SM_Menu(form1.userID);
+        
+        adminMainPage form1 = new adminMainPage();
         form1.show();
+        this.dispose();
     }//GEN-LAST:event_BtnBackActionPerformed
 
     private void BtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddActionPerformed

@@ -14,11 +14,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author yyun
  */
-public class SM_PurchaseRequisition extends javax.swing.JFrame {
+public class Admin_PurchaseRequisition extends javax.swing.JFrame {
     
     //jtable1
     private DefaultTableModel model;
-    private String [] columnsName = {"ID","Item ID","Name","Quantity","Total Amount (RM)","Request Delivery Date","Sales Manager ID","Supplier ID"};
+    private String [] columnsName = {"ID","Item ID","Name","Quantity","Total Amount (RM)","Request Delivery Date"};
     private int row = -1;
     
     private JTable lastSelectedTable = null;
@@ -27,7 +27,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
     /**
      * Creates new form SM_PurchaseRequisition
      */
-    public SM_PurchaseRequisition() {
+    public Admin_PurchaseRequisition() {
         this.model = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -252,7 +252,8 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
 
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
         // back to main
-        SM_Menu form1 = new SM_Menu(SMid);
+        adminMainPage form1 = new adminMainPage();
+        form1.show();
         this.dispose();
     }//GEN-LAST:event_BtnBackActionPerformed
 

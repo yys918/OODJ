@@ -29,7 +29,7 @@ public class DailyItemwiseSalesEntry implements Serializable{
     private String salesDate;
     private ArrayList<DailyItemwiseSalesEntry> dailyItemWiseSalesEntry = new ArrayList<DailyItemwiseSalesEntry>();
     private enum status{SUCCESSFUL, UNSUCCESSFUL;}
-    private final String filename = "C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.dat";
+    private final String filename = "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Sem 1\\Object Oriented Development with Java(OODJ)\\Assignment\\Assignment\\dailySalesEntry.dat";
     private static final long serialVersionUID = 4049679065376427895L;//To maintain compatibility
     ArrayList<DailyItemwiseSalesEntry> allDailyList = new ArrayList<DailyItemwiseSalesEntry>();
        

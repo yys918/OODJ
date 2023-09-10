@@ -170,7 +170,7 @@ public class adminMainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnItemActionPerformed
-        SM_ItemEntry item = new SM_ItemEntry(); 
+        Admin_ItemEntry item = new Admin_ItemEntry(); 
         item.show();
         this.dispose();
     }//GEN-LAST:event_btnItemActionPerformed
@@ -187,19 +187,19 @@ public class adminMainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     private void btnSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupplierActionPerformed
-        SM_SupplierEntry sup =new SM_SupplierEntry();
+        Admin_SupplierEntry sup =new Admin_SupplierEntry();
         sup.show();
         this.dispose();
     }//GEN-LAST:event_btnSupplierActionPerformed
 
     private void btnReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReqActionPerformed
-        SM_PurchaseRequisition req = new SM_PurchaseRequisition();
+        Admin_PurchaseRequisition req = new Admin_PurchaseRequisition();
         req.show();
         this.dispose();
     }//GEN-LAST:event_btnReqActionPerformed
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
-        PM_Order order = new PM_Order();
+        Admin_Order order = new Admin_Order();
         order.show();
         this.dispose();
     }//GEN-LAST:event_btnOrderActionPerformed
