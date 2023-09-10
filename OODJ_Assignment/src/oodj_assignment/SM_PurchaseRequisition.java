@@ -252,8 +252,12 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
 
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
         // back to main
+<<<<<<< HEAD
         SM_Menu form1 = null;
         form1 = new SM_Menu(SMid);
+=======
+        SM_Menu form1 = new SM_Menu(SMid);
+>>>>>>> 3fbbd75da285c181185a8955c923ff95b1cd8239
         this.dispose();
     }//GEN-LAST:event_BtnBackActionPerformed
 
