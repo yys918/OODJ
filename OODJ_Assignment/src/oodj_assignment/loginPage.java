@@ -148,14 +148,13 @@ public class loginPage extends javax.swing.JFrame {
                 else if(user.equals("pm")){
                     JOptionPane.showMessageDialog(null, "Login successful, Purchase Manager");
                     PM_Main form1 = new PM_Main();
-                    form1.show();
+                    form1.setVisible(true);
                     this.dispose();
                     
                 }
                 else if(user.equals("sm")){
                     JOptionPane.showMessageDialog(null, "Login successful, Sales Manager");
                     SM_Menu form1 = new SM_Menu(userID);
-                    form1.show();
                     this.dispose();
                 }
                 else{

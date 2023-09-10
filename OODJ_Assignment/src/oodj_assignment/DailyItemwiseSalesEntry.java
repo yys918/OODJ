@@ -30,7 +30,6 @@ public class DailyItemwiseSalesEntry implements Serializable{
     private ArrayList<DailyItemwiseSalesEntry> dailyItemWiseSalesEntry = new ArrayList<DailyItemwiseSalesEntry>();
     private enum status{SUCCESSFUL, UNSUCCESSFUL;}
     private final String filename = "C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.dat";
-    private static final long serialVersionUID = 4049679065376427895L;//To maintain compatibility
     ArrayList<DailyItemwiseSalesEntry> allDailyList = new ArrayList<DailyItemwiseSalesEntry>();
        
     public DailyItemwiseSalesEntry() {
@@ -316,9 +315,3 @@ public class DailyItemwiseSalesEntry implements Serializable{
     
     
 }
-
-//for (DailySalesEntry entry : dailySalesEntries) {
-//    String itemID = entry.getItemID();
-//    // Use the itemID as needed
-//    System.out.println("Item ID: " + itemID);
-//}

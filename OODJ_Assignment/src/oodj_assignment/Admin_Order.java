@@ -372,7 +372,7 @@ public class Admin_Order extends javax.swing.JFrame {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // back to main
         adminMainPage b = new adminMainPage();
-        b.show();
+        b.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 

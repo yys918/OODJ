@@ -4,83 +4,83 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
-            "type": "java",
-            "name": "SM_DailyItemWiseSalesEntry",
-            "request": "launch",
-            "mainClass": "oodj_assignment.SM_DailyItemWiseSalesEntry",
-            "projectName": "OODJ_d93bc77a"
-        },
-        {
-            "type": "java",
-            "name": "SM_ItemEntry",
-            "request": "launch",
-            "mainClass": "oodj_assignment.SM_ItemEntry",
-            "projectName": "OODJ_d93bc77a"
-        },
-        {
-            "type": "java",
-            "name": "SM_Menu",
-            "request": "launch",
-            "mainClass": "oodj_assignment.SM_Menu",
-            "projectName": "OODJ_d93bc77a"
-        },
-        {
-            "type": "java",
-            "name": "SM_PurchaseRequisition",
-            "request": "launch",
-            "mainClass": "oodj_assignment.SM_PurchaseRequisition",
-            "projectName": "OODJ_d93bc77a"
-        },
-        {
-            "type": "java",
-            "name": "SM_SupplierEntry",
-            "request": "launch",
-            "mainClass": "oodj_assignment.SM_SupplierEntry",
-            "projectName": "OODJ_d93bc77a"
-        },
-        {
-            "type": "java",
-            "name": "adminMainPage",
-            "request": "launch",
-            "mainClass": "oodj_assignment.adminMainPage",
-            "projectName": "OODJ_d93bc77a"
-        },
-        {
-            "type": "java",
-            "name": "checkUser",
-            "request": "launch",
-            "mainClass": "oodj_assignment.checkUser",
-            "projectName": "OODJ_d93bc77a"
-        },
-        {
-            "type": "java",
-            "name": "createAdmin",
-            "request": "launch",
-            "mainClass": "oodj_assignment.createAdmin",
-            "projectName": "OODJ_d93bc77a"
-        },
-        {
-            "type": "java",
-            "name": "createPurchaseManager",
-            "request": "launch",
-            "mainClass": "oodj_assignment.createPurchaseManager",
-            "projectName": "OODJ_d93bc77a"
-        },
-        {
-            "type": "java",
-            "name": "createSalesManager",
-            "request": "launch",
-            "mainClass": "oodj_assignment.createSalesManager",
-            "projectName": "OODJ_d93bc77a"
-        },
-        {
-            "type": "java",
-            "name": "createUser",
-            "request": "launch",
-            "mainClass": "oodj_assignment.createUser",
-            "projectName": "OODJ_d93bc77a"
-        },
+        // {
+        //     "type": "java",
+        //     "name": "SM_DailyItemWiseSalesEntry",
+        //     "request": "launch",
+        //     "mainClass": "oodj_assignment.SM_DailyItemWiseSalesEntry",
+        //     "projectName": "OODJ_d93bc77a"
+        // },
+        // {
+        //     "type": "java",
+        //     "name": "SM_ItemEntry",
+        //     "request": "launch",
+        //     "mainClass": "oodj_assignment.SM_ItemEntry",
+        //     "projectName": "OODJ_d93bc77a"
+        // },
+        // {
+        //     "type": "java",
+        //     "name": "SM_Menu",
+        //     "request": "launch",
+        //     "mainClass": "oodj_assignment.SM_Menu",
+        //     "projectName": "OODJ_d93bc77a"
+        // },
+        // {
+        //     "type": "java",
+        //     "name": "SM_PurchaseRequisition",
+        //     "request": "launch",
+        //     "mainClass": "oodj_assignment.SM_PurchaseRequisition",
+        //     "projectName": "OODJ_d93bc77a"
+        // },
+        // {
+        //     "type": "java",
+        //     "name": "SM_SupplierEntry",
+        //     "request": "launch",
+        //     "mainClass": "oodj_assignment.SM_SupplierEntry",
+        //     "projectName": "OODJ_d93bc77a"
+        // },
+        // {
+        //     "type": "java",
+        //     "name": "adminMainPage",
+        //     "request": "launch",
+        //     "mainClass": "oodj_assignment.adminMainPage",
+        //     "projectName": "OODJ_d93bc77a"
+        // },
+        // {
+        //     "type": "java",
+        //     "name": "checkUser",
+        //     "request": "launch",
+        //     "mainClass": "oodj_assignment.checkUser",
+        //     "projectName": "OODJ_d93bc77a"
+        // },
+        // {
+        //     "type": "java",
+        //     "name": "createAdmin",
+        //     "request": "launch",
+        //     "mainClass": "oodj_assignment.createAdmin",
+        //     "projectName": "OODJ_d93bc77a"
+        // },
+        // {
+        //     "type": "java",
+        //     "name": "createPurchaseManager",
+        //     "request": "launch",
+        //     "mainClass": "oodj_assignment.createPurchaseManager",
+        //     "projectName": "OODJ_d93bc77a"
+        // },
+        // {
+        //     "type": "java",
+        //     "name": "createSalesManager",
+        //     "request": "launch",
+        //     "mainClass": "oodj_assignment.createSalesManager",
+        //     "projectName": "OODJ_d93bc77a"
+        // },
+        // {
+        //     "type": "java",
+        //     "name": "createUser",
+        //     "request": "launch",
+        //     "mainClass": "oodj_assignment.createUser",
+        //     "projectName": "OODJ_d93bc77a"
+        // },
         {
             "type": "java",
             "name": "loginPage",
