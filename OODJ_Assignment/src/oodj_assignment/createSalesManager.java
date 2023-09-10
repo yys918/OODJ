@@ -20,6 +20,9 @@ public class createSalesManager extends javax.swing.JFrame {
         setTitle("Create Sales Manager");
         this.setSize(550, 550);
         this.setLocation(600,300);
+        ButtonGroup gen = new ButtonGroup();
+        gen.add(radMale);
+        gen.add(radFemale);
     }
 
     

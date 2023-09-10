@@ -80,12 +80,12 @@ public class createUserClass {
             // Validate age
             try {
                 int ageValue = Integer.parseInt(age);
-                if (ageValue < 0 || ageValue > 120) { // Adjust age validation range as needed
-                    JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age between 0 and 120.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+                if (ageValue < 18 || ageValue > 120) { // Adjust age validation range as needed
+                    JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age between 18 and 120.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age as a number.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid number as age.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
 
@@ -132,12 +132,12 @@ public class createUserClass {
             // Validate age
             try {
                 int ageValue = Integer.parseInt(age);
-                if (ageValue < 0 || ageValue > 120) { // Adjust age validation range as needed
-                    JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age between 0 and 120.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+                if (ageValue < 18 || ageValue > 120) { // Adjust age validation range as needed
+                    JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age between 18 and 120.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age as a number.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid number as age.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
 
@@ -183,12 +183,12 @@ public class createUserClass {
             // Validate age
             try {
                 int ageValue = Integer.parseInt(age);
-                if (ageValue < 0 || ageValue > 120) { // Adjust age validation range as needed
-                    JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age between 0 and 120.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+                if (ageValue < 18 || ageValue > 120) { // Adjust age validation range as needed
+                    JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age between 18 and 120.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age as a number.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid number as age.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
 

@@ -31,7 +31,8 @@ public class DailyItemwiseSalesEntry implements Serializable{
     private enum status{SUCCESSFUL, UNSUCCESSFUL;}
     private final String filename = "C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.dat";
     private static final long serialVersionUID = 4049679065376427895L;//To maintain compatibility
-    
+    ArrayList<DailyItemwiseSalesEntry> allDailyList = new ArrayList<DailyItemwiseSalesEntry>();
+       
     public DailyItemwiseSalesEntry() {
     }
     
@@ -59,7 +60,13 @@ public class DailyItemwiseSalesEntry implements Serializable{
             }
         } else {
             // Handle the case when the file doesn't exist
-            JOptionPane.showMessageDialog(null, "File does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "File does not exist.\nCreated a new file", "Created new file", JOptionPane.INFORMATION_MESSAGE);
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             return false;
         }
     }
@@ -103,61 +110,55 @@ public class DailyItemwiseSalesEntry implements Serializable{
                 if(stock<=0){
                     JOptionPane.showMessageDialog(null, "Item stock invalid.\nPlease check again.","Item Stock Invalid",JOptionPane.ERROR_MESSAGE);
                     return false;
-                }else{
+                }else if(stock>=quantity){
                     return true;
+                }else{
+                    JOptionPane.showMessageDialog(null, "Item stock insufficient.\nPlease check again.","Item Stock Insufficient",JOptionPane.ERROR_MESSAGE);
+                    return false;
                 }
             }
         }  
     }
     
     public ArrayList<DailyItemwiseSalesEntry> ViewDailyItemwiseSalesEntry() {//throws StreamCorruptedException
-        dailyItemWiseSalesEntry.clear();
-        if(this.checkFileExists()){
+        allDailyList.clear();
+         while(this.checkFileExists()){
             try {
                 
                 FileInputStream fis = new FileInputStream(filename);
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 try{ 
-//                    int result = ois.readInt();//error here
-                    System.out.println("I am here");
-//                    System.out.println(String.valueOf(result));
-                    // Read a DailySalesEntry obtry {
-//                        for(int i =0; i <=result; i++){
-    //                        ois.skipBytes(1);
-    //                        DailyItemwiseSalesEntry entry = ;
-                    Object obj = ois.readObject();
-                    if(obj instanceof DailyItemwiseSalesEntry dailyItemwiseSalesEntry)
-                            dailyItemWiseSalesEntry.add(dailyItemwiseSalesEntry);
-                            System.out.println(Arrays.toString(dailyItemWiseSalesEntry.toArray()));
-
-//                        }
+                    while(true){
+                            DailyItemwiseSalesEntry entry = (DailyItemwiseSalesEntry) ois.readObject();
+                            allDailyList.add(entry);
+                            System.out.println("total size is " +allDailyList.size());
+                        }
                     }catch (ClassNotFoundException ex) {
                         Logger.getLogger(DailyItemwiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
+                        break;
                     } catch (StreamCorruptedException sce) {
                         // Handle StreamCorruptedException here
+                        System.out.println("Duplicated item for same sales date.");
                         sce.printStackTrace(); // Print the exception details for debugging
+                        break;
                     } catch(EOFException eof){
                        //reach the end of file , no more object to read 
-                      System.out.println("END OF FILE"); 
-                      System.out.println(Arrays.toString(dailyItemWiseSalesEntry.toArray()));
-                      return dailyItemWiseSalesEntry;
+                        System.out.println("END OF FILE"); 
+                        ois.close();
+                        fis.close();
+                        System.out.println(Arrays.toString(dailyItemWiseSalesEntry.toArray()));
+                        return allDailyList;
                     }
-                    ois.close();
-                    fis.close();
-                }catch(EOFException eof){
-                    System.out.println("END OF FILE11");
-                    System.out.println(Arrays.toString(dailyItemWiseSalesEntry.toArray()));
-                    return dailyItemWiseSalesEntry;
                 } catch (FileNotFoundException e) {//'FileNotFoundException' is a subclass of 'IO Exception'
                     e.printStackTrace();
-                    return dailyItemWiseSalesEntry;
+                    return allDailyList;
                 }catch (IOException e){
                     e.printStackTrace();
-                    return dailyItemWiseSalesEntry;
-                }
+                    return allDailyList;
+                }  
             }
-        return dailyItemWiseSalesEntry;
-    }     
+            return allDailyList;
+        }
     
     public String getCurrentDate(){
         LocalDate now = LocalDate.now();
@@ -166,29 +167,28 @@ public class DailyItemwiseSalesEntry implements Serializable{
     
     public ArrayList<String> getExistingDates(){
         ArrayList<String> dates = new ArrayList<>();
-        
         dailyItemWiseSalesEntry = this.ViewDailyItemwiseSalesEntry();
-        
         for(DailyItemwiseSalesEntry entry:dailyItemWiseSalesEntry){
             dates.add(entry.getSalesDate());
         }
         return dates;
     }
-
+ 
    public String AddDailyItemwiseSalesEntry(String id, String name, int quantity) throws IOException{
         if(this.checkDuplicateItemID(id)){
             JOptionPane.showMessageDialog(null, "Item has already added.\nPlease use 'edit' function", "Item ID exists", JOptionPane.ERROR_MESSAGE);
             return String.valueOf(status.UNSUCCESSFUL);            
         }else{
+            allDailyList = this.ViewDailyItemwiseSalesEntry();
+            salesDate = this.getCurrentDate();
+            DailyItemwiseSalesEntry d2 = new DailyItemwiseSalesEntry(id,name,quantity,salesDate);
+            allDailyList.add(d2);
             try{
-                FileOutputStream fos = new FileOutputStream(filename,true);
+                FileOutputStream fos = new FileOutputStream(filename);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-                salesDate = this.getCurrentDate();
-                DailyItemwiseSalesEntry d2 = new DailyItemwiseSalesEntry(id,name,quantity,salesDate);
-                // Write a delimiter (newline) before writing the object
-//                oos.write("\t".getBytes());
-                oos.writeObject(d2);
+                for(DailyItemwiseSalesEntry entry:allDailyList){
+                    oos.writeObject(entry);
+                }
                 oos.close();
                 fos.close();
                 return String.valueOf(status.SUCCESSFUL);
@@ -203,44 +203,41 @@ public class DailyItemwiseSalesEntry implements Serializable{
         return "";
     }
     
-    public String EditDailyItemwiseSalesEntry(String id, int quantity) throws IOException{
+    public String EditDailyItemwiseSalesEntry(String targetItemId, int quantity, String targetDate) throws IOException{
         // Read existing objects from the file into an ArrayList
+        allDailyList = this.ViewDailyItemwiseSalesEntry();
         ArrayList<DailyItemwiseSalesEntry> entries = new ArrayList<>();
-        try(
-            FileInputStream fis = new FileInputStream(filename);
-            ObjectInputStream ois = new ObjectInputStream(fis)
-            ){    
-            while (fis.available() > 0) {
-                // Read an object from the file
-                DailyItemwiseSalesEntry entry = (DailyItemwiseSalesEntry) ois.readObject();
-                entries.add(entry);
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
         // Find and edit the object based on a unique identifier (e.g., item ID or date)
-        String targetItemId = id;
-        for (DailyItemwiseSalesEntry entry : entries) {
-            if (entry.getItemID().equals(targetItemId)) {
-                // Modify the attributes of the found object
-                entry.setQuantitySold(quantity); // Update the quantity sold, for example
-                break; // Exit the loop once the object is found and edited
+        for (DailyItemwiseSalesEntry entry : allDailyList) {
+            System.out.println("target date is " + targetDate);
+            System.out.println("entry date is " + entry.getSalesDate());
+            if(entry.getSalesDate().equals(targetDate)){
+                if (entry.getItemID().equals(targetItemId)) {
+                    System.out.println("I am here");
+                    // Modify the attributes of the found object
+                    System.out.println(String.valueOf(entry.getQuantitySold()));
+                    entry.setQuantitySold(quantity); // Update the quantity sold, for example
+                    System.out.println(String.valueOf(entry.getQuantitySold()));
             }
-        }
-
-        // Write the updated objects back to the file
-        try (FileOutputStream fos = new FileOutputStream("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.dat");
-             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-
-            for (DailyItemwiseSalesEntry entry : entries) {
-                oos.writeObject(entry);
             }
-            return String.valueOf(status.SUCCESSFUL);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return String.valueOf(status.UNSUCCESSFUL);
-        }
+            entries.add(entry);
+        }    
+        Item i = new Item();
+        i.EditItemStock(targetItemId, quantity);
+        
+       // Write the updated objects back to the file
+       try (FileOutputStream fos = new FileOutputStream("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.dat");
+            ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+
+           for (DailyItemwiseSalesEntry entry : entries) {
+               oos.writeObject(entry);
+           }
+           return String.valueOf(status.SUCCESSFUL);
+       } catch (IOException e) {
+           e.printStackTrace();
+           return String.valueOf(status.UNSUCCESSFUL);
+       }
     }
     
     public String DeleteDailyItemwiseSalesEntry(String id) throws IOException{
@@ -269,6 +266,7 @@ public class DailyItemwiseSalesEntry implements Serializable{
                 iterator.remove();
             }
         }
+        
 
         // Write the updated objects back to the file
         try (FileOutputStream fos = new FileOutputStream(filename);

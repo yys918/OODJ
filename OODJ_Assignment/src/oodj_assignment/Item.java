@@ -90,7 +90,7 @@ public class Item {
     public boolean CheckDuplicate(String id) throws IOException{
         items = this.ViewItemEntry();
         for (String stuff : items) {
-            if (items.equals(id)) {
+            if (stuff.equals(id)) {
                 return true; // Duplicate found
             }
         }
@@ -148,7 +148,38 @@ public class Item {
             return String.valueOf(status.UNSUCCESSFUL);
         }
     }
-  
+
+    public String EditItemStock(String id, int stock){
+        try {
+            FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\item.txt");
+            BufferedReader br = new BufferedReader(fr);
+            // Read the file into memory and find the lines to edit
+            ArrayList<String> lines = new ArrayList<>();
+            String line;
+            
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(" "); // Split the line by spaces
+                if (parts.length == 5 && parts[0].equals(id)) {
+                    // This line contains "Item ID" followed by the provided id
+                    int updatedStock = Integer.parseInt(parts[3]) - stock; // Update the stock
+                    parts[3] = String.valueOf(updatedStock); // Update the stock
+                    line = String.join(" ", parts); // Reconstruct the line
+                }
+                lines.add(line);
+            }
+            
+            br.close();
+
+            this.WriteToFile(lines);
+            return String.valueOf(status.SUCCESSFUL);
+        } catch (FileNotFoundException e){
+            e.printStackTrace(); 
+        } catch (IOException e) {    
+        } catch (Exception e) {   
+        }
+        return String.valueOf(status.UNSUCCESSFUL);
+    }
+
     public String EditItemEntry(String id, String name, double price, int stock, String supplierID) throws IOException{
         try{
             FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\item.txt");
