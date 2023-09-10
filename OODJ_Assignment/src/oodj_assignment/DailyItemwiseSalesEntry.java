@@ -60,7 +60,13 @@ public class DailyItemwiseSalesEntry implements Serializable{
             }
         } else {
             // Handle the case when the file doesn't exist
-            JOptionPane.showMessageDialog(null, "File does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "File does not exist.\nCreated a new file", "Created new file", JOptionPane.INFORMATION_MESSAGE);
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             return false;
         }
     }
