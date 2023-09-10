@@ -417,7 +417,7 @@ public class Admin_ItemEntry extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-            new SM_ItemEntry().setVisible(true);
+            new Admin_ItemEntry().setVisible(true);
             }
         });
     }

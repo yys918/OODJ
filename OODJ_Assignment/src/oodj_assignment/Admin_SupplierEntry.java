@@ -516,7 +516,7 @@ public class Admin_SupplierEntry extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SM_SupplierEntry().setVisible(true);
+                new Admin_SupplierEntry().setVisible(true);
             }
         });
     }

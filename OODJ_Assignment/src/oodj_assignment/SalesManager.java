@@ -41,6 +41,14 @@ public class SalesManager {
         // Check if the input matches the regex pattern
         return supplierID.matches(supplierIDPattern);
     }
+    
+    public boolean isValidSupplierID(String supplierID) {//check supplier id
+        // Define a regex pattern for the supplier ID format S#### (S followed by 4 digits)
+        String supplierIDPattern = "^S\\d{4}$";
+
+        // Check if the input matches the regex pattern
+        return supplierID.matches(supplierIDPattern);
+    }
 
     public boolean isValidDateFormat(String dateStr) {//check date format
         // Define a regex pattern for the date format dd/mm/yyyy
@@ -91,7 +99,7 @@ public class SalesManager {
         }
     }
     
-    public String AddPurchaseRequisition(String name, String quantity, String amount, String orderdate, String SupplierID) {
+    public String AddPurchaseRequisition(String name, String quantity, String amount, String orderdate,String userID, String SupplierID) {
         try {
             File file = new File("requisition.txt");
 

@@ -772,7 +772,7 @@ public class Admin_Order extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PM_Order().setVisible(true);
+                new Admin_Order().setVisible(true);
             }
         });
     }
