@@ -12,7 +12,6 @@ import java.io.Serializable;
 import java.io.StreamCorruptedException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -218,7 +217,7 @@ public class DailyItemwiseSalesEntry implements Serializable{
         i.EditItemStock(targetItemId, quantity);
         
        // Write the updated objects back to the file
-       try (FileOutputStream fos = new FileOutputStream("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.dat");
+       try (FileOutputStream fos = new FileOutputStream(filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 
            for (DailyItemwiseSalesEntry entry : entries) {

@@ -208,6 +208,9 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(299, 299, 299))))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BtnAdd, BtnClear, BtnDelete, BtnSave});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -258,6 +261,8 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
                 .addComponent(BtnBack)
                 .addContainerGap(9, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {BtnAdd, BtnClear, BtnDelete, BtnSave});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -333,7 +338,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
 
                 // Save the changes to the text file
                 SalesManager obj1 = new SalesManager();
-                obj1.Save(jTable1, "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\requisition.txt");
+                obj1.Save(jTable1, "C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\requisition.txt");
             } else {
                 JOptionPane.showMessageDialog(null, "Failed to generate a unique ID.");
             }
@@ -364,7 +369,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
         txtSupID.setText(SupID);
         
         SalesManager obj1 = new SalesManager();
-        obj1.Save(jTable1, "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\requisition.txt");
+        obj1.Save(jTable1, "C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\requisition.txt");
     }//GEN-LAST:event_jTable1MouseReleased
 
     private void BtnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClearActionPerformed
@@ -440,7 +445,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
 
                     // Save the changes to the text file
                     SalesManager obj1 = new SalesManager();
-                    obj1.Save(jTable1, "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\requisition.txt");
+                    obj1.Save(jTable1, "C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\requisition.txt");
 
                     // Clear the text fields
                     txtName.setText("");
@@ -465,7 +470,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
             SalesManager deleted = new SalesManager();
             String repID = String.valueOf(model.getValueAt(row, 0)); // Get the repId
 
-            String filePath = ("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\requisition.txt");
+            String filePath = ("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\requisition.txt");
 
             try {
                 if (deleted.DeleteRequisition(model, repID, filePath)) {

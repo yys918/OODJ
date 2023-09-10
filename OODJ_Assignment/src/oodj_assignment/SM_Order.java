@@ -39,10 +39,13 @@ public class SM_Order extends javax.swing.JFrame {
         this.userID = userID;
         
         model1.setColumnIdentifiers(columnsName);
+        System.out.println("trying le lah");
         //display text file data to table (Order List)
         try {
+            
             PMView order = new PMView();
-            order.ViewOrder("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\OODJ\\OODJ_Assignment\\order.txt", model1);
+            
+            order.ViewOrder("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development With Java\\Assignment\\order.txt", model1);
             jTable1.setModel(model1);
         } 
         catch (Exception e) {

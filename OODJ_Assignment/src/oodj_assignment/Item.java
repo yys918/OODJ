@@ -102,30 +102,32 @@ public class Item {
     
     // Generate a new item ID
     public String generateNewId() {
-        // Find the maximum ID from the existing items and increment it
         int maxId = 0;
-        for (String ItemsEntry : items) {
-            String cleanEntry = ItemsEntry.replace("[", "").replace("]", "");
+        
+        for (String itemEntry : items) {
+            // Remove brackets "[" and "]" and split by ", "
+            String cleanEntry = itemEntry.replace("[", "").replace("]", "");
             String[] tokens = cleanEntry.split(", ");
-            if (tokens.length >= 1) {
+            
+            // Ensure there are at least two tokens (ID and something else)
+            if (tokens.length >= 2) {
                 String itemId = tokens[0].trim();
+                
                 try {
-                    int currentId = Integer.parseInt(itemId.substring(1));
-                    System.out.println("Current ID: " + currentId);
+                    // Remove the "I" prefix (if present) and parse the rest as an integer
+                    int currentId = Integer.parseInt(itemId.replaceAll("I", ""));
                     if (currentId > maxId) {
                         maxId = currentId;
-                        System.out.println("New Max ID: " + maxId);
                     }
                 } catch (NumberFormatException e) {
-                    // Handle parsing errors if the ID format is invalid
-                    // You may want to log an error or take appropriate action
+                    // Handle parsing errors (e.g., invalid ID format)
                     System.err.println("Error parsing ID: " + itemId);
                 }
             }
         }
-        // Increment the maximum ID and format it with "I" prefix
+        
+        // Increment the maximum ID and format it
         String newId = "I" + String.format("%04d", maxId + 1);
-        System.out.println("Generated ID: " + newId);
         return newId;
     }
 

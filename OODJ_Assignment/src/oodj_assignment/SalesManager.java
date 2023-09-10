@@ -24,7 +24,7 @@ public class SalesManager {
     private ArrayList<String> purchaseRequisition = new ArrayList<String>();
     private ArrayList<String> purchaseOrder = new ArrayList<String>();
     private enum status{SUCCESSFUL, UNSUCCESSFUL;}
-    
+    private String prFileName = "C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\requisition.txt";
     
     public SalesManager(){}
     
@@ -84,7 +84,7 @@ public class SalesManager {
     
     public void ViewPurchaseRequisition(String filename, DefaultTableModel model) {
         try{
-            FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\requisition.txt");
+            FileReader fr = new FileReader(prFileName);
             BufferedReader br = new BufferedReader(fr);
             String line;
             while ((line = br.readLine()) != null) {
@@ -174,7 +174,7 @@ public class SalesManager {
     
     public String EditPurchaseRequisition() throws IOException{
         try{
-            FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\requisition.txt");
+            FileWriter fw = new FileWriter(prFileName);
             BufferedWriter bw = new BufferedWriter(fw);
             Scanner sc = new Scanner(System.in);
             System.out.println("Please select which Item Sales Entry to be edit: ");
@@ -245,7 +245,7 @@ public class SalesManager {
     }   
     
     public ArrayList ViewRequisition() throws FileNotFoundException, IOException{
-        FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\requisition.txt");
+        FileReader fr = new FileReader(prFileName);
         BufferedReader br = new BufferedReader(fr);
         String line;
         while ((line = br.readLine()) != null) {
@@ -257,7 +257,7 @@ public class SalesManager {
     }
     
     public ArrayList ViewListOfPurchaseOrders() throws FileNotFoundException, IOException{
-        FileReader fr = new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\order.txt");
+        FileReader fr = new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\order.txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
         while ((line = br.readLine()) != null) {

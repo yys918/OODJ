@@ -33,7 +33,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="txtAmount" min="-2" pref="125" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="142" max="-2" attributes="0"/>
-                      <Component id="BtnAdd" min="-2" max="-2" attributes="0"/>
+                      <Component id="BtnAdd" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
                   </Group>
                   <Component id="BtnBack" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -76,7 +76,7 @@
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="193" max="-2" attributes="0"/>
-                              <Component id="BtnSave" min="-2" max="-2" attributes="0"/>
+                              <Component id="BtnSave" linkSize="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -85,11 +85,11 @@
                                   <Component id="txtDDate" pref="125" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="BtnClear" min="-2" max="-2" attributes="0"/>
+                              <Component id="BtnClear" linkSize="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="BtnDelete" min="-2" max="-2" attributes="0"/>
+                      <Component id="BtnDelete" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -148,13 +148,13 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="BtnAdd" min="-2" max="-2" attributes="0"/>
-                          <Component id="BtnSave" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="BtnAdd" linkSize="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="BtnSave" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="BtnDelete" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="BtnClear" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="BtnDelete" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="BtnClear" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>

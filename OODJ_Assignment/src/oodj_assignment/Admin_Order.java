@@ -455,7 +455,7 @@ public class Admin_Order extends javax.swing.JFrame {
                 PurchaseManager obj1 = new PurchaseManager();
                 PurchaseManager obj2 = new PurchaseManager();
                 obj1.Save(jTable1, "order.txt");
-                obj2.Save(jTable2, "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\requisition.txt");
+                obj2.Save(jTable2, "C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\requisition.txt");
             } 
             else {
                 JOptionPane.showMessageDialog(null, "Failed to generate a unique ID.");
@@ -517,10 +517,10 @@ public class Admin_Order extends javax.swing.JFrame {
             String filePath = "";
 
             if (lastSelectedTable == jTable1) {
-                filePath = "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\order.txt";
+                filePath = "C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\order.txt";
             } 
             else if (lastSelectedTable == jTable2) {
-                filePath = "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\requisition.txt";
+                filePath = "C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\requisition.txt";
             }
 
             if (deleted.DeleteOrder(tableModel, orderId, filePath)) {
