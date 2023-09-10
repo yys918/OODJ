@@ -13,14 +13,20 @@ import java.util.logging.Logger;
  * @author yyun
  */
 public class SM_Menu extends javax.swing.JFrame {
-
+    String userID;
     /**
      * Creates new form SM_Menu
      */
     public SM_Menu() {
+        //used to get the userID
+    }
+    
+    public SM_Menu(String userID) {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
+        lblWelcome.setText("Welcome, " + userID);
+        this.userID = userID;
     }
 
     /**
@@ -142,13 +148,11 @@ public class SM_Menu extends javax.swing.JFrame {
     private void btnItemEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnItemEntryActionPerformed
         setVisible(false);
         SM_ItemEntry form1 = new SM_ItemEntry();
-        form1.show();
     }//GEN-LAST:event_btnItemEntryActionPerformed
 
     private void btnSupplierEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupplierEntryActionPerformed
         setVisible(false);
         SM_SupplierEntry form1 = new SM_SupplierEntry();
-        form1.show();
     }//GEN-LAST:event_btnSupplierEntryActionPerformed
 
     private void btnDailyItemwiseSalesEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDailyItemwiseSalesEntryActionPerformed
@@ -169,44 +173,9 @@ public class SM_Menu extends javax.swing.JFrame {
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         loginPage out = new loginPage();
-        out.show();
+        out.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnLogOutActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SM_Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SM_Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SM_Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SM_Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SM_Menu().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDailyItemwiseSalesEntry;

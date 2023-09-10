@@ -137,7 +137,7 @@ public class SalesManager {
                 String newID = matcher.group(1) + newNumericPart;
 
                 // Create the new order data line
-                String newOrderData = newID + "," + name + "," + quantity + "," + amount + "," + orderdate + "," + SupllierID;
+                String newOrderData = newID + "," + name + "," + quantity + "," + amount + "," + orderdate + "," + SupllierID ;
 
                 // Append the new data to the ArrayList
                 lines.add(newOrderData);

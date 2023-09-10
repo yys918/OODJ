@@ -51,33 +51,10 @@ public class createSalesManager extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         radFemale.setText("Female");
-        radFemale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radFemaleActionPerformed(evt);
-            }
-        });
-
-        txtAddress.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAddressActionPerformed(evt);
-            }
-        });
-
-        txtEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Password");
 
         jLabel2.setText("Confirm password");
-
-        txtPass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPassActionPerformed(evt);
-            }
-        });
 
         btnCreate.setText("Create");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
@@ -95,12 +72,6 @@ public class createSalesManager extends javax.swing.JFrame {
         lblAddress.setText("Address");
 
         lblEmail.setText("Email Address:");
-
-        txtName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNameActionPerformed(evt);
-            }
-        });
 
         txtAge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,22 +183,6 @@ public class createSalesManager extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void radFemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radFemaleActionPerformed
-
-    }//GEN-LAST:event_radFemaleActionPerformed
-
-    private void txtAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAddressActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAddressActionPerformed
-
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
-
-    private void txtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPassActionPerformed
-
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         String name, address, email, age, gender, password;
         String holdGender = "";
@@ -258,14 +213,14 @@ public class createSalesManager extends javax.swing.JFrame {
                 password = txtPass.getText();
                 gender = holdGender;
 
-                createUserClass obj1 = new createUserClass();
+                createUserClass obj1 = new createUserClass(name,"Sales Manager",address,email,age,gender,password);
                 String id = obj1.lastID();
                 obj1.generateNextId(id);
 
                 boolean userCreated = false;
 
                 try {
-                    userCreated = obj1.receiveTextSM(name, age, gender, address, email, password);
+                    userCreated = obj1.receiveTextSM(obj1);
 
                 } catch (IOException e) {
                     System.out.println("Error: " + e.getMessage());
@@ -279,10 +234,6 @@ public class createSalesManager extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnCreateActionPerformed
-
-    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNameActionPerformed
 
     private void txtAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgeActionPerformed
         // TODO add your handling code here:

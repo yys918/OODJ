@@ -64,12 +64,6 @@ public class createAdmin extends javax.swing.JFrame {
 
         lblGender.setText("Gender:");
 
-        txtPass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPassActionPerformed(evt);
-            }
-        });
-
         lblAddress.setText("Address");
 
         lblEmail.setText("Email Address:");
@@ -81,48 +75,14 @@ public class createAdmin extends javax.swing.JFrame {
             }
         });
 
-        txtName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNameActionPerformed(evt);
-            }
-        });
-
-        txtAge.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAgeActionPerformed(evt);
-            }
-        });
-
         radMale.setText("Male");
-        radMale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radMaleActionPerformed(evt);
-            }
-        });
 
         radFemale.setText("Female");
-        radFemale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radFemaleActionPerformed(evt);
-            }
-        });
-
-        txtAddress.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAddressActionPerformed(evt);
-            }
-        });
 
         btnCreate.setText("Create");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateActionPerformed(evt);
-            }
-        });
-
-        txtEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailActionPerformed(evt);
             }
         });
 
@@ -218,34 +178,10 @@ public class createAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPassActionPerformed
-
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         this.dispose();
         new adminMainPage().setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
-
-    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNameActionPerformed
-
-    private void txtAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAgeActionPerformed
-
-    private void radMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radMaleActionPerformed
-
-    }//GEN-LAST:event_radMaleActionPerformed
-
-    private void radFemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radFemaleActionPerformed
-
-    }//GEN-LAST:event_radFemaleActionPerformed
-
-    private void txtAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAddressActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAddressActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         String name, address, email, age, gender, password;
@@ -277,14 +213,14 @@ public class createAdmin extends javax.swing.JFrame {
                 password = txtPass.getText();
                 gender = holdGender;
 
-                createUserClass obj1 = new createUserClass();
+                createUserClass obj1 = new createUserClass(name, "Admin", address, email, age,gender, password);
                 String id = obj1.lastID();
                 obj1.generateNextId(id);
 
                 boolean userCreated = false;
 
                 try {
-                    userCreated = obj1.receiveTextAd(name, age, gender, address, email, password);
+                    userCreated = obj1.receiveTextAd(obj1);
 
                 } catch (IOException e) {
                     System.out.println("Error: " + e.getMessage());
@@ -296,10 +232,6 @@ public class createAdmin extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnCreateActionPerformed
-
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
 
     /**
      * @param args the command line arguments

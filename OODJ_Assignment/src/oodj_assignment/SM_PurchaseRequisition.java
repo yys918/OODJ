@@ -3,7 +3,6 @@ package oodj_assignment;
 
 
 import java.awt.Color;
-import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -23,7 +22,8 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
     private int row = -1;
     
     private JTable lastSelectedTable = null;
-
+    SM_Menu f1 = new SM_Menu();
+    String SMid = f1.userID;
     /**
      * Creates new form SM_PurchaseRequisition
      */
@@ -254,9 +254,9 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
 
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
         // back to main
-        SM_Menu s = new SM_Menu();
-        s.show();
-        dispose();
+        SM_Menu form1 = null;
+        form1 = new SM_Menu(form1.userID);
+        this.dispose();
     }//GEN-LAST:event_BtnBackActionPerformed
 
     private void BtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddActionPerformed
@@ -309,8 +309,6 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
                 txtAmount.setText("");
                 txtDDate.setText("");
                 txtItemID.setText("");
-
-
 
                 // Save the changes to the text file
                 SalesManager obj1 = new SalesManager();               

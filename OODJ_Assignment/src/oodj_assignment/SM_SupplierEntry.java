@@ -38,6 +38,7 @@ public class SM_SupplierEntry extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         model.setColumnIdentifiers(sColumnName);        
         this.ViewSupplierTable();
+        model.isCellEditable(model.getRowCount(), model.getColumnCount());
         
     }
     
@@ -294,7 +295,8 @@ public class SM_SupplierEntry extends javax.swing.JFrame {
 
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
         setVisible(false);
-        SM_Menu form1 = new SM_Menu();
+        SM_Menu form1 = null;
+        form1 = new SM_Menu(form1.userID);
     }//GEN-LAST:event_BtnBackActionPerformed
 
     private void BtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddActionPerformed

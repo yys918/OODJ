@@ -126,9 +126,6 @@ public class Item {
         return newId;
     }
 
-
-
-    
     public String AddItemEntry(String id, String name, double price, int stock, String supplierID) throws IOException{
         try{
             FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\item.txt",true);

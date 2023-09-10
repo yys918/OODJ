@@ -50,18 +50,6 @@ public class loginPage extends javax.swing.JFrame {
 
         lblPassword.setText("Password");
 
-        txtUsername.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsernameActionPerformed(evt);
-            }
-        });
-
-        txtPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPasswordActionPerformed(evt);
-            }
-        });
-
         btnLogin.setText("Login");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,15 +114,6 @@ public class loginPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
-        
-        
-    }//GEN-LAST:event_txtUsernameActionPerformed
-
-    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPasswordActionPerformed
-
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         
         x = txtUsername.getText();
@@ -142,8 +121,9 @@ public class loginPage extends javax.swing.JFrame {
         y = txtPassword.getText();
         y = y.trim();
         
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\user.txt"))) {
             String line;
+            String userID = "";
             boolean logIn = false;
             adminMainPage adminMain = new adminMainPage();
             
@@ -152,6 +132,7 @@ public class loginPage extends javax.swing.JFrame {
                 String[] login = line.split("/");
                 if (x.equals(login[1]) && y.equals(login[7])) { 
                     logIn = true;
+                    userID = login[0];
                     user = login[6];
                     break; 
                 }
@@ -173,7 +154,7 @@ public class loginPage extends javax.swing.JFrame {
                 }
                 else if(user.equals("sm")){
                     JOptionPane.showMessageDialog(null, "Login successful, Sales Manager");
-                    SM_Menu form1 = new SM_Menu();
+                    SM_Menu form1 = new SM_Menu(userID);
                     form1.show();
                     this.dispose();
                 }

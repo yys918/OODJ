@@ -35,6 +35,7 @@ public class SM_ItemEntry extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         model1.setColumnIdentifiers(ColumnName);
         this.ViewTable();
+        model1.isCellEditable(model1.getRowCount(), model1.getColumnCount());
         
     }
 
@@ -287,7 +288,8 @@ public class SM_ItemEntry extends javax.swing.JFrame {
 
     private void BtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnExitActionPerformed
         setVisible(false);
-        SM_Menu form1 = new SM_Menu();
+        SM_Menu form1 = null;
+        form1 = new SM_Menu(form1.userID);
     }//GEN-LAST:event_BtnExitActionPerformed
 
     private void BtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDeleteActionPerformed

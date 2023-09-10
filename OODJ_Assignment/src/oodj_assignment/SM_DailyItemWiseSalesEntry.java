@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author yyun
  */
-public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
+public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
     private DefaultTableModel model1 = new DefaultTableModel();
     private DefaultTableModel model2 = new DefaultTableModel();
     private String []dcolumnsName = {"Item ID", "Item Name", "Quantity Sold"};
@@ -52,7 +52,8 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
         txtItemName.setEnabled(false);
         txtStockLeft.setFocusable(false);
         txtStockLeft.setEnabled(false);
-
+        model1.isCellEditable(model1.getRowCount(), model1.getColumnCount());
+        model2.isCellEditable(model2.getRowCount(), model2.getColumnCount());
     }
     
     public void LoadItemTable(){
@@ -373,7 +374,8 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
     
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
         setVisible(false);
-        SM_Menu form1 = new SM_Menu();
+        SM_Menu form1 = null;
+        form1 = new SM_Menu(form1.userID);
     }//GEN-LAST:event_BtnBackActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed

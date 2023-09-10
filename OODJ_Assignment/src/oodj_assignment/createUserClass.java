@@ -8,18 +8,14 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 
-public class createUserClass {
+public class createUserClass extends Employee {
     
     private static String ID;
-    private String name;
-    private String password;
-    private String role;
-    private String address;
-    private String email;
-    private String age;
-    private String gender;
     private String filePath = "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt";
     
+    public createUserClass(String name, String role, String address, String email, String age, String gender,String password){
+        super(name,role,address,email,age,gender,password); 
+    }
     
     public static String lastID(){
          try {
@@ -59,27 +55,21 @@ public class createUserClass {
         }
     }
     
-    public boolean receiveTextAd(String name, String age, String gender, String address, String email, String password) throws IOException {
-    this.name = name;
-    this.password = password;
-    this.address = address;
-    this.email = email;
-    this.age = age;
-    this.gender = gender;
+    public boolean receiveTextAd(createUserClass user) throws IOException {
     ID = "U" + ID;
     // Validate the email format
-    if (!isValidEmail(email)) {
+    if (!isValidEmail(user.getEmail())) {
         JOptionPane.showMessageDialog(null, "Please enter a valid email address.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
         return false;
     } else {
         // Check if the name is already registered
-        if (isNameRegistered(name)) {
+        if (isNameRegistered(user.getName())) {
             JOptionPane.showMessageDialog(null, "Name is taken. Please choose a different name.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
             // Validate age
             try {
-                int ageValue = Integer.parseInt(age);
+                int ageValue = Integer.parseInt(user.getAge());
                 if (ageValue < 18 || ageValue > 120) { // Adjust age validation range as needed
                     JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age between 18 and 120.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
                     return false;
@@ -93,7 +83,7 @@ public class createUserClass {
             try {
                 FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt", true);
                 BufferedWriter bw = new BufferedWriter(fw);
-                bw.write(ID + "/" + name + "/" + age + "/" + gender + "/" + address + "/" + email + "/" + "admin" + "/" + password + "\n");
+                bw.write(ID + "/" + user.getName() + "/" + user.getAge() + "/" + user.getGender() + "/" + user.getAddress() + "/" + user.getEmail() + "/" + "admin" + "/" + user.getPassword() + "\n");
 
                 bw.close();
                 fw.close();
@@ -110,28 +100,23 @@ public class createUserClass {
 }
     
     
-    public boolean receiveTextPM(String name, String age, String gender, String address, String email, String password) throws IOException {
-    this.name = name;
-    this.password = password;
-    this.address = address;
-    this.email = email;
-    this.age = age;
-    this.gender = gender;
+    public boolean receiveTextPM(createUserClass user) throws IOException {
+
     ID = "PM" + ID;
     
     // Validate the email format
-    if (!isValidEmail(email)) {
+    if (!isValidEmail(user.getEmail())) {
         JOptionPane.showMessageDialog(null, "Please enter a valid email address.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
         return false;
     } else {
         // Check if the name is already registered
-        if (isNameRegistered(name)) {
+        if (isNameRegistered(user.getName())) {
             JOptionPane.showMessageDialog(null, "Name is taken. Please choose a different name.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
             // Validate age
             try {
-                int ageValue = Integer.parseInt(age);
+                int ageValue = Integer.parseInt(user.getAge());
                 if (ageValue < 18 || ageValue > 120) { // Adjust age validation range as needed
                     JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age between 18 and 120.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
                     return false;
@@ -145,7 +130,7 @@ public class createUserClass {
             try {
                 FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt", true);
                 BufferedWriter bw = new BufferedWriter(fw);
-                bw.write(ID + "/" + name + "/" + age + "/" + gender + "/" + address + "/" + email + "/" + "pm" + "/" + password + "\n");
+                bw.write(ID + "/" + user.getName() + "/" + user.getAge() + "/" + user.getGender() + "/" + user.getAddress() + "/" + user.getEmail() + "/" + "pm" + "/" + user.getPassword() + "\n");
 
                 bw.close();
                 fw.close();
@@ -162,27 +147,21 @@ public class createUserClass {
 }
    
     
-    public boolean receiveTextSM(String name, String age, String gender, String address, String email, String password) throws IOException {
-    this.name = name;
-    this.password = password;
-    this.address = address;
-    this.email = email;
-    this.age = age;
-    this.gender = gender;
+    public boolean receiveTextSM(createUserClass user) throws IOException {
     ID = "SM" + ID;
     // Validate the email format
-    if (!isValidEmail(email)) {
+    if (!isValidEmail(user.getEmail())) {
         JOptionPane.showMessageDialog(null, "Please enter a valid email address.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
         return false;
     } else {
         // Check if the name is already registered
-        if (isNameRegistered(name)) {
+        if (isNameRegistered(user.getName())) {
             JOptionPane.showMessageDialog(null, "Name is taken. Please choose a different name.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
             // Validate age
             try {
-                int ageValue = Integer.parseInt(age);
+                int ageValue = Integer.parseInt(user.getAge());
                 if (ageValue < 18 || ageValue > 120) { // Adjust age validation range as needed
                     JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid age between 18 and 120.", "Registration Failed", JOptionPane.ERROR_MESSAGE);
                     return false;
@@ -196,7 +175,7 @@ public class createUserClass {
             try {
                 FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt", true);
                 BufferedWriter bw = new BufferedWriter(fw);
-                bw.write(ID + "/" + name + "/" + age + "/" + gender + "/" + address + "/" + email + "/" + "sm" + "/" + password + "\n");
+                bw.write(ID + "/" + user.getName() + "/" + user.getAge() + "/" + user.getGender() + "/" + user.getAddress() + "/" + user.getEmail() + "/" + "sm" + "/" + user.getPassword() + "\n");
 
                 bw.close();
                 fw.close();
@@ -233,47 +212,6 @@ public class createUserClass {
              System.out.println("Error: " + e.getMessage());
         }
         return false;
-    }
-    
-   
-    public String getName() {
-        return name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
     
 }

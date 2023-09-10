@@ -73,53 +73,13 @@ public class createPurchaseManager extends javax.swing.JFrame {
 
         lblEmail.setText("Email Address:");
 
-        txtName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNameActionPerformed(evt);
-            }
-        });
-
-        txtAge.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAgeActionPerformed(evt);
-            }
-        });
-
         radMale.setText("Male");
-        radMale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radMaleActionPerformed(evt);
-            }
-        });
 
         radFemale.setText("Female");
-        radFemale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radFemaleActionPerformed(evt);
-            }
-        });
-
-        txtAddress.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAddressActionPerformed(evt);
-            }
-        });
-
-        txtEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Password");
 
         jLabel2.setText("Confirm password");
-
-        txtPass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPassActionPerformed(evt);
-            }
-        });
 
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -218,32 +178,6 @@ public class createPurchaseManager extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAgeActionPerformed
-
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
-
-    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNameActionPerformed
-
-    private void radMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radMaleActionPerformed
-        
-               
-    }//GEN-LAST:event_radMaleActionPerformed
-
-    private void radFemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radFemaleActionPerformed
-        
-        
-    }//GEN-LAST:event_radFemaleActionPerformed
-
-    private void txtAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAddressActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAddressActionPerformed
-
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         String name, address, email, age, gender, password;
         String holdGender = "";
@@ -274,14 +208,14 @@ public class createPurchaseManager extends javax.swing.JFrame {
                 password = txtPass.getText();
                 gender = holdGender;
 
-                createUserClass obj1 = new createUserClass();
+                createUserClass obj1 = new createUserClass(name, "Purchase Manager", address, email, age,gender, password);
                 String id = obj1.lastID();
                 obj1.generateNextId(id);
 
                 boolean userCreated = false;
 
                 try {
-                    userCreated = obj1.receiveTextPM(name, age, gender, address, email, password);
+                    userCreated = obj1.receiveTextPM(obj1);
 
                 } catch (IOException e) {
                     System.out.println("Error: " + e.getMessage());
@@ -296,10 +230,6 @@ public class createPurchaseManager extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnCreateActionPerformed
-
-    private void txtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPassActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         this.dispose();
