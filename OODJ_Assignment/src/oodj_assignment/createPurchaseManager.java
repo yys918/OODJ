@@ -279,7 +279,7 @@ public class createPurchaseManager extends javax.swing.JFrame {
                 boolean userCreated = false;
 
                 try {
-                    userCreated = obj1.receiveTextSM(name, age, gender, address, email, password);
+                    userCreated = obj1.receiveTextPM(name, age, gender, address, email, password);
 
                 } catch (IOException e) {
                     System.out.println("Error: " + e.getMessage());
