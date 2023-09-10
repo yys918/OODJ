@@ -35,9 +35,12 @@ public class adminMainPage extends javax.swing.JFrame {
 
         lblTitle = new javax.swing.JLabel();
         btnCreate = new javax.swing.JButton();
-        btnCheckStock = new javax.swing.JButton();
+        btnItem = new javax.swing.JButton();
         btnCheck = new javax.swing.JButton();
         btnLogOut = new javax.swing.JButton();
+        btnSupplier = new javax.swing.JButton();
+        btnReq = new javax.swing.JButton();
+        btnOrder = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,10 +58,10 @@ public class adminMainPage extends javax.swing.JFrame {
             }
         });
 
-        btnCheckStock.setText("Check stock");
-        btnCheckStock.addActionListener(new java.awt.event.ActionListener() {
+        btnItem.setText("Item");
+        btnItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCheckStockActionPerformed(evt);
+                btnItemActionPerformed(evt);
             }
         });
 
@@ -76,41 +79,79 @@ public class adminMainPage extends javax.swing.JFrame {
             }
         });
 
+        btnSupplier.setText("Supplier");
+        btnSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSupplierActionPerformed(evt);
+            }
+        });
+
+        btnReq.setText("Requisition");
+        btnReq.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReqActionPerformed(evt);
+            }
+        });
+
+        btnOrder.setText("Order");
+        btnOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrderActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnReq)
+                    .addComponent(btnCheck))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                        .addComponent(btnCreate)
+                        .addGap(40, 40, 40))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addComponent(btnOrder)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(btnSupplier)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnItem)
+                .addGap(64, 64, 64))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(155, 155, 155)
                         .addComponent(lblTitle))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(btnCheck))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(btnCheckStock))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(btnCreate))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(159, 159, 159)
+                        .addGap(148, 148, 148)
                         .addComponent(btnLogOut)))
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(lblTitle)
-                .addGap(49, 49, 49)
-                .addComponent(btnCheck)
-                .addGap(24, 24, 24)
-                .addComponent(btnCreate)
                 .addGap(18, 18, 18)
-                .addComponent(btnCheckStock)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCheck)
+                    .addComponent(btnCreate))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSupplier)
+                    .addComponent(btnItem))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReq)
+                    .addComponent(btnOrder))
+                .addGap(41, 41, 41)
                 .addComponent(btnLogOut)
                 .addContainerGap(59, Short.MAX_VALUE))
         );
@@ -128,9 +169,11 @@ public class adminMainPage extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnCreateActionPerformed
 
-    private void btnCheckStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckStockActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCheckStockActionPerformed
+    private void btnItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnItemActionPerformed
+        SM_ItemEntry item = new SM_ItemEntry(); 
+        item.show();
+        this.dispose();
+    }//GEN-LAST:event_btnItemActionPerformed
 
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
         new checkUser().setVisible(true);
@@ -142,6 +185,24 @@ public class adminMainPage extends javax.swing.JFrame {
         out.show();
         this.dispose();
     }//GEN-LAST:event_btnLogOutActionPerformed
+
+    private void btnSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupplierActionPerformed
+        SM_SupplierEntry sup =new SM_SupplierEntry();
+        sup.show();
+        this.dispose();
+    }//GEN-LAST:event_btnSupplierActionPerformed
+
+    private void btnReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReqActionPerformed
+        SM_PurchaseRequisition req = new SM_PurchaseRequisition();
+        req.show();
+        this.dispose();
+    }//GEN-LAST:event_btnReqActionPerformed
+
+    private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
+        PM_Order order = new PM_Order();
+        order.show();
+        this.dispose();
+    }//GEN-LAST:event_btnOrderActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,9 +241,12 @@ public class adminMainPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCheck;
-    private javax.swing.JButton btnCheckStock;
     private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnItem;
     private javax.swing.JButton btnLogOut;
+    private javax.swing.JButton btnOrder;
+    private javax.swing.JButton btnReq;
+    private javax.swing.JButton btnSupplier;
     private javax.swing.JLabel lblTitle;
     // End of variables declaration//GEN-END:variables
 }

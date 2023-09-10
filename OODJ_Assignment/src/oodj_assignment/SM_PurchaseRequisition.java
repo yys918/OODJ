@@ -18,7 +18,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
     
     //jtable1
     private DefaultTableModel model;
-    private String [] columnsName = {"ID","Item ID","Name","Quantity","Total Amount (RM)","Request Delivery Date","Sales Manager ID","Supplier ID"};
+    private String [] columnsName = {"ID","Item ID","Name","Quantity","Total Amount (RM)","Request Delivery Date"};
     private int row = -1;
     
     private JTable lastSelectedTable = null;
@@ -44,9 +44,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
         req.ViewPurchaseRequisition("requisition.txt",model);//call method from PM class        
         jTable1.setModel(model);//display data
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Set single selection mode
-        //set text field uneditable
-        txtName.setEditable(false);
-        txtItemID.setEditable(false);
+        
     }
 
     /**
@@ -298,7 +296,7 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
             String generatedID = add.AddPurchaseRequisition(name, quantity, amount, Ddate, ItemID);
             if (generatedID != null) {
                 // Create an array to store the values from text fields
-                String[] values = {generatedID, name, quantity, amount, Ddate, ItemID};
+                String[] values = {generatedID,ItemID, name, quantity, amount, Ddate };
 
                 // Add row to jTable1
                 model.addRow(values);
@@ -311,8 +309,8 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
                 txtItemID.setText("");
 
                 // Save the changes to the text file
-                SalesManager obj1 = new SalesManager();               
-                obj1.Save(jTable1, "requisition.txt");
+                SalesManager obj1 = new SalesManager();
+                obj1.Save(jTable1, "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\requisition.txt");
             } 
             else {
                 JOptionPane.showMessageDialog(null, "Failed to generate a unique ID.");
@@ -343,6 +341,9 @@ public class SM_PurchaseRequisition extends javax.swing.JFrame {
         txtAmount.setText(amount);
         txtDDate.setText(date);
         txtItemID.setText(ItemID);
+        
+        SalesManager obj1 = new SalesManager();
+        obj1.Save(jTable1, "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\requisition.txt");
     }//GEN-LAST:event_jTable1MouseReleased
 
     private void BtnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClearActionPerformed
