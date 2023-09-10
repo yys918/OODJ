@@ -7,14 +7,11 @@ package oodj_assignment;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -36,7 +33,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
     private ArrayList<String> items = new ArrayList<>();
     DailyItemwiseSalesEntry d1 = new DailyItemwiseSalesEntry();
     private DefaultComboBoxModel<String> dateListModel = new DefaultComboBoxModel();
-
+    Item i = new Item();
     
     /**
      * Creates new form SM_DailyItemWiseSalesEntry
@@ -48,7 +45,19 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
         setLocationRelativeTo(null);    
         this.LoadCmbBoxDateList();
         model2.setColumnIdentifiers(icolumnsName);
-        Item i = new Item();
+        this.LoadItemTable();
+        txtItemID.setFocusable(false);
+        txtItemID.setEnabled(false);
+        txtItemName.setFocusable(false);
+        txtItemName.setEnabled(false);
+        txtStockLeft.setFocusable(false);
+        txtStockLeft.setEnabled(false);
+
+    }
+    
+    public void LoadItemTable(){
+        model2.setRowCount(0);
+        items.clear();
         try {
             items = i.ViewItemEntry();
             for ( String item : items){
@@ -67,15 +76,8 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
         }
-        txtItemID.setFocusable(false);
-        txtItemID.setEnabled(false);
-        txtItemName.setFocusable(false);
-        txtItemName.setEnabled(false);
-        txtStockLeft.setFocusable(false);
-        txtStockLeft.setEnabled(false);
-
     }
-    
+
     public void LoadCmbBoxDateList(){
         dateListModel.removeAllElements();
         ArrayList<String> existingDates = d1.getExistingDates(); // Replace this with your actual data source
@@ -100,24 +102,33 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
         }
         jTable1.clearSelection();
         jTable2.clearSelection();
-//        }
     }
     
-    private void updateStock(){
-        itemID = txtItemID.getText();
-        quantitySold = Integer.parseInt(txtQuantitySold.getText());
-        Item i = new Item();
-        try{
-            int currentStock = i.checkStock(itemID); 
-            System.out.println( "Current stock found "+ String.valueOf(currentStock));
-            int updatedStock = currentStock - quantitySold;      
-            txtStockLeft.setText(String.valueOf(updatedStock));
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Please enter integer for quantity sold.", "Format Errer",JOptionPane.ERROR_MESSAGE);
-            System.out.println("Error le leh");
-            e.printStackTrace();
-        }catch(IOException e){
-            e.printStackTrace();
+    private boolean updateStock(){
+        if(txtQuantitySold.getText().isEmpty()){
+            txtStockLeft.setText(null);
+            return false;
+        } else if (jTable2.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(null, "Please select an item from the lower table.", "No item selected", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else{
+            row = jTable1.getSelectedRow(); 
+            itemID = txtItemID.getText();
+            quantitySold = Integer.parseInt(txtQuantitySold.getText());
+            Item i = new Item();
+            try{
+                int currentStock = i.checkStock(itemID);
+                int soldStock = Integer.parseInt(String.valueOf(model1.getValueAt(row, 2)));
+                int totalStock = currentStock + soldStock;
+                int updatedStock = totalStock - quantitySold;      
+                txtStockLeft.setText(String.valueOf(updatedStock));
+            } catch (java.lang.NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Please enter integer for quantity sold.", "Format Errer",JOptionPane.ERROR_MESSAGE);
+                System.out.println("Error le leh");
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+            return true;
         }
     }
     
@@ -350,7 +361,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                updateStock();
+                updateStock(); 
             }
 
             @Override
@@ -391,6 +402,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
                        Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
                    }
                 }
+                this.clearAll();
             } catch (IOException ex) {   
                 Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -404,16 +416,17 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
         salesDate = (String)CmbBoxDateList.getSelectedItem();
         row = jTable1.getSelectedRow();
         itemID = String.valueOf(model1.getValueAt(row, 0));
+        quantitySold = Integer.parseInt(String.valueOf(model1.getValueAt(row, 2)));
         if (row<0){
             JOptionPane.showMessageDialog(null, "Please selected a row from the upper table.","Error in selecting row.",JOptionPane.ERROR_MESSAGE);
             return;
         }else{
             try {
-                String status = d1.DeleteDailyItemwiseSalesEntry(itemID);
+                d1.DeleteDailyItemwiseSalesEntry(itemID);
                 this.LoadCmbBoxDateList();
                 this.ViewDailySalesEntry(salesDate);
-                jTable1.clearSelection();
-                jTable2.clearSelection();  
+                i.EditItemStock(itemID, -quantitySold);
+                this.clearAll(); 
             } catch (IOException ex) {
                 Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -427,9 +440,9 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
         try {
             if(d1.checkStock(itemID, quantitySold)){
             d1.EditDailyItemwiseSalesEntry(itemID, quantitySold, salesDate);
-            
-            jTable1.clearSelection();
-            jTable2.clearSelection();
+            this.LoadItemTable();
+            this.ViewDailySalesEntry(salesDate);
+            this.clearAll();
             }
         } catch (IOException ex) {
             Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
@@ -445,6 +458,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
         txtItemID.setText(itemID);
         txtItemName.setText(itemName);
         txtQuantitySold.setText("");
+        txtStockLeft.setText(stock);
     }//GEN-LAST:event_jTable2MouseReleased
 
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
@@ -455,14 +469,24 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
         txtItemID.setText(itemID);
         txtItemName.setText(itemName);
         txtQuantitySold.setText(String.valueOf(quantitySold));
+        try {
+            txtStockLeft.setText(String.valueOf(i.checkStock(itemID)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jTable1MouseReleased
 
-    private void BtnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClearActionPerformed
+    private void clearAll(){
         txtItemID.setText(null);
         txtItemName.setText(null);
         txtQuantitySold.setText(null);
+        txtStockLeft.setText(null);
         jTable1.clearSelection();
         jTable2.clearSelection();
+    }
+
+    private void BtnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClearActionPerformed
+        clearAll();
     }//GEN-LAST:event_BtnClearActionPerformed
 
     /**

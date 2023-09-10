@@ -13,10 +13,7 @@ import java.io.StreamCorruptedException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -203,33 +200,38 @@ public class DailyItemwiseSalesEntry implements Serializable{
     public String EditDailyItemwiseSalesEntry(String targetItemId, int quantity, String targetDate) throws IOException{
         // Read existing objects from the file into an ArrayList
         allDailyList = this.ViewDailyItemwiseSalesEntry();
+        ArrayList<DailyItemwiseSalesEntry> entries = new ArrayList<>();
 
         // Find and edit the object based on a unique identifier (e.g., item ID or date)
         for (DailyItemwiseSalesEntry entry : allDailyList) {
+            System.out.println("target date is " + targetDate);
+            System.out.println("entry date is " + entry.getSalesDate());
             if(entry.getSalesDate().equals(targetDate)){
                 if (entry.getItemID().equals(targetItemId)) {
-                // Modify the attributes of the found object
-                entry.setQuantitySold(quantity); // Update the quantity sold, for example
-                break; // Exit the loop once the object is found and edited
+                    System.out.println("I am here");
+                    // Modify the attributes of the found object
+                    System.out.println(String.valueOf(entry.getQuantitySold()));
+                    entry.setQuantitySold(quantity); // Update the quantity sold, for example
+                    System.out.println(String.valueOf(entry.getQuantitySold()));
             }
             }
-        //Edit stock and reload
+            entries.add(entry);
+        }    
         Item i = new Item();
-        }
+        i.EditItemStock(targetItemId, quantity);
+        
+       // Write the updated objects back to the file
+       try (FileOutputStream fos = new FileOutputStream("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.dat");
+            ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 
-//        // Write the updated objects back to the file
-//        try (FileOutputStream fos = new FileOutputStream("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.dat");
-//             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-//
-//            for (DailyItemwiseSalesEntry entry : entries) {
-//                oos.writeObject(entry);
-//            }
-//            return String.valueOf(status.SUCCESSFUL);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return String.valueOf(status.UNSUCCESSFUL);
-//        }
-return "";
+           for (DailyItemwiseSalesEntry entry : entries) {
+               oos.writeObject(entry);
+           }
+           return String.valueOf(status.SUCCESSFUL);
+       } catch (IOException e) {
+           e.printStackTrace();
+           return String.valueOf(status.UNSUCCESSFUL);
+       }
     }
     
     public String DeleteDailyItemwiseSalesEntry(String id) throws IOException{
@@ -258,6 +260,7 @@ return "";
                 iterator.remove();
             }
         }
+        
 
         // Write the updated objects back to the file
         try (FileOutputStream fos = new FileOutputStream(filename);
