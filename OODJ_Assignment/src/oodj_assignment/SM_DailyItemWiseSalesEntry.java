@@ -12,7 +12,9 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,10 +30,11 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
     private double itemPrice,total;
     private int quantitySold;
     private int row = -1;
-    private ArrayList<DailyItemwiseSalesEntry> dailyItemWiseSalesEntry = new ArrayList<DailyItemwiseSalesEntry>();
-    private ArrayList<String> items = new ArrayList<String>();
+    private ArrayList<DailyItemwiseSalesEntry> dailyItemWiseSalesEntry = new ArrayList<>();
+    private ArrayList<String> items = new ArrayList<>();
     DailyItemwiseSalesEntry d1 = new DailyItemwiseSalesEntry();
     private DefaultComboBoxModel<String> dateListModel = new DefaultComboBoxModel();
+
     
     /**
      * Creates new form SM_DailyItemWiseSalesEntry
@@ -73,8 +76,9 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
     public void LoadCmbBoxDateList(){
         dateListModel.removeAllElements();
         ArrayList<String> existingDates = d1.getExistingDates(); // Replace this with your actual data source
+        System.out.println(Arrays.toString(existingDates.toArray()));
         for (String date : existingDates) {
-        dateListModel.addElement(date);
+            dateListModel.addElement(date);
         }
     }
     
@@ -82,37 +86,58 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
         model1.setRowCount(0);
         dailyItemWiseSalesEntry.clear();
         model1.setColumnIdentifiers(dcolumnsName);
-        dailyItemWiseSalesEntry = d1.ViewDailyItemwiseSalesEntry();
-        ArrayList<DailyItemwiseSalesEntry> originalList = dailyItemWiseSalesEntry; //  original ArrayList
-        Set<String> uniqueItemIDs = new HashSet<>();
-        ArrayList<DailyItemwiseSalesEntry> uniqueList = new ArrayList<>();
-        System.out.println(Arrays.toString(dailyItemWiseSalesEntry.toArray()));
-        for (DailyItemwiseSalesEntry entry : originalList) {
-            // Check if the itemID is already in the set 
-            if (!uniqueItemIDs.contains(entry.getItemID())) {
-                uniqueItemIDs.add(entry.getItemID()); // Add the itemID to the set
-                uniqueList.add(entry); // Add the unique object to the new list
-            }
-        }
-        System.out.println(Arrays.toString(uniqueList.toArray()));
-        
-        for (DailyItemwiseSalesEntry entry : uniqueList) {
+       dailyItemWiseSalesEntry = d1.ViewDailyItemwiseSalesEntry();
+        for (DailyItemwiseSalesEntry entry : dailyItemWiseSalesEntry) {
             itemID = entry.getItemID();
             itemName = entry.getItemName();
             quantitySold = entry.getQuantitySold();
             salesDate = entry.getSalesDate();
-            System.out.println("checking id" + itemID);
-            
-            System.out.println("Date" + date);
-            System.out.println("Checked date: " + salesDate);
-            if (salesDate.equals(date)){
-                Object[] data = {itemID,itemName,quantitySold};
-                model1.addRow(data);
-                } 
+            Object[] data = {itemID,itemName,quantitySold};
+            model1.addRow(data);
+        }
+//        ArrayList<DailyItemwiseSalesEntry> originalList = dailyItemWiseSalesEntry; //  original ArrayList
+//        Set<String> uniqueItemIDs = new HashSet<>();
+//        ArrayList<DailyItemwiseSalesEntry> uniqueList = new ArrayList<>();
+//        System.out.println(Arrays.toString(dailyItemWiseSalesEntry.toArray()));
+//        for (DailyItemwiseSalesEntry entry : originalList) {
+//            // Check if the itemID is already in the set 
+//            if (!uniqueItemIDs.contains(entry.getItemID())) {
+//                uniqueItemIDs.add(entry.getItemID()); // Add the itemID to the set
+//                uniqueList.add(entry); // Add the unique object to the new list
+//            }
+//        }
+//        System.out.println(Arrays.toString(uniqueList.toArray()));
+//        
+//        for (DailyItemwiseSalesEntry entry : uniqueList) {
+//            itemID = entry.getItemID();
+//            itemName = entry.getItemName();
+//            quantitySold = entry.getQuantitySold();
+//            salesDate = entry.getSalesDate();
+//            System.out.println("checking id" + itemID);
+//            
+//            System.out.println("Date" + date);
+//            System.out.println("Checked date: " + salesDate);
+//            if (salesDate.equals(date)){
+//                Object[] data = {itemID,itemName,quantitySold};
+//                model1.addRow(data);
+//                } 
         jTable1.clearSelection();
         jTable2.clearSelection();
-        }
+//        }
     }
+
+    public void closeAndReloadWindow() {
+    this.dispose();
+
+    // Create a new instance of the SalesManager_DailyItemWiseSalesEntry frame
+    SwingUtilities.invokeLater(new Runnable() {
+        public void run() {
+            SM_DailyItemWiseSalesEntry frame = new SM_DailyItemWiseSalesEntry();
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setVisible(true);
+        }
+    });
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -360,15 +385,16 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame {
             
             try {
                 if(d1.checkStock(itemID, quantitySold)){
-                    try {
+                   try {
                         System.out.println(itemID);
                         System.out.println(itemName);
                         System.out.println(String.valueOf(quantitySold));
+                        this.closeAndReloadWindow();
                         String status = d1.AddDailyItemwiseSalesEntry(itemID, itemName, quantitySold);
                         this.LoadCmbBoxDateList();
-                    } catch (IOException ex) {
-                        Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                   } catch (IOException ex) {
+                       Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
+                   }
                 }
             } catch (IOException ex) {   
                 Logger.getLogger(SM_DailyItemWiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);

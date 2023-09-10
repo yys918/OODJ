@@ -13,7 +13,10 @@ import java.io.StreamCorruptedException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -112,52 +115,44 @@ public class DailyItemwiseSalesEntry implements Serializable{
     
     public ArrayList<DailyItemwiseSalesEntry> ViewDailyItemwiseSalesEntry() {//throws StreamCorruptedException
         dailyItemWiseSalesEntry.clear();
-        if(this.checkFileExists()){
+        ArrayList<DailyItemwiseSalesEntry> allDailyList = new ArrayList<DailyItemwiseSalesEntry>();
+        while(this.checkFileExists()){
             try {
                 
                 FileInputStream fis = new FileInputStream(filename);
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 try{ 
-//                    int result = ois.readInt();//error here
-                    System.out.println("I am here");
-//                    System.out.println(String.valueOf(result));
-                    // Read a DailySalesEntry obtry {
-//                        for(int i =0; i <=result; i++){
-    //                        ois.skipBytes(1);
-    //                        DailyItemwiseSalesEntry entry = ;
-                    Object obj = ois.readObject();
-                    if(obj instanceof DailyItemwiseSalesEntry dailyItemwiseSalesEntry)
-                            dailyItemWiseSalesEntry.add(dailyItemwiseSalesEntry);
+                    while(true){
+                            DailyItemwiseSalesEntry entry = (DailyItemwiseSalesEntry) ois.readObject();
+                            allDailyList.add(entry);
                             System.out.println(Arrays.toString(dailyItemWiseSalesEntry.toArray()));
-
-//                        }
+                        }
                     }catch (ClassNotFoundException ex) {
                         Logger.getLogger(DailyItemwiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
+                        break;
                     } catch (StreamCorruptedException sce) {
                         // Handle StreamCorruptedException here
+                        System.out.println("Duplicated item for same sales date.");
                         sce.printStackTrace(); // Print the exception details for debugging
+                        break;
                     } catch(EOFException eof){
                        //reach the end of file , no more object to read 
-                      System.out.println("END OF FILE"); 
-                      System.out.println(Arrays.toString(dailyItemWiseSalesEntry.toArray()));
-                      return dailyItemWiseSalesEntry;
+                        System.out.println("END OF FILE"); 
+                        ois.close();
+                        fis.close();
+                        System.out.println(Arrays.toString(dailyItemWiseSalesEntry.toArray()));
+                        return dailyItemWiseSalesEntry;
                     }
-                    ois.close();
-                    fis.close();
-                }catch(EOFException eof){
-                    System.out.println("END OF FILE11");
-                    System.out.println(Arrays.toString(dailyItemWiseSalesEntry.toArray()));
-                    return dailyItemWiseSalesEntry;
                 } catch (FileNotFoundException e) {//'FileNotFoundException' is a subclass of 'IO Exception'
                     e.printStackTrace();
                     return dailyItemWiseSalesEntry;
                 }catch (IOException e){
                     e.printStackTrace();
                     return dailyItemWiseSalesEntry;
-                }
+                }  
             }
-        return dailyItemWiseSalesEntry;
-    }     
+            return dailyItemWiseSalesEntry;
+        }
     
     public String getCurrentDate(){
         LocalDate now = LocalDate.now();
@@ -166,31 +161,50 @@ public class DailyItemwiseSalesEntry implements Serializable{
     
     public ArrayList<String> getExistingDates(){
         ArrayList<String> dates = new ArrayList<>();
-        
         dailyItemWiseSalesEntry = this.ViewDailyItemwiseSalesEntry();
-        
         for(DailyItemwiseSalesEntry entry:dailyItemWiseSalesEntry){
             dates.add(entry.getSalesDate());
+            System.out.println("Date is " + entry.getSalesDate());
         }
         return dates;
     }
 
+     public boolean hasSameElements(DailyItemwiseSalesEntry other) {
+        // Compare the elements that determine the header.
+        return this.getSalesDate().equals(other.getSalesDate());
+    }
+ 
    public String AddDailyItemwiseSalesEntry(String id, String name, int quantity) throws IOException{
         if(this.checkDuplicateItemID(id)){
             JOptionPane.showMessageDialog(null, "Item has already added.\nPlease use 'edit' function", "Item ID exists", JOptionPane.ERROR_MESSAGE);
             return String.valueOf(status.UNSUCCESSFUL);            
         }else{
             try{
-                FileOutputStream fos = new FileOutputStream(filename,true);
+                FileOutputStream fos = new FileOutputStream(filename);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
-
                 salesDate = this.getCurrentDate();
+                // Read previously written objects to check for headers.
+                List<DailyItemwiseSalesEntry> previousEntries = this.ViewDailyItemwiseSalesEntry();
                 DailyItemwiseSalesEntry d2 = new DailyItemwiseSalesEntry(id,name,quantity,salesDate);
-                // Write a delimiter (newline) before writing the object
-//                oos.write("\t".getBytes());
-                oos.writeObject(d2);
-                oos.close();
-                fos.close();
+                // Determine if the current entry has a matching header with any previous entry.
+                boolean hasMatchingHeader = previousEntries.stream()
+                    .anyMatch(prevEntry -> prevEntry.hasSameElements(d2));
+
+                // If no matching header, write the header and the current object.
+                if (hasMatchingHeader) {
+                    System.out.print("i am here");
+                    oos.reset(); // Prevent duplicate header
+                    oos.writeObject(d2);
+                    oos.close();
+                    fos.close();
+                } else {
+                    System.out.print("no matching header eh");
+                    // If a matching header is found, just write the current object.
+                    oos.writeObject(d2);
+                    oos.close();
+                    fos.close();
+                }
+                
                 return String.valueOf(status.SUCCESSFUL);
             } catch (FileNotFoundException e){
                 e.printStackTrace();

@@ -161,8 +161,8 @@ public class SM_Menu extends javax.swing.JFrame {
 
     private void btnListOfPurchaserOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListOfPurchaserOrdersActionPerformed
         setVisible(false);
-        //zhihow
-        //SM_ItemEntry form1 = new SM_ItemEntry();
+        PM_Order form1 = new PM_Order();
+        form1.setVisible(true);
     }//GEN-LAST:event_btnListOfPurchaserOrdersActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
