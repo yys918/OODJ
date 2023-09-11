@@ -6,7 +6,6 @@ package oodj_assignment;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -37,7 +36,7 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
             // Make all cells in jTable1 non-editable
             return false;
         }
-    };;
+    };
     private String []icolumnsName = {"Item ID", "Item Name", "Price" ,"In Stock quantity"};
     private String itemID,itemName, stock, salesDate;
     private double itemPrice,total;
@@ -94,16 +93,15 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
     public void LoadCmbBoxDateList(){
         dateListModel.removeAllElements();
         ArrayList<String> existingDates = d1.getExistingDates(); // Replace this with your actual data source
-        System.out.println(Arrays.toString(existingDates.toArray()));
         for (String date : existingDates) {
             dateListModel.addElement(date);
         }
     }
     
     public void ViewDailySalesEntry(String date){
-        model1.setRowCount(0);
-        dailyItemWiseSalesEntry.clear();
-        model1.setColumnIdentifiers(dcolumnsName);
+       model1.setRowCount(0);
+       dailyItemWiseSalesEntry.clear();
+       model1.setColumnIdentifiers(dcolumnsName);
        dailyItemWiseSalesEntry = d1.ViewDailyItemwiseSalesEntry();
         for (DailyItemwiseSalesEntry entry : dailyItemWiseSalesEntry) {
             itemID = entry.getItemID();
@@ -116,32 +114,55 @@ public class SM_DailyItemWiseSalesEntry extends javax.swing.JFrame{
         jTable1.clearSelection();
         jTable2.clearSelection();
     }
+
+    public boolean containsUnexpectedCharacters(String input) {
+        // Define a pattern that allows only digits (0-9)
+        String pattern = "\\d+";
+
+        // Use regular expressions to check if the input matches the pattern
+        return !input.matches(pattern);
+    }   
     
     private boolean updateStock(){
-        if(txtQuantitySold.getText().isEmpty()){
+        if(txtQuantitySold.getText().isEmpty() || txtItemID.getText().isEmpty() || txtItemName.getText().isEmpty() ){
             txtStockLeft.setText(null);
+            System.out.println("no select lah");
             return false;
         } else if (jTable2.getSelectedRow() == -1){
             JOptionPane.showMessageDialog(null, "Please select an item from the lower table.", "No item selected", JOptionPane.ERROR_MESSAGE);
             return false;
+        }else if (containsUnexpectedCharacters(txtQuantitySold.getText())){
+            JOptionPane.showMessageDialog(null, "Please enter integer for quantity sold.", "Format Errer",JOptionPane.ERROR_MESSAGE);
+            System.out.println("Error again lah ");
+            return false;
         }else{
-            row = jTable1.getSelectedRow(); 
-            itemID = txtItemID.getText();
-            quantitySold = Integer.parseInt(txtQuantitySold.getText());
-            Item i = new Item();
-            try{
-                int currentStock = i.checkStock(itemID);
-                int soldStock = Integer.parseInt(String.valueOf(model1.getValueAt(row, 2)));
-                int totalStock = currentStock + soldStock;
-                int updatedStock = totalStock - quantitySold;      
-                txtStockLeft.setText(String.valueOf(updatedStock));
-            } catch (java.lang.NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Please enter integer for quantity sold.", "Format Errer",JOptionPane.ERROR_MESSAGE);
-                System.out.println("Error le leh");
-            }catch(IOException e){
-                e.printStackTrace();
+                if (jTable2.getSelectedRow() == -1 || jTable2.getRowCount()<=0){
+                    JOptionPane.showMessageDialog(null, "Please select an item from the lower table.", "No item selected", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }else{
+                    row = jTable1.getSelectedRow(); 
+                    itemID = txtItemID.getText();
+                    quantitySold = Integer.parseInt(txtQuantitySold.getText());
+                    try{
+                        int currentStock = i.checkStock(itemID);
+                        int soldStock =0;
+                        try{
+                            soldStock = Integer.parseInt(String.valueOf(model1.getValueAt(row, 2)));
+                        } catch (java.lang.ArrayIndexOutOfBoundsException e) {
+                            System.out.println("Nothing from the table lah");
+                        }
+                        int totalStock = currentStock + soldStock;
+                        int updatedStock = totalStock - quantitySold;      
+                        txtStockLeft.setText(String.valueOf(updatedStock));
+                    } catch (java.lang.NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "Please enter integer for quantity sold.", "Format Errer",JOptionPane.ERROR_MESSAGE);
+                        System.out.println("Error le leh");
+                    }catch(IOException e){
+                        System.out.println("Item stock cannot found");
+                        e.printStackTrace();
+                    }
+                    return true;
             }
-            return true;
         }
     }
     

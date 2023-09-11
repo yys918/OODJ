@@ -12,7 +12,6 @@ import java.io.Serializable;
 import java.io.StreamCorruptedException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +29,6 @@ public class DailyItemwiseSalesEntry implements Serializable{
     private ArrayList<DailyItemwiseSalesEntry> dailyItemWiseSalesEntry = new ArrayList<DailyItemwiseSalesEntry>();
     private enum status{SUCCESSFUL, UNSUCCESSFUL;}
     private final String filename = "C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.dat";
-    private static final long serialVersionUID = 4049679065376427895L;//To maintain compatibility
     ArrayList<DailyItemwiseSalesEntry> allDailyList = new ArrayList<DailyItemwiseSalesEntry>();
        
     public DailyItemwiseSalesEntry() {
@@ -51,18 +49,13 @@ public class DailyItemwiseSalesEntry implements Serializable{
     public boolean checkFileExists(){
         File file = new File(filename);
         if (file.exists()) {
-            if (file.length() > 0) {
-                return true;
-            } else {
-                // Handle the case when the file is empty
-                JOptionPane.showMessageDialog(null, "File is empty.", "Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
+            return true;
         } else {
             // Handle the case when the file doesn't exist
             JOptionPane.showMessageDialog(null, "File does not exist.\nCreated a new file", "Created new file", JOptionPane.INFORMATION_MESSAGE);
             try {
                 file.createNewFile();
+                return true;
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -124,14 +117,12 @@ public class DailyItemwiseSalesEntry implements Serializable{
         allDailyList.clear();
          while(this.checkFileExists()){
             try {
-                
                 FileInputStream fis = new FileInputStream(filename);
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 try{ 
                     while(true){
                             DailyItemwiseSalesEntry entry = (DailyItemwiseSalesEntry) ois.readObject();
                             allDailyList.add(entry);
-                            System.out.println("total size is " +allDailyList.size());
                         }
                     }catch (ClassNotFoundException ex) {
                         Logger.getLogger(DailyItemwiseSalesEntry.class.getName()).log(Level.SEVERE, null, ex);
@@ -146,7 +137,6 @@ public class DailyItemwiseSalesEntry implements Serializable{
                         System.out.println("END OF FILE"); 
                         ois.close();
                         fis.close();
-                        System.out.println(Arrays.toString(dailyItemWiseSalesEntry.toArray()));
                         return allDailyList;
                     }
                 } catch (FileNotFoundException e) {//'FileNotFoundException' is a subclass of 'IO Exception'
@@ -227,7 +217,7 @@ public class DailyItemwiseSalesEntry implements Serializable{
         i.EditItemStock(targetItemId, quantity);
         
        // Write the updated objects back to the file
-       try (FileOutputStream fos = new FileOutputStream("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\dailySalesEntry.dat");
+       try (FileOutputStream fos = new FileOutputStream(filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 
            for (DailyItemwiseSalesEntry entry : entries) {
@@ -316,9 +306,3 @@ public class DailyItemwiseSalesEntry implements Serializable{
     
     
 }
-
-//for (DailySalesEntry entry : dailySalesEntries) {
-//    String itemID = entry.getItemID();
-//    // Use the itemID as needed
-//    System.out.println("Item ID: " + itemID);
-//}

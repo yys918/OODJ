@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 public class createUserClass extends Employee {
     
     private static String ID;
-    private String filePath = "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt";
+    private String filePath = "C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\user.txt";
     
     public createUserClass(String name, String role, String address, String email, String age, String gender,String password){
         super(name,role,address,email,age,gender,password); 
@@ -19,7 +19,7 @@ public class createUserClass extends Employee {
     
     public static String lastID(){
          try {
-            File file = new File("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt");
+            File file = new File(filePath);
             String id;
             try (Scanner scanner = new Scanner(file)) {
                 id = "";
@@ -81,7 +81,7 @@ public class createUserClass extends Employee {
 
             // Additional nested conditions or actions can be placed here
             try {
-                FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt", true);
+                FileWriter fw = new FileWriter(filePath, true);
                 BufferedWriter bw = new BufferedWriter(fw);
                 bw.write(ID + "/" + user.getName() + "/" + user.getAge() + "/" + user.getGender() + "/" + user.getAddress() + "/" + user.getEmail() + "/" + "admin" + "/" + user.getPassword() + "\n");
 
@@ -128,7 +128,7 @@ public class createUserClass extends Employee {
 
             // Additional nested conditions or actions can be placed here
             try {
-                FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt", true);
+                FileWriter fw = new FileWriter(filePath, true);
                 BufferedWriter bw = new BufferedWriter(fw);
                 bw.write(ID + "/" + user.getName() + "/" + user.getAge() + "/" + user.getGender() + "/" + user.getAddress() + "/" + user.getEmail() + "/" + "pm" + "/" + user.getPassword() + "\n");
 
@@ -173,7 +173,7 @@ public class createUserClass extends Employee {
 
             // Additional nested conditions or actions can be placed here
             try {
-                FileWriter fw = new FileWriter("C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt", true);
+                FileWriter fw = new FileWriter(filePath, true);
                 BufferedWriter bw = new BufferedWriter(fw);
                 bw.write(ID + "/" + user.getName() + "/" + user.getAge() + "/" + user.getGender() + "/" + user.getAddress() + "/" + user.getEmail() + "/" + "sm" + "/" + user.getPassword() + "\n");
 

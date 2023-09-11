@@ -108,7 +108,7 @@ public class PM_Suppliers extends javax.swing.JFrame {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // Back to Main
         PM_Main b = new PM_Main();
-        b.show();
+        b.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 

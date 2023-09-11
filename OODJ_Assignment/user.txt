@@ -1,0 +1,4 @@
+U001/admin/18/gender/address/email/admin/123
+PM002/zhihow/20/Male/123,taman abc,abc, 52200KL/zhihow@gmail.com/pm/123
+SM003/meiyun/20/Female/123,taman efg,efg, 52200 KL/my@gmail.com/sm/123
+U004/yanyi/20/Male/123,taman wxy,wxy, 52200 KL/yanyi@gmail.com/admin/123

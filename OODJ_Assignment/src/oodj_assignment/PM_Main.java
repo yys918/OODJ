@@ -110,27 +110,27 @@ public class PM_Main extends javax.swing.JFrame {
     private void btnItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnItemActionPerformed
         // Navigate to the View Item Page
         PM_Item v = new PM_Item();
-        v.show(); //show view item page
+        v.setVisible(true);; //show view item page
         dispose(); //close current page
     }//GEN-LAST:event_btnItemActionPerformed
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
         //Proceed to Order page
         PM_Order o = new PM_Order();
-        o.show();
+        o.setVisible(true);;
         dispose();
     }//GEN-LAST:event_btnOrderActionPerformed
 
     private void btnSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupplierActionPerformed
         // Proceed to suppliers list page
         PM_Suppliers s = new PM_Suppliers();
-        s.show();
+        s.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnSupplierActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         loginPage out = new loginPage();
-        out.show();
+        out.setVisible(true);;
         this.dispose();
     }//GEN-LAST:event_btnLogOutActionPerformed
 

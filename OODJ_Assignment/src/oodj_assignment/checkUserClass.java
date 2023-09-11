@@ -63,7 +63,7 @@ public class checkUserClass {
     
     
     public void changeUserInformation() {
-    String filePath = "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt";
+    String filePath = "C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\user.txt";
 
     ArrayList<String> data = new ArrayList<>();
 
@@ -110,7 +110,7 @@ public class checkUserClass {
     }
 
     ArrayList<String> data = new ArrayList<>();
-    String filePath = "C:\\Users\\Asus\\OneDrive - Asia Pacific University\\Documents\\Degree Year 2\\Sem 1\\Object Oriented Development With Java (OODJ)\\Assingment\\Assignment\\user.txt";
+    String filePath = "C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\user.txt";
 
     // Read the data from the text file and store it in the ArrayList
     try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {

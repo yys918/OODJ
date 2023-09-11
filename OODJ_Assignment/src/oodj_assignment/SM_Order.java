@@ -4,6 +4,12 @@
  */
 package oodj_assignment;
 
+import java.text.MessageFormat;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.OrientationRequested;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,23 +26,38 @@ public class SM_Order extends javax.swing.JFrame {
      * Creates new form SM_Order
      */
     public SM_Order(String userID) {
-        initComponents();
-        setVisible(true);
-        setLocationRelativeTo(null);  
-        this.userID = userID;
-        this.model1 = new DefaultTableModel(){
+        this.model1 = new DefaultTableModel(columnsName,0){
             @Override
             public boolean isCellEditable(int row, int column) {
                 // Make all cells in jTable1 non-editable
                 return false;
             }
         };
+        initComponents();
+        setVisible(true);
+        setLocationRelativeTo(null);  
+        this.userID = userID;
+        
         model1.setColumnIdentifiers(columnsName);
+        System.out.println("trying le lah");
         //display text file data to table (Order List)
-        PMView order = new PMView(); //create an object from PM class        
-        order.ViewOrder("order.txt",model1);//call method from PM class        
-        jTable1.setModel(model1);//display data
+        try {
+            
+            PMView order = new PMView();
+            
+            order.ViewOrder("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development With Java\\Assignment\\order.txt", model1);
+            jTable1.setModel(model1);
+        } 
+        catch (Exception e) {
+            // Handle the exception (e.g., display an error message)
+            e.printStackTrace();
+            
+        }
+
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Set single selection mode
+        setVisible(true);
+        
+        
     }
 
     /**
@@ -64,6 +85,11 @@ public class SM_Order extends javax.swing.JFrame {
         });
 
         btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(model1
         );
@@ -118,6 +144,20 @@ public class SM_Order extends javax.swing.JFrame {
         setVisible(false);
         SM_Menu form1 = new SM_Menu(userID);
     }//GEN-LAST:event_BtnBackActionPerformed
+
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        MessageFormat header = new MessageFormat("Order List Report");
+        MessageFormat footer = new MessageFormat("SIGMA SDN BHD (SSB) {0,number,integer}");
+        try{
+            PrintRequestAttributeSet set = new HashPrintRequestAttributeSet();
+            set.add(OrientationRequested.PORTRAIT);
+            jTable1.print(JTable.PrintMode.FIT_WIDTH, header,footer,true,set,true);
+            JOptionPane.showMessageDialog(null, "Printed Successfully");
+        }
+        catch(java.awt.print.PrinterException e){
+            JOptionPane.showMessageDialog(null, "Failed");
+        }
+    }//GEN-LAST:event_btnPrintActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

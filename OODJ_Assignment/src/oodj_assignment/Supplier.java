@@ -74,11 +74,19 @@ public class Supplier {
     }
 
     
-    public boolean CheckDuplicate(String id) throws IOException{
+    public boolean CheckDuplicate(String checkID) throws IOException {
         supplier = this.ViewSupplierEntry();
-        for (String stuff : supplier) {
-            if (stuff.equals(id)) {
-                return true; // Duplicate found
+        
+        for (String itemArray : supplier) {
+            // Remove the brackets "[" and "]" and split the formatted string into fields
+            String[] tokens = itemArray.substring(1, itemArray.length() - 1).split(",\\s");
+
+            if (tokens.length == 4) {
+                String id = tokens[0].trim();
+                
+                if (id.equals(checkID)) {
+                    return true;
+                }
             }
         }
         return false;

@@ -289,7 +289,7 @@ public class Admin_ItemEntry extends javax.swing.JFrame {
     private void BtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnExitActionPerformed
         
         adminMainPage form1 = new adminMainPage();
-        form1.show();
+        form1.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnExitActionPerformed
 

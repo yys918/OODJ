@@ -269,9 +269,18 @@ public class SM_ItemEntry extends javax.swing.JFrame {
         name = txtName.getText();
         price = Double.parseDouble(txtPrice.getText());
         stock = Integer.parseInt(txtQuantity.getText());
-        supplierID = txtSupplierID.getText(); // check if exists
-
-        try {
+        supplierID = txtSupplierID.getText(); 
+        Boolean supplierFound = false;
+        if(!supplierID.isEmpty()){
+            Supplier s1 = new Supplier(); 
+            try {
+                supplierFound = s1.CheckDuplicate(supplierID);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if(supplierFound){
+            try {
             String status = i1.AddItemEntry(id, name, price, stock, supplierID);
             if (status.equals("SUCCESSFUL")) {
                 JOptionPane.showMessageDialog(null, "Item successfully added.", "Item added status", JOptionPane.INFORMATION_MESSAGE);
@@ -290,20 +299,15 @@ public class SM_ItemEntry extends javax.swing.JFrame {
             Logger.getLogger(SM_ItemEntry.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "An error occurred while adding the item. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        }else{
+            JOptionPane.showMessageDialog(null, "Supplier does not exist.\n Please check again.", "Supplier not exists.",JOptionPane.INFORMATION_MESSAGE);
+        }
+        
     }//GEN-LAST:event_BtnAddActionPerformed
 
     private void BtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnExitActionPerformed
         setVisible(false);
-<<<<<<< HEAD
-
         SM_Menu form1 = new SM_Menu(userID);
-       
-        form1 = new SM_Menu(form1.userID);
-
-
-=======
-        SM_Menu form1 = new SM_Menu(userID);
->>>>>>> 01c98b9e69669443f02f2869122aa8c98ee30405
     }//GEN-LAST:event_BtnExitActionPerformed
 
     private void BtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDeleteActionPerformed

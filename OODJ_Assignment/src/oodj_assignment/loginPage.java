@@ -121,7 +121,7 @@ public class loginPage extends javax.swing.JFrame {
         y = txtPassword.getText();
         y = y.trim();
         
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development with Java\\Assignment\\user.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\yyun\\OneDrive - Asia Pacific University\\Documents\\Year 2\\Object Oriented Development With Java\\Assignment\\user.txt"))) {
             String line;
             String userID = "";
             boolean logIn = false;
@@ -148,14 +148,13 @@ public class loginPage extends javax.swing.JFrame {
                 else if(user.equals("pm")){
                     JOptionPane.showMessageDialog(null, "Login successful, Purchase Manager");
                     PM_Main form1 = new PM_Main();
-                    form1.show();
+                    form1.setVisible(true);
                     this.dispose();
                     
                 }
                 else if(user.equals("sm")){
                     JOptionPane.showMessageDialog(null, "Login successful, Sales Manager");
                     SM_Menu form1 = new SM_Menu(userID);
-                    form1.show();
                     this.dispose();
                 }
                 else{
