@@ -98,7 +98,6 @@ public class checkUserClass {
 }
    
     
-    
     public void deleteUser(int row) {
     if (row < 0) {
         JOptionPane.showMessageDialog(null, "Error: Invalid row index.");
